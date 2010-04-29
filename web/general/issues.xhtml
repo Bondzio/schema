@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
+
+
+    <ui:define name="content">
+        <style type="text/css">
+            .column65 {
+                width: 65%;
+            }
+
+            .column55 {
+                width: 55%;
+            }
+
+            .column30 {
+                width: 30%;
+            }
+
+            .column25 {
+                width: 25%;
+            }
+
+            .column15 {
+                width: 15%;
+            }
+
+            .column5 {
+                width: 5%;
+            }
+
+            .column2 {
+                width: 2%;
+            }
+        </style>
+        <h:form>
+            <rich:dataTable id="locationList" value="#{issueRepository.issues}" var="issue"
+                            cellpadding="0" cellspacing="0" border="0"
+                            width="100%"
+                            columnClasses="column2, column15, column55, column5, column5, column5">
+                <rich:column sortBy="#{issue.issueNumber}">
+                    <f:facet name="header">
+                        <h:outputLabel value="#"/>
+                    </f:facet>
+                    <h:outputLabel value="#{issue.issueNumber}"/>
+                </rich:column>
+                <rich:column sortBy="#{issue.name}">
+                    <f:facet name="header">
+                        <h:outputLabel value="Issue"/>
+                    </f:facet>
+                    <h:outputLabel value="#{issue.name}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Description"/>
+                    </f:facet>
+                    <h:outputLabel value="#{issue.description}"/>
+                </rich:column>
+                <rich:column sortBy="#{issue.area}" filterBy="#{issue.area}">
+                    <f:facet name="header">
+                        <h:outputLabel value="Area"/>
+                    </f:facet>
+                    <h:outputLabel value="#{issue.area}"/>
+                </rich:column>
+                <rich:column sortBy="#{issue.priority}" filterBy="#{issue.priority}">
+                    <f:facet name="header">
+                        <h:outputLabel value="Priority"/>
+                    </f:facet>
+                    <h:outputLabel value="#{issue.priority}" converter="priorityConverter"/>
+                </rich:column>
+                <rich:column sortBy="#{issue.estimate}" filterBy="#{issue.estimate}">
+                    <f:facet name="header">
+                        <h:outputLabel value="Estimate"/>
+                    </f:facet>
+                    <h:outputLabel value="#{issue.estimate}" converter="estimateConverter"/>
+                </rich:column>
+            </rich:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

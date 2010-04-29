@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" template="pagelayout.xhtml">
+
+    <ui:define name="content">
+
+        <style type="text/css">
+            .column240px {
+                width: 240px;
+            }
+
+            .column80px {
+                width: 80px;
+            }
+
+            .column60 {
+                width: 60%;
+            }
+
+            .column33 {
+                width: 33%;
+            }
+
+            .column20 {
+                width: 20%;
+            }
+
+            .rich-table-cell {
+                border: 0;
+
+            }
+
+            .tester {
+                background-color: #f0f8ff;
+            }
+        </style>
+
+        <a4j:form ajaxSingle="true" ajaxSubmit="true" reRender="eventOverview">
+            <rich:dataGrid value="#{eventList}" var="event" columns="3" width="100%" columnClasses="column33"
+                           border="1" id="tester" align="center">
+                <rich:panel id="eventOverview" style="width:400;height:150"
+                            onmouseover="this.style.backgroundColor='#FFFFCC'"
+                            onmouseout="this.style.backgroundColor='#F1F1F1'">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{event.name}"/>
+                    </f:facet>
+                    <h:panelGrid columns="3" columnClasses="column240px, column80px, column80px">
+                        <h:column>
+                            <h:panelGrid columns="1">
+                                <h:panelGrid columns="4">
+                                    <h:outputLabel value="#{messages['event.from']}" style="font-weight:bolder;"/>
+                                    <h:outputLabel value="#{event.start}">
+                                        <f:convertDateTime pattern="d/M/yy HH:mm"
+                                                           timeZone="#{org.jboss.seam.international.timeZone}"/>
+                                    </h:outputLabel>
+                                    <h:outputLabel value="#{messages['event.to']}" style="font-weight:bolder;"/>
+                                    <h:outputLabel value="#{event.end}">
+                                        <f:convertDateTime pattern="d/M/yy HH:mm"
+                                                           timeZone="#{org.jboss.seam.international.timeZone}"/>
+                                    </h:outputLabel>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel value="#{messages['event.location']}" style="font-weight:bolder;"/>
+                                    <h:outputLabel value="#{event.location}" converter="locationConverter"/>
+                                </h:panelGrid>
+                                <s:formattedText value="#{event.shortDescription}"/>
+
+                                <s:link value="#{messages['frontpage.moreinformation']}"
+                                        action="#{eventController.showEventInfo}"/>
+
+
+                            </h:panelGrid>
+                        </h:column>
+                        <h:column>
+                            <h:panelGrid columns="1">
+                                <h:graphicImage url="resources/Checkmark.png" rendered="#{eventController.joinedEvent}"
+                                                width="48" height="48"/>
+                                <h:outputLabel value="#{messages['general.attending']}"
+                                               rendered="#{eventController.joinedEvent}"/>
+                                <h:graphicImage url="resources/redx.png" rendered="#{!eventController.joinedEvent}"
+                                                width="48" height="48"/>
+                                <h:outputLabel value="#{messages['general.notattending']}"
+                                               rendered="#{!eventController.joinedEvent}"/>
+                                <h:commandButton value="#{messages['general.attend']}" action="#{eventController.join}"
+                                                 rendered="#{!eventController.joinedEvent}" style="width:64px;"
+                                                 disabled="#{!eventController.canSign}"/>
+                                <h:commandButton value="#{messages['general.unjoin']}"
+                                                 action="#{eventController.cancel}"
+                                                 rendered="#{eventController.joinedEvent}"
+                                                 disabled="#{!eventController.canCancel}"/>
+                            </h:panelGrid>
+                        </h:column>
+                        <h:column>
+                            <s:graphicImage value="#{event.logoImage}" rendered="#{event.logoImage ne null}">
+                                <s:transformImageSize width="75" height="75"/>
+                            </s:graphicImage>
+                        </h:column>
+                    </h:panelGrid>
+                </rich:panel>
+            </rich:dataGrid>
+        </a4j:form>
+    </ui:define>
+    <ui:define name="footer">
+        <ui:include src="general/footer.xhtml"/>
+    </ui:define>
+</ui:composition>

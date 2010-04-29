@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <f:view>
+        <h:form>
+
+            <rich:panel>
+                <f:facet name="header">
+                    <h:outputLabel value="Default values"/>
+                </f:facet>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Number of resources to create"/>
+                    <rich:inplaceInput value="#{dataEntererOptions.numberOfResources}" defaultLabel="1"/>
+                    <h:outputText value="Default suffix"/>
+                    <rich:inplaceInput layout="block" value="#{dataEntererOptions.suffix}"
+                                       defaultLabel="Click to enter default suffix"/>
+                    <h:outputText value="Default key"/>
+                    <rich:inplaceInput layout="block" value="#{dataEntererOptions.key}"
+                                       defaultLabel="Click to enter default key"/>
+                    <h:outputText value="Default value"/>
+                    <rich:inplaceInput layout="block" value="#{dataEntererOptions.value}"
+                                       defaultLabel="Click to enter default suffix"/>
+                    <h:outputText value="Gui Component"/>
+                    <rich:comboBox defaultLabel="Enter some value">
+                        <f:selectItem itemValue="Component type 1"/>
+                        <f:selectItem itemValue="Component type 2"/>
+                        <f:selectItem itemValue="Component type 3"/>
+                        <f:selectItem itemValue="Component type 4"/>
+                        <f:selectItem itemValue="Component type 5"/>
+                    </rich:comboBox>
+                    <h:outputText value="Status"/>
+                    <rich:comboBox defaultLabel="Enter some value">
+                        <f:selectItem itemValue="Created"/>
+                        <f:selectItem itemValue="Ready to translate"/>
+                        <f:selectItem itemValue="Translated"/>
+                    </rich:comboBox>
+                    <h:outputText value="Default suffix"/>
+                    <rich:inplaceInput defaultLabel="Click to enter default suffix"/>
+
+                </h:panelGrid>
+                <h:commandButton value="Create entry" action="#{activityController.createEntries}"/>
+            </rich:panel>
+        </h:form>
+        <!--Add multiple:-->
+        <!--Select number of Resources to make-->
+        <!--default suffix (com.scandihealth.pam.client.patient)-->
+        <!--default component type-->
+        <!--default status-->
+        <!--default description-->
+
+        <!--default text elementtype-->
+        <!--default text translationstatus-->
+
+        <!--default tooltip elementtype-->
+        <!--default tooltip translationstatus-->
+
+        <!--default icon elementtype-->
+        <!--default icon translationstatus-->
+
+
+    </f:view>
+</ui:composition>

@@ -1,0 +1,136 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
+    <ui:define name="content">
+        <a4j:form ajaxSubmit="true" reRender="eventList" enctype="multipart/form-data">
+            <table align="center">
+                <tr valign="top">
+                    <td>
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="Navn"/>
+                            </f:facet>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="#{messages['event.name']}"/>
+                                <h:inputText value="#{event.name}"/>
+
+                                <h:outputLabel value="#{messages['event.hasActivities']}"/>
+                                <h:selectBooleanCheckbox value="#{eventController.hasActivities}"/>
+                                <h:outputLabel value="#{messages['event.location']}"/>
+                                <rich:comboBox selectFirstOnUpdate="false" value="#{event.location}"
+                                               defaultLabel="Select some value">
+                                    <s:selectItems value="#{locationList}" var="h" label="#{h.name}"/>
+                                    <f:converter converterId="locationConverter"/>
+                                </rich:comboBox>
+                                <h:outputLabel value="Logo"/>
+                                <rich:comboBox selectFirstOnUpdate="false" value="#{event.logo}"
+                                               defaultLabel="Select some value">
+                                    <s:selectItems value="#{logoList}" var="logos" label="#{logos.name}"/>
+                                    <f:converter converterId="logoConverter"/>
+                                </rich:comboBox>
+                                <!--<s:fileUpload data="#{event.}"-->
+                                <!--fileName="#{event.logo}"-->
+                                <!--contentType="#{event.fileContentType}" accept=""/>-->
+                                <!--<s:fileUpload value="#{event.logo}" disabled="true"/>-->
+                            </h:panelGrid>
+                        </rich:panel>
+                    </td>
+                    <td>
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="Tider"/>
+                            </f:facet>
+                            <h:panelGrid columns="4">
+                                <h:outputLabel value="#{messages['event.from']}"/>
+                                <rich:calendar value="#{event.start}"
+                                               cellWidth="24px" cellHeight="22px" style="width:200px"
+                                               datePattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+                                <h:outputLabel value="#{messages['event.to']}"/>
+                                <rich:calendar value="#{event.end}"
+                                               cellWidth="24px" cellHeight="22px" style="width:200px"
+                                               datePattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+                                <h:outputLabel value="#{messages['event.signstart']}"/>
+                                <rich:calendar value="#{event.signstart}"
+                                               cellWidth="24px" cellHeight="22px" style="width:200px"
+                                               datePattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+                                <h:outputLabel value="#{messages['event.signend']}"/>
+                                <rich:calendar value="#{event.signend}"
+                                               cellWidth="24px" cellHeight="22px" style="width:200px"
+                                               datePattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+                                <h:outputLabel value="#{messages['event.unsignend']}"/>
+                                <rich:calendar value="#{event.unsignEnd}"
+                                               cellWidth="24px" cellHeight="22px" style="width:200px"
+                                               datePattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+                            </h:panelGrid>
+
+                        </rich:panel>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="Priser"/>
+                            </f:facet>
+                            <h:panelGrid columns="6">
+                                <h:outputLabel value="#{messages['event.memberprice']}"/>
+                                <h:inputText value="#{event.memberPrice}"/>
+                                <h:outputLabel value="#{messages['event.nonmemberprice']}"/>
+                                <h:inputText value="#{event.notMemberPrice}"/>
+                                <h:outputLabel value="#{messages['event.noshowprice']}"/>
+                                <h:inputText value="#{event.noShowPrice}"/>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="#{messages['event.description']}"/>
+                            </f:facet>
+                            <table width="100%">
+                                <tr>
+                                    <td width="100%">
+                                        <h:panelGroup layout="block">
+                                            <rich:editor
+                                                    id="editor" width="700" height="300" value="#{event.description}"
+                                                    useSeamText="true" theme="advanced" plugins="save,paste">
+
+                                                <f:param name="theme_advanced_toolbar_location" value="top"/>
+
+                                                <f:param name="theme_advanced_toolbar_align" value="left"/>
+                                                <a4j:support event="onchange" reRender="result" ajaxSingle="true"
+                                                             requestDelay="1000"/>
+                                            </rich:editor>
+                                        </h:panelGroup>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </rich:panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right">
+                        <h:commandButton value="Create" action="#{eventController.createEvent}"/>
+                    </td>
+                </tr>
+            </table>
+        </a4j:form>
+        <ui:include src="showEvents.xhtml"/>
+    </ui:define>
+    <ui:define name="footer">
+        <ui:include src="/general/footer.xhtml"/>
+    </ui:define>
+</ui:composition>

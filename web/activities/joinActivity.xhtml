@@ -1,0 +1,157 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <style type="text/css">
+        .simpleColumn {
+            border: none;
+        }
+
+        .simpleRow {
+            border: none;
+            vertical-align: top;
+        }
+
+        p {
+            margin: 0;
+        }
+
+
+    </style>
+    #{messages['activity.welcome']}
+
+    <a4j:form ajaxSubmit="true" reRender="activityList" style="border:none;">
+        <rich:dataTable id="activityList" value="#{activityList}" var="activity"
+                        cellpadding="0" cellspacing="0" border="0"
+                        width="100%"
+                        rowClasses="simpleRow"
+                        onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+            <rich:column sortBy="#{activity.name}">
+                <f:facet name="header">
+                    <h:outputLabel value="Detaljer"/>
+                </f:facet>
+                <table width="100" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <h:outputLabel value="#{activity.name}" style="font-weight:bold;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <rich:spacer height="1"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Sted: <h:outputLabel value="#{activity.location}"
+                                                 converter="locationConverter"/>
+                        </td>
+                    </tr>
+                </table>
+            </rich:column>
+            <rich:column sortBy="#{activity.start}">
+                <f:facet name="header">
+                    <h:outputLabel value="Tid"/>
+                </f:facet>
+                <table width="250" cellpadding="0" cellspacing="0" border="0">
+                    <tr valign="top">
+                        <td>
+                            Fra: <h:outputLabel value="#{activity.start}">
+                            <f:convertDateTime pattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+                        </h:outputLabel>
+                            til: <h:outputLabel value="#{activity.end}">
+                            <f:convertDateTime pattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+                        </h:outputLabel>
+                        </td>
+                    </tr>
+                </table>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputLabel value="Beskrivelse"/>
+                </f:facet>
+                <table width="350" cellpadding="0" cellspacing="0" border="0">
+                    <tr valign="top">
+                        <td>
+                            <s:formattedText value="#{activity.shortDescription}"/>
+                        </td>
+                    </tr>
+                </table>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputLabel value="Ønsket partner"/>
+                </f:facet>
+                <h:inputText value="#{activity.partnerRequest}" rendered="#{activity.canRequestPartner}"/>
+            </h:column>
+            <rich:column rendered="#{s:hasRole('admin')}">
+                <f:facet name="header">
+                    <h:outputLabel value="Minimimskrav"/>
+                </f:facet>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr valign="top">
+                        <td>
+                            <h:outputLabel value="#{activity.minimumplayers}"/>
+                            <h:outputLabel value="#{activity.minimumteams}"/>
+                        </td>
+                    </tr>
+                </table>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputLabel value="Priser"/>
+                </f:facet>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr valign="top">
+                        <td>
+                            <h:panelGrid columns="2"
+                                         rendered="#{activity.memberPrice gt 0 or activity.notMemberPrice gt 0 or activity.noShowPrice gt 0}">
+                                <h:outputLabel value="Medlemspris"/>
+                                <h:outputLabel value="#{activity.memberPrice}"/>
+                                <h:outputLabel value="Ikke Medlemspris"/>
+                                <h:outputLabel value="#{activity.notMemberPrice}"/>
+                                <h:outputLabel value="Udeblivelse"/>
+                                <h:outputLabel value="#{activity.noShowPrice}"/>
+                            </h:panelGrid>
+                        </td>
+                    </tr>
+                </table>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputLabel value="Ansvarlig"/>
+                </f:facet>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr valign="top">
+                        <td>
+                            <h:outputLabel value="#{activity.responsible}"/>
+                        </td>
+                    </tr>
+                </table>
+            </rich:column>
+            <rich:column rendered="#{eventController.hasJoined}"
+                         id="joinColumn">
+                <h:commandButton value="#{messages['general.attend']}"
+                                 action="#{activitiesController.joinActivity}"
+                                 rendered="#{!activitiesController.hasJoined}"/>
+                <h:commandButton value="#{messages['general.unjoin']}"
+                                 action="#{activitiesController.removeActivity}"
+                                 rendered="#{activitiesController.hasJoined}"/>
+            </rich:column>
+            <rich:column id="joinColumn1" sortBy="#{activitiesController.hasJoined}"
+                         rendered="#{eventController.hasJoined}">
+                <h:graphicImage url="/resources/redx.png" rendered="#{!activitiesController.hasJoined}"
+                                width="24" height="24"/>
+                <h:graphicImage url="/resources/Checkmark.png" rendered="#{activitiesController.hasJoined}"
+                                width="24" height="24"/>
+            </rich:column>
+        </rich:dataTable>
+    </a4j:form>
+</ui:composition>

@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <rich:dataTable id="locationList" value="#{locationList}" var="location"
+                    cellpadding="0" cellspacing="0" border="0"
+                    width="100%">
+        <rich:column>
+            <f:facet name="header">
+                <h:outputLabel value="Location"/>
+            </f:facet>
+            <h:outputLabel value="#{location}" converter="locationConverter"/>
+        </rich:column>
+    </rich:dataTable>
+
+</ui:composition>

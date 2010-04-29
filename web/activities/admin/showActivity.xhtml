@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <f:view>
+        <h:form>
+            <rich:dataTable id="activityList" value="#{activityList}" var="activities"
+                            cellpadding="0" cellspacing="0" border="0"
+                            width="100%">
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Activity"/>
+                    </f:facet>
+                    <h:outputLabel value="#{activities.name}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Start"/>
+                    </f:facet>
+                    <h:outputLabel value="#{activities.start}">
+                        <f:convertDateTime pattern="d/M/yy HH:mm" timeZone="#{org.jboss.seam.international.timeZone}"/>
+                    </h:outputLabel>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="End"/>
+                    </f:facet>
+                    <h:outputLabel value="#{activities.end}">
+                        <f:convertDateTime pattern="d/M/yy HH:mm" timeZone="#{org.jboss.seam.international.timeZone}"/>
+                    </h:outputLabel>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Teams"/>
+                    </f:facet>
+                    <h:outputLabel value="#{activities.minimumteams}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Activities"/>
+                    </f:facet>
+                    <h:outputLabel value="#{activities.minimumplayers}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Responsible"/>
+                    </f:facet>
+                    <h:outputLabel value="#{activities.responsible}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Location"/>
+                    </f:facet>
+                    <h:outputLabel value="#{activities.location}" converter="locationConverter"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Update"/>
+                    </f:facet>
+                    <h:commandButton value="Update" action="#{activitiesController.doUpdateActivity}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Delete"/>
+                    </f:facet>
+                    <h:commandButton value="Delete" action="deleteActivity"/>
+                </rich:column>
+            </rich:dataTable>
+        </h:form>
+    </f:view>
+</ui:composition>

@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
+    <ui:define name="content">
+        <h:panelGrid columns="2">
+            <h:column>
+                <h:panelGrid columns="1">
+                    <h:outputLabel value="Name"/>
+                    <h:outputLabel value="Employee Id"/>
+                    <h:outputLabel value="Phone"/>
+                    <h:outputLabel value="Department"/>
+                </h:panelGrid>
+            </h:column>
+            <h:column>
+                <h:panelGrid columns="2">
+                    <h:inputText value="#{authenticator.user.firstname}"/>
+                    <h:inputText value="#{authenticator.user.lastname}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="1">
+                    <h:inputText value="#{authenticator.user.employeeId}"/>
+                    <h:inputText value="#{authenticator.user.phone}"/>
+                    <h:inputText value="#{authenticator.user.department}"/>
+                </h:panelGrid>
+                <h:commandButton action="#{userController.createUser}"/>
+            </h:column>
+        </h:panelGrid>
+
+    </ui:define>
+</ui:composition>

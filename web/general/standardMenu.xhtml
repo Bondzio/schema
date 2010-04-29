@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <a4j:form ajaxSubmit="true" reRender="content">
+        <style type="text/css">
+            .leftAligned {
+                text-align: left;
+            }
+
+            .rightAligned {
+                text-align: right;
+            }
+
+            .body1 {
+                margin: 0;
+                padding: 0;
+                text-align: center;
+            }
+
+            .headerText {
+            /*background-color: white;*/
+                color: black;
+                text-align: right;
+            }
+
+            .logolink A:link {
+                text-decoration: none;
+                color: white;
+                font-weight: bolder;
+            }
+
+            .logolink A:visited {
+                text-decoration: none;
+                color: white;
+                font-weight: bolder;
+            }
+
+            .logolink A:active {
+                text-decoration: none;
+                color: white;
+                font-weight: bolder;
+            }
+
+            .logolink A:hover {
+                text-decoration: underline;
+                color: white;
+                font-weight: bolder;
+            }
+
+            A:link {
+                text-decoration: none;
+                font-weight: bolder;
+            }
+
+            A:visited {
+                text-decoration: none;
+                font-weight: bolder;
+            }
+
+            A:active {
+                text-decoration: none;
+                font-weight: bolder;
+            }
+
+            A:hover {
+                text-decoration: underline;
+                font-weight: bolder;
+            }
+
+
+        </style>
+        <rich:panel bodyClass="body1">
+
+            <table width="100%" cellpadding="0" cellspacing="0"
+                   style="background-image:url('/schema/resources/logo.png');height:100px">
+                <tr>
+
+                    <td align="right">
+                        <h:panelGrid columns="1" class="logolink">
+                            <s:link value="#{messages['menu.frontpage']}" action="startpage"/>
+                            <s:link value="#{messages['menu.showuserdetails']}" view="/user/updateUserDetails.xhtml"/>
+                            <s:link value="#{messages['menu.login']}" rendered="#{!identity.loggedIn}"
+                                    action="#{identity.login}"/>
+                            <s:link value="#{messages['menu.logout']}" rendered="#{identity.loggedIn}"
+                                    action="#{identity.logout}"/>
+                        </h:panelGrid>
+                    </td>
+                    <td align="right">
+                    </td>
+                </tr>
+            </table>
+        </rich:panel>
+        <!--<h:panelGrid columns="2" width="100%" rendered="#{!s:hasRole('admin')}" columnClasses="leftAligned,rightAligned">-->
+        <!--</h:panelGrid>-->
+        <rich:toolBar rendered="#{s:hasRole('admin')}">
+            <f:facet name="itemSeparator">
+                <rich:separator width="2" height="14"/>
+            </f:facet>
+
+            <rich:dropDownMenu rendered="#{s:hasRole('admin')}">
+                <f:facet name="label">
+                    <h:outputText value="#{messages['menu.event']}"/>
+                </f:facet>
+                <rich:menuItem submitMode="ajax" value="#{messages['menu.createevent']}" action="createEvent"/>
+                <rich:menuItem submitMode="ajax" value="#{messages['menu.showevents']}" action="showEvents"/>
+                <rich:menuItem submitMode="ajax" value="#{messages['menu.uploadimage']}" action="uploadImage"/>
+            </rich:dropDownMenu>
+            <rich:dropDownMenu rendered="#{s:hasRole('admin')}">
+                <f:facet name="label">
+                    <h:outputText value="#{messages['menu.location']}"/>
+                </f:facet>
+                <rich:menuItem submitMode="ajax" value="#{messages['menu.createlocation']}" action="createLocations"/>
+                <rich:menuItem submitMode="ajax" value="#{messages['menu.showlocation']}" action="showLocations"/>
+            </rich:dropDownMenu>
+            <rich:dropDownMenu rendered="#{s:hasRole('admin')}">
+                <f:facet name="label">
+                    <h:outputText value="Group"/>
+                </f:facet>
+                <rich:menuItem submitMode="ajax" value="Kommer senere"/>
+            </rich:dropDownMenu>
+            <rich:dropDownMenu rendered="#{s:hasRole('admin')}">
+                <f:facet name="label">
+                    <h:outputText value="Resourcer"/>
+                </f:facet>
+                <rich:menuItem submitMode="ajax" value="Kommer senere"/>
+            </rich:dropDownMenu>
+            <rich:dropDownMenu>
+                <f:facet name="label">
+                    <h:outputLabel value="#{messages['menu.user']}"/>
+                </f:facet>
+                <rich:menuItem submitMode="ajax" value="Kommer senere"/>
+                <rich:menuItem submitMode="ajax" value="Vis brugere"/>
+                <rich:menuItem submitMode="ajax" value="Opret bruger"/>
+            </rich:dropDownMenu>
+        </rich:toolBar>
+    </a4j:form>
+</ui:composition>

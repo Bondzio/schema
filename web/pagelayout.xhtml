@@ -1,0 +1,21 @@
+<rich:page xmlns="http://www.w3.org/1999/xhtml"
+           xmlns:ui="http://java.sun.com/jsf/facelets"
+           xmlns:h="http://java.sun.com/jsf/html"
+           xmlns:f="http://java.sun.com/jsf/core"
+           xmlns:rich="http://richfaces.org/rich"
+           xmlns:a4j="http://richfaces.org/a4j"
+           markupType="xhtml"
+           contentType="text/html" width="1000"
+           sidebarPosition="left"
+           sidebarWidth="300" pageTitle="CSC Event manager">
+
+    <f:facet name="header">
+        <ui:include src="/general/standardMenu.xhtml"/>
+    </f:facet>
+
+    <f:facet name="footer">
+        <ui:insert name="footer"/>
+    </f:facet>
+
+    <ui:insert name="content"/>
+</rich:page>

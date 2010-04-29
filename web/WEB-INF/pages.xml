@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.0.xsd"
+       login-view-id="/security/login.xhtml">
+
+    <page view-id="*" login-required="true">
+        <navigation>
+            <rule if-outcome="loggedIn">
+                <end-conversation/>
+                <out name="user" value="#{authenticator.user}" scope="SESSION"/>
+                <redirect view-id="/startPage.xhtml"/>
+            </rule>
+            <rule if-outcome="doLogin">
+                <redirect view-id="/security/login.xhtml"/>
+            </rule>
+            <rule if-outcome="newUser">
+                <redirect view-id="/user/createUser.xhtml"/>
+            </rule>
+            <rule if-outcome="startpage">
+                <end-conversation/>
+                <redirect view-id="/startPage.xhtml"/>
+            </rule>
+            <rule if-outcome="createEvent">
+                <end-conversation/>
+                <redirect view-id="/event/createEvent.xhtml"/>
+            </rule>
+            <rule if-outcome="showEvents">
+                <end-conversation/>
+                <redirect view-id="/event/events.xhtml"/>
+            </rule>
+            <rule if-outcome="showEventInfo">
+                <!--<out name="newevent" value="#{eventblof}" scope="CONVERSATION"/>-->
+                <redirect view-id="/event/eventInfo.xhtml"/>
+            </rule>
+            <rule if-outcome="showActivities">
+                <!--<out name="newevent" value="#{eventblof}" scope="CONVERSATION"/>-->
+                <redirect view-id="/activities/activities.xhtml"/>
+            </rule>
+
+            <rule if-outcome="createLocations">
+                <redirect view-id="/location/createLocations.xhtml"/>
+            </rule>
+            <rule if-outcome="showLocations">
+                <redirect view-id="/location/locations.xhtml"/>
+            </rule>
+            <rule if-outcome="createGroups">
+                <redirect view-id="/group/createGroups.xhtml"/>
+            </rule>
+            <rule if-outcome="showGroups">
+                <redirect view-id="/group/showGroups.xhtml"/>
+            </rule>
+            <rule if-outcome="userdetails">
+                <redirect view-id="/user/userDetails.xhtml"/>
+            </rule>
+            <rule if-outcome="issues">
+                <redirect view-id="/general/issues.xhtml"/>
+            </rule>
+            <rule if-outcome="uploadImage">
+                <redirect view-id="/general/imageUpload.xhtml"/>
+            </rule>
+            <rule if-outcome="createUserDetails">
+                <out name="user" value="#{authenticator.user}" scope="SESSION"/>
+                <redirect view-id="/user/updateUserDetails.xhtml"/>
+            </rule>
+        </navigation>
+    </page>
+
+
+    <page view-id="/event/createEvent.xhtml">
+        <navigation>
+            <rule if-outcome="createActivities">
+                <redirect view-id="/activities/admin/createActivities.xhtml"/>
+            </rule>
+            <rule if-outcome="eventCreated">
+                <end-conversation/>
+            </rule>
+        </navigation>
+    </page>
+    <page view-id="/event/updateEvent.xhtml">
+        <navigation>
+            <rule if-outcome="createActivities">
+                <redirect view-id="/activities/admin/createActivities.xhtml"/>
+            </rule>
+            <rule if-outcome="updateActivity">
+                <redirect view-id="/activities/admin/updateActivity.xhtml"/>
+            </rule>
+            <rule if-outcome="eventCreated">
+                <end-conversation/>
+            </rule>
+        </navigation>
+    </page>
+    <page view-id="/event/events.xhtml">
+        <navigation>
+            <rule if-outcome="showDetails">
+                <!--<out name="newevent" value="#{eventblof}" scope="CONVERSATION"/>-->
+                <redirect view-id="/event/showEvent.xhtml"/>
+            </rule>
+            <rule if-outcome="updateEvent">
+                <!--<out name="newevent" value="#{eventblof}" scope="CONVERSATION"/>-->
+                <redirect view-id="/event/updateEvent.xhtml"/>
+            </rule>
+        </navigation>
+    </page>
+    <page view-id="/location/locations.xhtml">
+        <navigation>
+            <rule if-outcome="editLocation">
+                <redirect view-id="/location/updateLocation.xhtml"/>
+            </rule>
+        </navigation>
+    </page>
+
+    <page view-id="/activities/admin/createActivities.xhtml">
+        <restrict>#{s:hasRole('admin')}</restrict>
+    </page>
+
+    <exception class="org.jboss.seam.security.NotLoggedInException">
+        <redirect view-id="/security/login.xhtml">
+            <message>You must be logged in to perform this action</message>
+        </redirect>
+    </exception>
+
+
+    <exception class="org.jboss.seam.security.AuthorizationException">
+        <end-conversation/>
+        <redirect view-id="/security/security_error.xhtml">
+            <message>You do not have the necessary security privileges to perform this action.</message>
+        </redirect>
+    </exception>
+    <exception class="org.jboss.seam.web.FileUploadException">
+        <redirect view-id="/error.xhtml">
+            <message>#{org.jboss.seam.handledException.message}</message>
+        </redirect>
+    </exception>
+    <exception>
+        <redirect view-id="/error.xhtml">
+            <message>Unexpected error, please try again</message>
+        </redirect>
+    </exception>
+
+</pages>

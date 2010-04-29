@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
+    <ui:define name="content">
+        <a4j:form ajaxSubmit="true" reRender="locationList">
+            <h:panelGrid columns="8" cellpadding="0" cellspacing="0" width="100%">
+                <rich:panel>
+                    <f:facet name="header">
+                        <h:outputLabel value="Name"/>
+                    </f:facet>
+                    <h:inputText value="#{locationController.selectedLocation.name}"/>
+                </rich:panel>
+                <rich:panel>
+                    <f:facet name="header">
+                        <h:outputLabel value="Name"/>
+                    </f:facet>
+                    <h:commandButton value="Ret" action="#{locationController.editLocation}"/>
+                </rich:panel>
+            </h:panelGrid>
+        </a4j:form>
+        <ui:include src="showLocations.xhtml"/>
+    </ui:define>
+</ui:composition>

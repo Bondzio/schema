@@ -1,0 +1,44 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                template="/pagelayout.xhtml">
+    <ui:define name="content">
+        <h:messages globalOnly="true" styleClass="message"/>
+
+        <h:form enctype="multipart/form-data">
+
+            <rich:panel>
+                <f:facet name="header">Upload Image</f:facet>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Image"/>
+                    <s:fileUpload id="file"
+                                  data="#{imageUploader.data}"
+                                  contentType="#{imageUploader.contentType}"
+                                  fileName="#{imageUploader.fileName}"
+                                  fileSize="#{imageUploader.size}"
+                                  accept="image/*"/>
+                    <h:outputLabel value="Name"/>
+                    <h:outputText value="#{imageUploader.fileName}"/>
+                    <h:outputLabel value="Content Type"/>
+                    <h:outputText value="#{imageUploader.contentType}"/>
+                    <h:outputLabel value="Size"/>
+                    <h:outputText value="#{imageUploader.size}"/>
+
+                </h:panelGrid>
+
+                <div style="clear: both"/>
+            </rich:panel>
+
+            <div class="actionButtons">
+                <h:commandButton value="Upload"
+                                 action="#{imageUploader.save}"/>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

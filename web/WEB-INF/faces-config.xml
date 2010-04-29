@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+              version="1.2">
+    <application>
+        <view-handler>
+            com.sun.facelets.FaceletViewHandler
+        </view-handler>
+    </application>
+    <converter>
+        <converter-id>locationConverter</converter-id>
+        <converter-class>com.scandihealth.olympicsc.location.converter.LocationConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>logoConverter</converter-id>
+        <converter-class>com.scandihealth.olympicsc.imageupload.converter.LogoConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>priorityConverter</converter-id>
+        <converter-class>com.scandihealth.olympicsc.issues.PriorityConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>estimateConverter</converter-id>
+        <converter-class>com.scandihealth.olympicsc.issues.EstimateConverter</converter-class>
+    </converter>
+
+
+</faces-config>

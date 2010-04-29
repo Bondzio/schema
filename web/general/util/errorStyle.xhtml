@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich">
+    <style type="text/css">
+        .error {
+            color: red;
+        }
+    </style>
+    <div>
+        <s:label styleClass="#{invalid?'error':''}">
+            <ui:insert name="label"/>
+            <s:span styleClass="required" rendered="#{required}">*</s:span>
+        </s:label>
+        <span class="#{invalid?'error':''}">
+            <s:validateAll>
+                <ui:insert/>
+            </s:validateAll>
+                <h:graphicImage value="/resources/redx.png" rendered="#{invalid}"
+                                height="16"
+                                width="16"
+                                style="vertical-align:middle;"/>
+                <h:graphicImage value="/resources/Checkmark.png" rendered="#{!invalid}"
+                                height="16"
+                                width="16"
+                                style="vertical-align:middle;"/>
+        </span>
+        <!--<s:message styleClass="error"/>-->
+    </div>
+</ui:composition>

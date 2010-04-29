@@ -1,0 +1,141 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="/pagelayout.xhtml">
+    <style type="text/css">
+        .rich-panel-body {
+            border-width: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .column30 {
+            width: 25%;
+        }
+
+        .column20 {
+            width: 20%;
+        }
+
+        .column15 {
+            width: 15%;
+        }
+
+        .column10 {
+            width: 10%;
+        }
+
+        .column5 {
+            width: 5%;
+        }
+    </style>
+    <ui:define name="content">
+        <a4j:form ajaxSubmit="true" reRender="activityList">
+            <table align="center">
+                <tr style="height:100%">
+                    <td style="height:100%">
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="Navne"/>
+                            </f:facet>
+                            <h:panelGrid columns="2" style="height:100%">
+                                <h:outputLabel value="#{messages['activity.name']}"/>
+                                <h:inputText value="#{activitiesController.selectedActivity.name}"/>
+                                <h:outputLabel value="#{messages['activity.responsible']}"/>
+                                <h:inputText value="#{activitiesController.selectedActivity.responsible}"/>
+                                <h:outputLabel value="#{messages['activity.location']}"/>
+                                <rich:comboBox selectFirstOnUpdate="false"
+                                               value="#{activitiesController.selectedActivity.location}"
+                                               defaultLabel="Select some value">
+                                    <s:selectItems value="#{locationList}" var="h" label="#{h.name}"/>
+                                    <f:converter converterId="locationConverter"/>
+                                </rich:comboBox>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </td>
+                    <td style="height:100%" valign="top">
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="Tider"/>
+                            </f:facet>
+                            <h:panelGrid columns="2" style="height:100%">
+                                <h:outputLabel value="#{messages['activity.start']}"/>
+                                <a4j:outputPanel id="activityStart" layout="block">
+                                    <rich:calendar value="#{activitiesController.selectedActivity.start}"
+                                                   cellWidth="24px" cellHeight="22px" style="width:200px"
+                                                   datePattern="d/M/yy HH:mm"
+                                                   timeZone="#{org.jboss.seam.international.timeZone}"/>
+                                </a4j:outputPanel>
+                                <h:outputLabel value="#{messages['activity.end']}"/>
+                                <a4j:outputPanel id="activityEnd" layout="block">
+                                    <rich:calendar value="#{activitiesController.selectedActivity.end}"
+                                                   cellWidth="24px" cellHeight="22px" style="width:200px"
+                                                   datePattern="d/M-yyyy HH:mm"
+                                                   timeZone="#{org.jboss.seam.international.timeZone}"/>
+                                </a4j:outputPanel>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="Andet"/>
+                            </f:facet>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="#{messages['activity.teams']}"/>
+                                <h:inputText value="#{activitiesController.selectedActivity.minimumteams}"/>
+                                <h:outputLabel value="#{messages['activity.players']}"/>
+                                <h:inputText value="#{activitiesController.selectedActivity.minimumplayers}"/>
+                                <h:outputLabel value="#{messages['activity.canrequestpartner']}"/>
+                                <h:selectBooleanCheckbox
+                                        value="#{activitiesController.selectedActivity.canRequestPartner}"/>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </td>
+                    <td>
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="Priser"/>
+                            </f:facet>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="#{messages['event.memberprice']}"/>
+                                <h:inputText value="#{activitiesController.selectedActivity.memberPrice}"/>
+                                <h:outputLabel value="#{messages['event.nonmemberprice']}"/>
+                                <h:inputText value="#{activitiesController.selectedActivity.notMemberPrice}"/>
+                                <h:outputLabel value="#{messages['event.noshowprice']}"/>
+                                <h:inputText value="#{activitiesController.selectedActivity.noShowPrice}"/>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="#{messages['event.description']}"/>
+                            </f:facet>
+                            <h:inputTextarea value="#{activitiesController.selectedActivity.description}" rows="10"
+                                             cols="150"/>
+                        </rich:panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="right">
+
+                        <h:commandButton action="#{activitiesController.updateActivity}" value="Update"/>
+
+                    </td>
+                </tr>
+            </table>
+        </a4j:form>
+        <ui:include src="showActivity.xhtml"/>
+    </ui:define>
+</ui:composition>
