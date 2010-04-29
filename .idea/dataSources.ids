@@ -1,0 +1,129 @@
+<?xml version="1.0"?><component name="dataSourceStorage">
+  <data-source source="LOCAL" name="DataSource" product="MySQL" version="5.1.40-community" uuid="30e59625-1f0a-4d04-ad72-af45e2ceb164">
+    <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+    <jdbc-url>jdbc:mysql://localhost:3306/olympicsc</jdbc-url>
+    <user-name>root</user-name>
+    <user-password>dfc7dfd3dfd9dfdbdfc6df9adf9b</user-password>
+    <libraries>
+      <library>
+        <url>jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.10-bin.jar!/</url>
+      </library>
+    </libraries>
+    <table name="activity" schema="" catalog="olympicsc" type="TABLE">
+      <column name="idactivity" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="name" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
+      <column name="description" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="true" jdbcType="-1" />
+      <column name="start" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="end" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="minimumPlayers" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="minimumTeams" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="location_idlocation" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="canrequestpartner" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" />
+      <column name="responsible" sqlType="VARCHAR" length="90" precision="0" nullable="true" jdbcType="12" />
+      <column name="memberprice" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="notmemberprice" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="noshowprice" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="version" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="idactivity" />
+      <foreign-key name="fk_activity_location1" columns="location_idlocation" ref-table="location" ref-schema="" ref-catalog="olympicsc" ref-columns="idlocation" cascade-update="true" />
+    </table>
+    <table name="activity_partner_request" schema="" catalog="olympicsc" type="TABLE">
+      <column name="idpartnerrequest" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="iduser" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="idactivity" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="partnernames" sqlType="VARCHAR" length="90" precision="0" nullable="false" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="idpartnerrequest" />
+    </table>
+    <table name="event" schema="" catalog="olympicsc" type="TABLE">
+      <column name="idevent" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="name" sqlType="VARCHAR" length="50" precision="0" nullable="false" jdbcType="12" />
+      <column name="description" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="true" jdbcType="-1" />
+      <column name="logo" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="start" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="end" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="enabled" sqlType="BIT" length="0" precision="0" nullable="true" jdbcType="-7" />
+      <column name="signstart" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="signend" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="location_idlocation" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="unsignend" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="minimumusers" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="memberprice" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="notmemberprice" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="noshowprice" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="logo_idlogo" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="version" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="idevent" />
+      <foreign-key name="fk_event_logo1" columns="logo_idlogo" ref-table="logo" ref-schema="" ref-catalog="olympicsc" ref-columns="idLogo" />
+      <foreign-key name="fk_event_location1" columns="location_idlocation" ref-table="location" ref-schema="" ref-catalog="olympicsc" ref-columns="idlocation" />
+    </table>
+    <table name="event_has_activity" schema="" catalog="olympicsc" type="TABLE">
+      <column name="event_idevent" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="activitiy_idactivity" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="event_idevent,activitiy_idactivity" />
+      <foreign-key name="FK_event_has_activity_1" columns="event_idevent" ref-table="event" ref-schema="" ref-catalog="olympicsc" ref-columns="idevent" />
+      <foreign-key name="FK_event_has_activity_2" columns="activitiy_idactivity" ref-table="activity" ref-schema="" ref-catalog="olympicsc" ref-columns="idactivity" />
+    </table>
+    <table name="location" schema="" catalog="olympicsc" type="TABLE">
+      <column name="idlocation" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="name" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="idlocation" />
+    </table>
+    <table name="logo" schema="" catalog="olympicsc" type="TABLE">
+      <column name="idLogo" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="data" sqlType="MEDIUMBLOB" length="16777215" precision="0" nullable="false" jdbcType="-4" />
+      <column name="size" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" />
+      <column name="name" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12" />
+      <column name="contenttype" sqlType="VARCHAR" length="90" precision="0" nullable="false" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="idlogo" />
+    </table>
+    <table name="logoinfo" schema="" catalog="olympicsc" type="TABLE">
+      <column name="idlogoinfo" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="title" sqlType="VARCHAR" length="75" precision="0" nullable="false" jdbcType="12" />
+      <column name="upload_date" sqlType="DATETIME" length="19" precision="0" nullable="false" jdbcType="93" />
+      <column name="hitcount" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="file_name" sqlType="VARCHAR" length="150" precision="0" nullable="false" jdbcType="12" />
+      <column name="content_type" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12" />
+      <column name="logo_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="thumbnail_id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="uploader" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="idlogoinfo" />
+    </table>
+    <table name="logothumb" schema="" catalog="olympicsc" type="TABLE">
+      <column name="idlogothumb" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="data" sqlType="BLOB" length="65535" precision="0" nullable="false" jdbcType="-4" />
+      <column name="size" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="idlogothumb" />
+    </table>
+    <table name="user" schema="" catalog="olympicsc" type="TABLE">
+      <column name="iduser" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="firstname" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
+      <column name="lastname" sqlType="VARCHAR" length="90" precision="0" nullable="true" jdbcType="12" />
+      <column name="shortname" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12" />
+      <column name="employeeId" sqlType="VARCHAR" length="10" precision="0" nullable="true" jdbcType="12" />
+      <column name="mail" sqlType="VARCHAR" length="75" precision="0" nullable="true" jdbcType="12" />
+      <column name="department" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <column name="phone" sqlType="VARCHAR" length="11" precision="0" nullable="true" jdbcType="12" />
+      <column name="admin" sqlType="BIT" length="0" precision="0" nullable="true" jdbcType="-7" />
+      <column name="shirtsize" sqlType="VARCHAR" length="4" precision="0" nullable="true" jdbcType="12" />
+      <column name="password" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <column name="personaleforening" sqlType="BIT" length="0" precision="0" nullable="true" jdbcType="-7" />
+      <column name="firstlogin" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" />
+      <column name="partnerwish" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="iduser" />
+    </table>
+    <table name="user_has_activity" schema="" catalog="olympicsc" type="TABLE">
+      <column name="user_iduser" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="activity_idactivity" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="user_iduser,activity_idactivity" />
+      <foreign-key name="fk_user_has_activity_user1" columns="user_iduser" ref-table="user" ref-schema="" ref-catalog="olympicsc" ref-columns="iduser" />
+      <foreign-key name="fk_user_has_activity_activity1" columns="activity_idactivity" ref-table="activity" ref-schema="" ref-catalog="olympicsc" ref-columns="idactivity" />
+    </table>
+    <table name="user_has_event" schema="" catalog="olympicsc" type="TABLE">
+      <column name="user_iduser" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="event_idevent" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="user_iduser,event_idevent" />
+      <foreign-key name="fk_user_has_event_event1" columns="event_idevent" ref-table="event" ref-schema="" ref-catalog="olympicsc" ref-columns="idevent" cascade-remove="true" />
+      <foreign-key name="fk_user_has_event_user" columns="user_iduser" ref-table="user" ref-schema="" ref-catalog="olympicsc" ref-columns="iduser" />
+    </table>
+  </data-source>
+</component>

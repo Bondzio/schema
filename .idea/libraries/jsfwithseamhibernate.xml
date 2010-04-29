@@ -1,0 +1,38 @@
+<component name="libraryTable">
+  <library name="jsfwithseamhibernate">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/dom4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/richfaces-impl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jboss-seam-debug.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/servlet-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-digester.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jboss-seam.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/richfaces-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javassist.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/persistence-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsf-facelets.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hibernate-validator.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/antlr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jta.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jboss-el.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-log4j12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hibernate-core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jboss-seam-ui.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-collections.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hibernate-entitymanager.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.10-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsf-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hibernate-annotations.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/richfaces-ui.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsf-impl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hibernate-commons-annotations.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-beanutils.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

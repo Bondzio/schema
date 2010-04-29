@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="schema:Web">
+    <output-path>$PROJECT_DIR$/out/artifacts/schema_Web</output-path>
+    <root id="archive" name="schema_Web.war">
+      <element id="artifact" artifact-name="schema:Web exploded" />
+    </root>
+  </artifact>
+</component>

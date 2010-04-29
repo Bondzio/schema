@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+    <component name="DependencyValidationManager">
+        <option name="SKIP_IMPORT_STATEMENTS" value="false"/>
+    </component>
+    <component name="FacetAutodetectingManager">
+        <autodetection-disabled>
+            <facet-type id="jsf"/>
+        </autodetection-disabled>
+    </component>
+    <component name="IdProvider" IDEtalkID="39EBA9E193C927B5477141F9B1C6CE73"/>
+    <component name="JavadocGenerationManager">
+        <option name="OUTPUT_DIRECTORY"/>
+        <option name="OPTION_SCOPE" value="protected"/>
+        <option name="OPTION_HIERARCHY" value="true"/>
+        <option name="OPTION_NAVIGATOR" value="true"/>
+        <option name="OPTION_INDEX" value="true"/>
+        <option name="OPTION_SEPARATE_INDEX" value="true"/>
+        <option name="OPTION_DOCUMENT_TAG_USE" value="false"/>
+        <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false"/>
+        <option name="OPTION_DOCUMENT_TAG_VERSION" value="false"/>
+        <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true"/>
+        <option name="OPTION_DEPRECATED_LIST" value="true"/>
+        <option name="OTHER_OPTIONS" value=""/>
+        <option name="HEAP_SIZE"/>
+        <option name="LOCALE"/>
+        <option name="OPEN_IN_BROWSER" value="true"/>
+    </component>
+    <component name="ProjectDetails">
+        <option name="projectName" value="schema"/>
+    </component>
+    <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true"
+               project-jdk-name="1.6" project-jdk-type="JavaSDK">
+        <output url="file://$PROJECT_DIR$/out"/>
+    </component>
+    <component name="SvnBranchConfigurationManager">
+        <option name="myConfigurationMap">
+            <map>
+                <entry key="$PROJECT_DIR$">
+                    <value>
+                        <SvnBranchConfiguration>
+                            <option name="branchMap">
+                                <map>
+                                    <entry key="https://mhylle.svn.cvsdude.com/racemanager/schema">
+                                        <value>
+                                            <list>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272492457556"/>
+                                                    <option name="revision" value="40"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/.idea"/>
+                                                </SvnBranchItem>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272492457556"/>
+                                                    <option name="revision" value="40"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/src"/>
+                                                </SvnBranchItem>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272492457556"/>
+                                                    <option name="revision" value="40"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/web"/>
+                                                </SvnBranchItem>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272490815776"/>
+                                                    <option name="revision" value="39"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/sql"/>
+                                                </SvnBranchItem>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272478653259"/>
+                                                    <option name="revision" value="36"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/test"/>
+                                                </SvnBranchItem>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272468117317"/>
+                                                    <option name="revision" value="33"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/lib"/>
+                                                </SvnBranchItem>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272468117317"/>
+                                                    <option name="revision" value="33"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/resources"/>
+                                                </SvnBranchItem>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272468117317"/>
+                                                    <option name="revision" value="33"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/Telefonliste-intern.csv"/>
+                                                </SvnBranchItem>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272468117317"/>
+                                                    <option name="revision" value="33"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/Telefonliste-intern2.csv"/>
+                                                </SvnBranchItem>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272468117317"/>
+                                                    <option name="revision" value="33"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/Telefonliste-intern2.xlsx"/>
+                                                </SvnBranchItem>
+                                                <SvnBranchItem>
+                                                    <option name="creationDateMillis" value="1272468117317"/>
+                                                    <option name="revision" value="33"/>
+                                                    <option name="url"
+                                                            value="https://mhylle.svn.cvsdude.com/racemanager/schema/Telefonliste-intern3.csv"/>
+                                                </SvnBranchItem>
+                                            </list>
+                                        </value>
+                                    </entry>
+                                </map>
+                            </option>
+                            <option name="branchUrls">
+                                <list>
+                                    <option value="https://mhylle.svn.cvsdude.com/racemanager/schema"/>
+                                </list>
+                            </option>
+                            <option name="trunkUrl" value="https://mhylle.svn.cvsdude.com/racemanager/schema"/>
+                        </SvnBranchConfiguration>
+                    </value>
+                </entry>
+            </map>
+        </option>
+        <option name="mySupportsUserInfoFilter" value="true"/>
+    </component>
+    <component name="WebServicesPlugin" addRequiredLibraries="true"/>
+</project>
+
