@@ -63,6 +63,9 @@
                 <out name="user" value="#{authenticator.user}" scope="SESSION"/>
                 <redirect view-id="/user/updateUserDetails.xhtml"/>
             </rule>
+            <rule if-outcome="showUserList">
+                <redirect view-id="/user/users.xhtml"/>
+            </rule>
         </navigation>
     </page>
 

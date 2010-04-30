@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
+
+    <ui:define name="content">
+        <style type="text/css">
+            .headerstyle {
+                background-color: #a52a2a;
+            }
+
+            .rightAligned {
+                text-align: right;
+            }
+
+            .head2 {
+                background-color: #4C9600;
+                height: 16px;
+                text-align: center;
+                vertical-align: middle;
+                color: #CFF;
+                padding: 4px 0;
+            }
+        </style>
+        <rich:dataTable id="userList" value="#{userList}" var="user"
+                        cellpadding="0" cellspacing="0" border="0"
+                        width="100%"
+                        rowClasses="simpleRow"
+                        onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputLabel value="Name"/>
+                </f:facet>
+                <h:outputLabel value="#{user.firstname} #{user.lastname}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputLabel value="Username"/>
+                </f:facet>
+                <h:outputLabel value="#{user.userName}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputLabel value="Mail"/>
+                </f:facet>
+                <h:outputLabel value="#{user.mail}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputLabel value="Phone"/>
+                </f:facet>
+                <h:outputLabel value="#{user.phone}"/>
+            </rich:column>
+        </rich:dataTable>
+
+    </ui:define>
+</ui:composition>
