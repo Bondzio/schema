@@ -1,8 +1,8 @@
 package com.scandihealth.olympicsc.commandsystem.activities;
 
+import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
 import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.commandsystem.Command;
-import com.scandihealth.olympicsc.data.ActivityPartnerRequest;
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.user.User;
 

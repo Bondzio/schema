@@ -1,4 +1,4 @@
-package com.scandihealth.olympicsc.data;
+package com.scandihealth.olympicsc.activities.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;

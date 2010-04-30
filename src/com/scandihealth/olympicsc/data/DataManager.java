@@ -1,5 +1,6 @@
 package com.scandihealth.olympicsc.data;
 
+import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
 import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
@@ -435,5 +436,20 @@ public class DataManager {
                 "where request.idactivity=" + activity.getIdactivity() + " and request.iduser=" + user.getIduser()).uniqueResult();
         transaction.commit();
         return activityPartnerRequest;
+    }
+
+    public void deleteUser(User user) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+
+        Transaction transaction = session.beginTransaction();
+        User o = (User) session.createQuery("from User as user where user.userName='" + user.getUserName() + "'").uniqueResult();
+        transaction.commit();
+        if (o != null) {
+        Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
+            Transaction transaction1 = session1.beginTransaction();
+            session1.delete(o);
+            transaction1.commit();
+
+        }
     }
 }
