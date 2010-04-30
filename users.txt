@@ -225,7 +225,7 @@ Marianne Mogensen	MAM	2020741	mjorgensen2@csc.com		MAM
 Martin Bak Larsen	MLA	2021247	mlarsen24@csc.com		MLA
 Martin Gaarsted 	MGS	2020864	mgaarste@csc.com	29237029	MGS
 Martin Hastrup Krogh	MHK	2020967	mkrogh2@csc.com		MHK
-Martin Hylleberg	MAH	2020743	mhylleberg@cs.com		MAH
+Martin Hylleberg	MAH	2020743	mhylleberg@csc.com		MAH
 Martin Kobberø	MBK	2020461	mkobbero@csc.com		MBK
 Martin Krarup	MKR	2020781	mkrarup@csc.com		MKR
 Martin Krohn Jensen	MZJ	2020816	mjensen7@csc.com		MZJ
