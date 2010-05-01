@@ -133,9 +133,8 @@
                 <f:facet name="label">
                     <h:outputLabel value="#{messages['menu.user']}"/>
                 </f:facet>
-                <rich:menuItem submitMode="ajax" value="Kommer senere"/>
                 <rich:menuItem submitMode="ajax" value="Vis brugere" action="showUserList"/>
-                <rich:menuItem submitMode="ajax" value="Opret bruger"/>
+                <rich:menuItem submitMode="ajax" value="Opret bruger" action="createUser"/>
             </rich:dropDownMenu>
         </rich:toolBar>
     </a4j:form>

@@ -14,7 +14,7 @@
             <rule if-outcome="doLogin">
                 <redirect view-id="/security/login.xhtml"/>
             </rule>
-            <rule if-outcome="newUser">
+            <rule if-outcome="createUser">
                 <redirect view-id="/user/createUser.xhtml"/>
             </rule>
             <rule if-outcome="startpage">

@@ -45,41 +45,47 @@
                             rowClasses="simpleRow"
                             onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
                             onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-                <rich:column>
+                <rich:column sortBy="#{user.lastname}">
                     <f:facet name="header">
                         <h:outputLabel value="Name"/>
                     </f:facet>
                     <h:outputLabel value="#{user.firstname} #{user.lastname}"/>
                 </rich:column>
-                <rich:column>
+                <rich:column sortBy="#{user.userName}">
                     <f:facet name="header">
                         <h:outputLabel value="Username"/>
                     </f:facet>
                     <h:outputLabel value="#{user.userName}"/>
                 </rich:column>
-                <rich:column>
+                <rich:column sortBy="#{user.mail}">
                     <f:facet name="header">
                         <h:outputLabel value="Mail"/>
                     </f:facet>
                     <h:outputLabel value="#{user.mail}"/>
                 </rich:column>
-                <rich:column>
+                <rich:column sortBy="#{user.phone}">
                     <f:facet name="header">
                         <h:outputLabel value="Phone"/>
                     </f:facet>
                     <h:outputLabel value="#{user.phone}"/>
                 </rich:column>
-                <rich:column>
+                <rich:column sortBy="#{user.personaleForening}">
                     <f:facet name="header">
                         <h:outputLabel value="Forening"/>
                     </f:facet>
                     <h:selectBooleanCheckbox value="#{user.personaleForening}"/>
                 </rich:column>
-                <rich:column>
+                <rich:column sortBy="#{user.admin}">
                     <f:facet name="header">
                         <h:outputLabel value="Admin"/>
                     </f:facet>
                     <h:selectBooleanCheckbox value="#{user.admin}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Slet"/>
+                    </f:facet>
+                    <h:commandButton value="Slet" action="#{userController.deleteUser}"/>
                 </rich:column>
             </rich:dataTable>
         </a4j:form>

@@ -1,5 +1,7 @@
 package com.scandihealth.olympicsc.user.controller;
 
+import com.scandihealth.olympicsc.commandsystem.CommandController;
+import com.scandihealth.olympicsc.commandsystem.user.DeleteUserCommand;
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.user.User;
 import org.jboss.seam.ScopeType;
@@ -14,13 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Name("userController")
-@Scope(ScopeType.SESSION)
+@Scope(ScopeType.CONVERSATION)
 public class UserController {
 
     @In(value = "user", required = true)
     @Out(value = "user")
     private User user;
     private UIInput shirtSizeControl;
+
+    @In(create = true)
+    private CommandController commandController;
 
 
     @DataModelSelection
@@ -29,6 +34,16 @@ public class UserController {
     @DataModel
     private List<User> userList;
     private boolean personaleForening = false;
+
+
+    private User newUser;
+
+    @Create
+    public void init() {
+        if (newUser == null) {
+            newUser = new User();
+        }
+    }
 
     public UserController() {
     }
@@ -71,10 +86,19 @@ public class UserController {
         this.user = user;
     }
 
+    public User getNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(User newUser) {
+        this.newUser = newUser;
+    }
+
     public String createUser() {
+        newUser.setFirstlogin(true);
         DataManager dataManager = new DataManager();
-        dataManager.saveUser(user);
-        return null;
+        dataManager.saveUser(newUser);
+        return "";
     }
 
     public String updateUser() {
@@ -107,6 +131,13 @@ public class UserController {
             dataManager.saveUser(user1);
         }
         FacesContext.getCurrentInstance().addMessage("Test", new FacesMessage("Brugere gemt"));
+        return "";
+    }
+
+    public String deleteUser() {
+        DeleteUserCommand deleteUserCommand = new DeleteUserCommand(selectedUser);
+        commandController.executeCommand(deleteUserCommand);
+        findUsers();
         return "";
     }
 }
