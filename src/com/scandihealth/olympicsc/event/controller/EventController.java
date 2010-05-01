@@ -15,6 +15,8 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.Renderer;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
@@ -133,6 +135,7 @@ public class EventController implements Serializable {
     public String doUpdateEvent() {
         UpdateEventCommand updateEventCommand = new UpdateEventCommand(eventRepository, selectedEvent);
         commandController.executeCommand(updateEventCommand);
+        FacesContext.getCurrentInstance().addMessage("eventList", new FacesMessage( selectedEvent.getName() + " er blevet opdateret."));
         return "";
     }
 

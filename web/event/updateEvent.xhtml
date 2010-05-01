@@ -8,6 +8,11 @@
     <ui:define name="content">
         <a4j:form ajaxSubmit="true" reRender="eventList">
             <table align="center">
+                <tr>
+                     <td>
+                        <rich:messages showSummary="true" showDetail="false" id="messageOutput"/>
+                    </td>
+                </tr>
                 <tr valign="top">
                     <td>
                         <rich:panel>
@@ -118,8 +123,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="right">
-                        <h:commandButton value="Tilfoj Aktiviteter" action="#{eventController.addActivityToEvent}"/>
-                        <h:commandButton value="Create" action="#{eventController.doUpdateEvent}"/>
+                        <h:commandButton value="#{messages['event.addActivity']}" action="#{eventController.addActivityToEvent}"/>
+                        <h:commandButton value="#{messages['event.update']}" action="#{eventController.doUpdateEvent}"/>
                     </td>
                 </tr>
             </table>
