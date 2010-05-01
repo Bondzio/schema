@@ -87,9 +87,9 @@
             </rich:column>
             <h:column>
                 <f:facet name="header">
-                    <h:outputLabel value="#{messages['activity.partnerrequest']}"/>
+                    <h:outputLabel value="#{messages['activity.partnerrequest']}" title="#{messages['activity.partnerrequesthelp']}"/>
                 </f:facet>
-                <h:inputText value="#{activity.partnerRequest}" rendered="#{activity.canRequestPartner}"/>
+                <h:inputText value="#{activity.partnerRequest}" rendered="#{activity.canRequestPartner}" title="#{messages['activity.partnerrequesthelp']}"/>
             </h:column>
             <rich:column rendered="#{s:hasRole('admin')}">
                 <f:facet name="header">
@@ -138,19 +138,21 @@
             </rich:column>
             <rich:column rendered="#{eventController.hasJoined}"
                          id="joinColumn">
+                <rich:effect  name="hideDiv"  for="joinedimage" type="Fade" />
+
                 <h:commandButton value="#{messages['general.attend']}"
                                  action="#{activitiesController.joinActivity}"
-                                 rendered="#{!activitiesController.hasJoined}"/>
+                                 rendered="#{!activitiesController.hasJoined}" onclick="hideDiv({duration:0.7})"/>
                 <h:commandButton value="#{messages['general.unjoin']}"
                                  action="#{activitiesController.removeActivity}"
-                                 rendered="#{activitiesController.hasJoined}"/>
+                                 rendered="#{activitiesController.hasJoined}" onclick="hideDiv({duration:0.7})"/>
             </rich:column>
             <rich:column id="joinColumn1" sortBy="#{activitiesController.hasJoined}"
                          rendered="#{eventController.hasJoined}">
                 <h:graphicImage url="/resources/redx.png" rendered="#{!activitiesController.hasJoined}"
-                                width="24" height="24"/>
+                                width="24" height="24" id="notjoinedimage"/>
                 <h:graphicImage url="/resources/Checkmark.png" rendered="#{activitiesController.hasJoined}"
-                                width="24" height="24"/>
+                                width="24" height="24" id="joinedimage"/>
             </rich:column>
         </rich:dataTable>
     </a4j:form>
