@@ -3,6 +3,7 @@ package com.scandihealth.olympicsc.user.controller;
 import com.scandihealth.olympicsc.commandsystem.CommandController;
 import com.scandihealth.olympicsc.commandsystem.user.DeleteUserCommand;
 import com.scandihealth.olympicsc.data.DataManager;
+import com.scandihealth.olympicsc.security.Authenticator;
 import com.scandihealth.olympicsc.user.User;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.*;
@@ -27,6 +28,8 @@ public class UserController {
     @In(create = true)
     private CommandController commandController;
 
+    @In
+    Authenticator authenticator;
 
     @DataModelSelection
     private User selectedUser;
@@ -102,9 +105,11 @@ public class UserController {
     }
 
     public String updateUser() {
+        User user1 = authenticator.getUser();
         DataManager dataManager = new DataManager();
-        user.setFirstlogin(false);
-        dataManager.saveUser(user);
+        user1.setFirstlogin(false);
+
+        dataManager.saveUser(user1);
         return "startpage";
     }
 
@@ -130,7 +135,7 @@ public class UserController {
         for (User user1 : userList) {
             dataManager.saveUser(user1);
         }
-        FacesContext.getCurrentInstance().addMessage("Test", new FacesMessage("Brugere gemt"));
+        FacesContext.getCurrentInstance().addMessage("userList", new FacesMessage("Brugerne er blever opdateret."));
         return "";
     }
 

@@ -30,7 +30,7 @@
                 <tr>
                     <td>
                         <h:outputText value="#{messages['userdetails.welcomemessage']}"
-                                      rendered="#{userController.user.firstlogin}"/>
+                                      rendered="#{authenticator.user.firstlogin}"/>
                     </td>
                 </tr>
                 <tr>
@@ -55,16 +55,15 @@
                                                                         value="#{messages['userdetails.username']}"/>
                                                             </td>
                                                             <td valign="center">
-                                                                <h:outputLabel value="#{userController.user.userName}"/>
+                                                                <h:outputLabel value="#{authenticator.user.userName}"/>
                                                             </td>
                                                         </tr>
                                                         <tr style="height:24px;">
                                                             <td valign="center">
-                                                                <h:outputLabel
-                                                                        value="Password"/>
+                                                                <h:outputLabel value="Password"/>
                                                             </td>
                                                             <td valign="center">
-                                                                <h:inputSecret value="#{userController.user.password}"/>
+                                                                <h:inputSecret value="#{authenticator.user.password}"/>
                                                             </td>
                                                         </tr>
                                                         <tr style="height:24px;">
@@ -74,7 +73,7 @@
                                                             </td>
                                                             <td valign="center">
                                                                 <h:inputText
-                                                                        value="#{userController.user.employeeId}"/>
+                                                                        value="#{authenticator.user.employeeId}"/>
                                                             </td>
                                                         </tr>
 
@@ -89,7 +88,7 @@
                                                                     <ui:define
                                                                             name="label">#{messages['userdetails.firstname']}</ui:define>
                                                                     <h:inputText
-                                                                            value="#{userController.user.firstname}"
+                                                                            value="#{authenticator.user.firstname}"
                                                                             required="true">
                                                                         <a4j:support event="onblur"
                                                                                      reRender="firstNameDecoration"
@@ -105,7 +104,7 @@
                                                                     <ui:define
                                                                             name="label">#{messages['userdetails.surname']}</ui:define>
                                                                     <h:inputText
-                                                                            value="#{userController.user.lastname}"
+                                                                            value="#{authenticator.user.lastname}"
                                                                             required="true">
                                                                         <a4j:support event="onblur"
                                                                                      reRender="lastNameDecoration"
@@ -126,11 +125,11 @@
                                     <rich:panel>
                                         <h:panelGrid columns="2">
                                             <h:outputLabel value="#{messages['userdetails.mail']}"/>
-                                            <h:inputText value="#{userController.user.mail}"/>
+                                            <h:inputText value="#{authenticator.user.mail}"/>
                                             <h:outputLabel value="#{messages['userdetails.phone']}"/>
-                                            <h:inputText value="#{userController.user.phone}"/>
+                                            <h:inputText value="#{authenticator.user.phone}"/>
                                             <h:outputLabel value="#{messages['userdetails.department']}"/>
-                                            <h:inputText value="#{userController.user.department}"/>
+                                            <h:inputText value="#{authenticator.user.department}"/>
                                         </h:panelGrid>
                                     </rich:panel>
                                 </td>
@@ -141,8 +140,8 @@
                                                         template="/general/util/errorStyle.xhtml">
                                                 <ui:define name="label">#{messages['userdetails.shirtsize']}</ui:define>
                                                 <h:inputText
-                                                        value="#{userController.user.shirtsize}"
-                                                        required="true" binding="#{userController.shirtSizeControl}">
+                                                        value="#{authenticator.user.shirtsize}"
+                                                        required="true">
                                                     <a4j:support event="onblur"
                                                                  reRender="shirtsizeDecoration"
                                                                  bypassUpdates="true"/>
@@ -151,7 +150,7 @@
                                             <h:panelGrid columns="2">
                                                 <h:outputLabel value="#{messages['userdetails.personelunion']}"/>
                                                 <h:selectBooleanCheckbox
-                                                        value="#{userController.user.personaleForening}"/>
+                                                        value="#{authenticator.user.personaleForening}"/>
                                                 <h:outputLabel value="#{messages['userdetails.administrator']}"
                                                                rendered="#{s:hasRole('admin')}"/>
                                                 <h:selectBooleanCheckbox value="#{userController.user.admin}"

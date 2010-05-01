@@ -25,17 +25,16 @@
                 padding: 4px 0;
             }
         </style>
-        <a4j:form ajaxSubmit="true" reRender="userList,messagesbox">
+        <a4j:form ajaxSubmit="true" reRender="userList,messageOutput">
             <table width="100%">
                 <tr>
+                    <td>
+                        <rich:messages showSummary="true" showDetail="false" id="messageOutput"/>
+                    </td>
                     <td align="right">
                         <h:commandButton action="#{userController.selectAllPersonel}" value="Vaelg alle personaleforening"/>
-                        <h:commandButton action="#{userController.saveAllPersonel}" value="Gem alle"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td id="messagesbox">
-                        <h:messages showSummary="true" showDetail="false"/>
+                        <h:commandButton action="#{userController.saveAllPersonel}" value="Gem alle" onclick="hideDiv({duration:0.7})"/>
+                        <rich:effect  name="hideDiv"  for="messageOutput" type="Fade" />
                     </td>
                 </tr>
             </table>
@@ -45,43 +44,43 @@
                             rowClasses="simpleRow"
                             onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
                             onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-                <rich:column sortBy="#{user.lastname}">
+                <rich:column sortBy="#{user.lastname}" filterBy="#{user.lastname}">
                     <f:facet name="header">
                         <h:outputLabel value="Name"/>
                     </f:facet>
                     <h:outputLabel value="#{user.firstname} #{user.lastname}"/>
                 </rich:column>
-                <rich:column sortBy="#{user.userName}">
+                <rich:column sortBy="#{user.userName}" width="20">
                     <f:facet name="header">
                         <h:outputLabel value="Username"/>
                     </f:facet>
                     <h:outputLabel value="#{user.userName}"/>
                 </rich:column>
-                <rich:column sortBy="#{user.mail}">
+                <rich:column sortBy="#{user.mail}" width="75">
                     <f:facet name="header">
                         <h:outputLabel value="Mail"/>
                     </f:facet>
                     <h:outputLabel value="#{user.mail}"/>
                 </rich:column>
-                <rich:column sortBy="#{user.phone}">
+                <rich:column sortBy="#{user.phone}" width="20">
                     <f:facet name="header">
                         <h:outputLabel value="Phone"/>
                     </f:facet>
                     <h:outputLabel value="#{user.phone}"/>
                 </rich:column>
-                <rich:column sortBy="#{user.personaleForening}">
+                <rich:column sortBy="#{user.personaleForening}" width="20">
                     <f:facet name="header">
-                        <h:outputLabel value="Forening"/>
+                        <h:outputLabel value="Medlem af personaleforening"/>
                     </f:facet>
                     <h:selectBooleanCheckbox value="#{user.personaleForening}"/>
                 </rich:column>
-                <rich:column sortBy="#{user.admin}">
+                <rich:column sortBy="#{user.admin}" filterBy="#{user.admin}" title="True eller False" width="20">
                     <f:facet name="header">
-                        <h:outputLabel value="Admin"/>
+                        <h:outputLabel value="Admin" title="True eller False"/>
                     </f:facet>
                     <h:selectBooleanCheckbox value="#{user.admin}"/>
                 </rich:column>
-                <rich:column>
+                <rich:column width="20">
                     <f:facet name="header">
                         <h:outputLabel value="Slet"/>
                     </f:facet>
