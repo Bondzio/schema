@@ -138,14 +138,12 @@
             </rich:column>
             <rich:column rendered="#{eventController.hasJoined}"
                          id="joinColumn">
-                <rich:effect  name="hideDiv"  for="joinedimage" type="Fade" />
-
                 <h:commandButton value="#{messages['general.attend']}"
                                  action="#{activitiesController.joinActivity}"
-                                 rendered="#{!activitiesController.hasJoined}" onclick="hideDiv({duration:0.7})"/>
+                                 rendered="#{!activitiesController.hasJoined}"/>
                 <h:commandButton value="#{messages['general.unjoin']}"
                                  action="#{activitiesController.removeActivity}"
-                                 rendered="#{activitiesController.hasJoined}" onclick="hideDiv({duration:0.7})"/>
+                                 rendered="#{activitiesController.hasJoined}"/>
             </rich:column>
             <rich:column id="joinColumn1" sortBy="#{activitiesController.hasJoined}"
                          rendered="#{eventController.hasJoined}">
