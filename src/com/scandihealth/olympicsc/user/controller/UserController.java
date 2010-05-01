@@ -2,18 +2,19 @@ package com.scandihealth.olympicsc.user.controller;
 
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.user.User;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.*;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
 @Name("userController")
+@Scope(ScopeType.SESSION)
 public class UserController {
 
     @In(value = "user", required = true)
@@ -27,6 +28,7 @@ public class UserController {
 
     @DataModel
     private List<User> userList;
+    private boolean personaleForening = false;
 
     public UserController() {
     }
@@ -89,5 +91,22 @@ public class UserController {
 
     public UIInput getShirtSizeControl() {
         return shirtSizeControl;
+    }
+
+    public void selectAllPersonel() {
+        System.out.println("setting personel " + personaleForening);
+        personaleForening = !personaleForening;
+        for (User user1 : userList) {
+            user1.setPersonaleForening(personaleForening);
+        }
+    }
+
+    public String saveAllPersonel() {
+        DataManager dataManager = new DataManager();
+        for (User user1 : userList) {
+            dataManager.saveUser(user1);
+        }
+        FacesContext.getCurrentInstance().addMessage("Test", new FacesMessage("Brugere gemt"));
+        return "";
     }
 }
