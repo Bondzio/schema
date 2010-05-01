@@ -66,6 +66,9 @@
             <rule if-outcome="showUserList">
                 <redirect view-id="/user/users.xhtml"/>
             </rule>
+            <rule if-outcome="sendMail">
+                <redirect view-id="/mailSystem/sendMail.xhtml"/>
+            </rule>
         </navigation>
     </page>
 

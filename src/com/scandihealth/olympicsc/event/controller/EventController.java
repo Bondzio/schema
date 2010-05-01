@@ -13,6 +13,7 @@ import org.jboss.seam.annotations.*;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.faces.Renderer;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -45,6 +46,9 @@ public class EventController implements Serializable {
     @In
     Authenticator authenticator;
     private Boolean hasActivities;
+
+    @In(create = true)
+    private Renderer renderer;
 
     @Create
     public void init() {
@@ -177,5 +181,16 @@ public class EventController implements Serializable {
     public boolean isHasJoined() {
         User user = authenticator.getUser();
         return user.hasJoinedEvent(selectedEvent);
+    }
+
+    public String mailAttendees() {
+        try {
+            renderer.render("/mailSystem/sendMail.xhtml");
+//            facesMessages.add("Email sent successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+//            facesMessages.add("Email sending failed: " + e.getMessage());
+        }
+        return "sendMail";
     }
 }

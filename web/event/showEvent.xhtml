@@ -40,5 +40,8 @@
                 <h:outputLabel value="#{activities.name}"/>
             </rich:column>
         </rich:dataTable>
+        <a4j:form ajaxSingle="true" ajaxSubmit="true">
+        <h:commandButton value="Mail deltagere" action="#{eventController.mailAttendees}"/>
+        </a4j:form>
     </ui:define>
 </ui:composition>

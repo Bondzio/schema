@@ -22,7 +22,7 @@
 
 
     </style>
-    #{messages['activity.welcome']}
+    <h:outputLabel value="#{messages['activity.welcome']}" rendered="#{activityList.size gt 0}"/>
 
     <a4j:form ajaxSubmit="true" reRender="activityList" style="border:none;">
         <rich:dataTable id="activityList" value="#{activityList}" var="activity"
@@ -30,7 +30,8 @@
                         width="100%"
                         rowClasses="simpleRow"
                         onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-                        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+                        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                rendered="#{activityList.size gt 0}">
             <rich:column sortBy="#{activity.name}">
                 <f:facet name="header">
                     <h:outputLabel value="Detaljer"/>

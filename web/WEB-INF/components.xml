@@ -7,6 +7,7 @@
             xmlns:transaction="http://jboss.com/products/seam/transaction"
             xmlns:web="http://jboss.com/products/seam/web"
             xmlns:security="http://jboss.com/products/seam/security"
+            xmlns:mail="http://jboss.com/products/seam/mail"
             xsi:schemaLocation="http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.1.xsd
 			http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.0.xsd
 			http://jboss.com/products/seam/i18n http://jboss.com/products/seam/international-2.0.xsd
@@ -49,4 +50,8 @@
     </component>
 
     <i18n:time-zone-selector cookie-enabled="true" time-zone-id="Europe/Copenhagen"/>
+
+    <mail:mailSession host="smtp.gmail.com" port="587"  username="mhylle@gmail.com" password="Hamm3R3n" debug="true">
+
+    </mail:mailSession>
 </components>
