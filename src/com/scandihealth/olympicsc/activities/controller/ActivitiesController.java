@@ -2,10 +2,12 @@ package com.scandihealth.olympicsc.activities.controller;
 
 import com.scandihealth.olympicsc.activities.admin.controller.AdminActivitiesController;
 import com.scandihealth.olympicsc.activities.model.Activity;
+import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
 import com.scandihealth.olympicsc.activities.model.ActivityRepository;
 import com.scandihealth.olympicsc.commandsystem.CommandController;
 import com.scandihealth.olympicsc.commandsystem.activities.*;
 import com.scandihealth.olympicsc.commandsystem.user.SaveUserCommand;
+import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.security.Authenticator;
 import com.scandihealth.olympicsc.user.User;
@@ -75,6 +77,19 @@ public class ActivitiesController implements Serializable {
                     return 0;
                 }
             });
+            for (Activity activity1 : activityList) {
+                addPartnerRequestToActivity(activity1);
+            }
+        }
+
+    }
+
+    private void addPartnerRequestToActivity(Activity activity1) {
+        User user = authenticator.getUser();
+        DataManager dataManager = new DataManager();
+        ActivityPartnerRequest activityPartnerRequest = dataManager.getPartnerRequest(user, activity1);
+        if (activityPartnerRequest != null) {
+            activity1.setPartnerRequest(activityPartnerRequest.getPartnernames());
         }
     }
 

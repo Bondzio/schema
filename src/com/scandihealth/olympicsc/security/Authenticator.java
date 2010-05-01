@@ -30,11 +30,9 @@ public class Authenticator implements Serializable {
         SecurityProvider securityProvider = new LdapSecurityProvider();
         user = securityProvider.logon(credentials.getUsername(), credentials.getPassword());
         if (user == null) {
-            System.out.println("logging using simple security");
             securityProvider = new SimpleSecurityProvider();
             user = securityProvider.logon(credentials.getUsername(), credentials.getPassword());
         } else {
-            System.out.println("logged in using ldap");
         }
 
         if (user == null) {
@@ -42,7 +40,6 @@ public class Authenticator implements Serializable {
             return false;
         }
         loginAction = "loggedIn";
-        System.out.println("user.isFirstlogin() = " + user.isFirstlogin());
 
         if (user.isFirstlogin()) {
             loginAction = "createUserDetails";

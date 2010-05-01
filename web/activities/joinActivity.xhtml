@@ -34,7 +34,7 @@
                 rendered="#{activityList.size gt 0}">
             <rich:column sortBy="#{activity.name}">
                 <f:facet name="header">
-                    <h:outputLabel value="Detaljer"/>
+                    <h:outputLabel value="#{messages['activity.details']}"/>
                 </f:facet>
                 <table width="100" cellpadding="0" cellspacing="0" border="0">
                     <tr>
@@ -49,24 +49,23 @@
                     </tr>
                     <tr>
                         <td>
-                            Sted: <h:outputLabel value="#{activity.location}"
-                                                 converter="locationConverter"/>
+                            #{messages['activity.location']}: <h:outputLabel value="#{activity.location}" converter="locationConverter"/>
                         </td>
                     </tr>
                 </table>
             </rich:column>
             <rich:column sortBy="#{activity.start}">
                 <f:facet name="header">
-                    <h:outputLabel value="Tid"/>
+                    <h:outputLabel value="#{messages['activity.time']}"/>
                 </f:facet>
                 <table width="250" cellpadding="0" cellspacing="0" border="0">
                     <tr valign="top">
                         <td>
-                            Fra: <h:outputLabel value="#{activity.start}">
+                            #{messages['activity.from']}: <h:outputLabel value="#{activity.start}">
                             <f:convertDateTime pattern="d/M/yy HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                         </h:outputLabel>
-                            til: <h:outputLabel value="#{activity.end}">
+                            #{messages['activity.to']}: <h:outputLabel value="#{activity.end}">
                             <f:convertDateTime pattern="d/M/yy HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                         </h:outputLabel>
@@ -76,7 +75,7 @@
             </rich:column>
             <rich:column>
                 <f:facet name="header">
-                    <h:outputLabel value="Beskrivelse"/>
+                    <h:outputLabel value="#{messages['activity.description']}"/>
                 </f:facet>
                 <table width="350" cellpadding="0" cellspacing="0" border="0">
                     <tr valign="top">
@@ -88,13 +87,13 @@
             </rich:column>
             <h:column>
                 <f:facet name="header">
-                    <h:outputLabel value="Ønsket partner"/>
+                    <h:outputLabel value="#{messages['activity.partnerrequest']}"/>
                 </f:facet>
                 <h:inputText value="#{activity.partnerRequest}" rendered="#{activity.canRequestPartner}"/>
             </h:column>
             <rich:column rendered="#{s:hasRole('admin')}">
                 <f:facet name="header">
-                    <h:outputLabel value="Minimimskrav"/>
+                    <h:outputLabel value="#{messages['activity.minimumdemands']}"/>
                 </f:facet>
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tr valign="top">
@@ -107,18 +106,18 @@
             </rich:column>
             <rich:column>
                 <f:facet name="header">
-                    <h:outputLabel value="Priser"/>
+                    <h:outputLabel value="#{messages['activity.prices']}"/>
                 </f:facet>
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tr valign="top">
                         <td>
                             <h:panelGrid columns="2"
                                          rendered="#{activity.memberPrice gt 0 or activity.notMemberPrice gt 0 or activity.noShowPrice gt 0}">
-                                <h:outputLabel value="Medlemspris"/>
+                                <h:outputLabel value="#{messages['activity.memberprice']}"/>
                                 <h:outputLabel value="#{activity.memberPrice}"/>
-                                <h:outputLabel value="Ikke Medlemspris"/>
+                                <h:outputLabel value="#{messages['activity.notmemberprice']}"/>
                                 <h:outputLabel value="#{activity.notMemberPrice}"/>
-                                <h:outputLabel value="Udeblivelse"/>
+                                <h:outputLabel value="#{messages['activity.noshowprice']}"/>
                                 <h:outputLabel value="#{activity.noShowPrice}"/>
                             </h:panelGrid>
                         </td>
@@ -127,7 +126,7 @@
             </rich:column>
             <rich:column>
                 <f:facet name="header">
-                    <h:outputLabel value="Ansvarlig"/>
+                    <h:outputLabel value="#{messages['activity.responsible']}"/>
                 </f:facet>
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tr valign="top">

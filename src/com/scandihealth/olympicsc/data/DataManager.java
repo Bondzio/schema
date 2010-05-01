@@ -254,30 +254,22 @@ public class DataManager {
         Object user = null;
         try {
             try {
-                System.out.println("1");
                 try {
                     session = SessionFactoryUtil.getInstance().getCurrentSession();
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
-                System.out.println("2");
             } catch (HibernateException e) {
-                System.out.println("3");
                 e.printStackTrace();
-                System.out.println("4");
             }
             Transaction transaction = null;
             user = null;
             try {
-                System.out.println("5");
                 transaction = session.beginTransaction();
-                System.out.println("6");
 
                 user = session.createQuery("from User as user where user.userName='" + username + "' and user.password='" + password + "'").uniqueResult();
-                System.out.println("7");
                 transaction.commit();
-                System.out.println("8");
             } catch (HibernateException e) {
                 transaction.rollback();
                 e.printStackTrace();

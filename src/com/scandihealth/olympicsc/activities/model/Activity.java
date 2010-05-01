@@ -178,25 +178,20 @@ public class Activity implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) {
-            System.out.println("same object instance");
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
-            System.out.println("null or not same class");
             return false;
         }
 
         Activity activity = (Activity) o;
 
         if (idactivity != activity.idactivity) {
-            System.out.println("id different");
             return false;
         }
         if (name != null ? !name.equals(activity.name) : activity.name != null) {
-            System.out.println("name different");
             return false;
         }
-        System.out.println("same");
         return true;
     }
 

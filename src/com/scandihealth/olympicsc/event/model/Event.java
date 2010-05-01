@@ -236,22 +236,18 @@ public class Event implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) {
-            System.out.println("same object");
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
-            System.out.println("null or different class");
             return false;
         }
 
         Event event = (Event) o;
 
         if (idevent != event.idevent) {
-            System.out.println("different id");
             return false;
         }
         if (name != null ? !name.equals(event.name) : event.name != null) {
-            System.out.println("different name");
             return false;
         }
 
