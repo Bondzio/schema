@@ -59,14 +59,20 @@
                     <h:outputLabel value="#{messages['activity.time']}"/>
                 </f:facet>
                 <table width="250" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <rich:paint2D id="painter" width="250" height="20"
+            data="#{activity}" format="png" paint="#{paintBean.paint}" />
+                        </td>
+                    </tr>
                     <tr valign="top">
                         <td>
                             #{messages['activity.from']}: <h:outputLabel value="#{activity.start}">
-                            <f:convertDateTime pattern="d/M/yy HH:mm"
+                            <f:convertDateTime pattern="HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                         </h:outputLabel>
                             #{messages['activity.to']}: <h:outputLabel value="#{activity.end}">
-                            <f:convertDateTime pattern="d/M/yy HH:mm"
+                            <f:convertDateTime pattern="HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                         </h:outputLabel>
                         </td>

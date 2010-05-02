@@ -218,4 +218,56 @@ public class Activity implements Serializable {
     public void setPartnerRequest(String partnerRequest) {
         this.partnerRequest = partnerRequest;
     }
+
+    private String text;
+    private Integer color;
+    private float scale;
+
+    @Transient
+    public Integer getColor() {
+        return color;
+    }
+
+    public void setColor(Integer color) {
+        this.color = color;
+    }
+
+    @Transient
+    public float getScale() {
+        return scale;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
+    @Transient
+    public String getText() {
+        return "Test";
+    }
+
+    public void setText(String text) {
+//        this.text = text;
+    }
+
+    private long percentage;
+    @Transient
+    public long getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(long percentage) {
+        this.percentage = percentage;
+    }
+
+    private long offset;
+
+    @Transient
+    public long getOffset() {
+        return offset;
+    }
+
+    public void setOffset(long offset) {
+        this.offset = offset;
+    }
 }

@@ -20,6 +20,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 @Name("activitiesController")
@@ -78,10 +79,41 @@ public class ActivitiesController implements Serializable {
                 }
             });
             for (Activity activity1 : activityList) {
+                long activityTime = calculateActivityTime(activity1);
+                long offset = calculateActivityOffset(activity1);
+                activity1.setPercentage(activityTime);
+                activity1.setOffset(offset);
                 addPartnerRequestToActivity(activity1);
             }
         }
 
+    }
+
+    private long calculateActivityOffset(Activity activity) {
+        Date parentEndDate = parent.getEnd();
+        Date parentStartDate = parent.getStart();
+        long parentElapsed = parentEndDate.getTime() - parentStartDate.getTime();
+
+        Date activityStartDate = activity.getStart();
+        long timeIntoEvent = activityStartDate.getTime() - parentStartDate.getTime();
+        if (parentElapsed >0) {
+            return 250 * timeIntoEvent / parentElapsed;
+        }
+
+        return 1;
+    }
+
+    private long calculateActivityTime(Activity activity) {
+        Date endDate = activity.getEnd();
+        Date startDate = activity.getStart();
+        long elapsed = endDate.getTime() - startDate.getTime();
+        Date parentEndDate = parent.getEnd();
+        Date parentStartDate = parent.getStart();
+        long parentElapsed = parentEndDate.getTime() - parentStartDate.getTime();
+        if (parentElapsed >0) {
+            return 250 * elapsed / parentElapsed;
+        }
+        return 0;  
     }
 
     private void addPartnerRequestToActivity(Activity activity1) {
@@ -117,10 +149,8 @@ public class ActivitiesController implements Serializable {
             System.out.println("got a parent " + parent);
         }
         List<Activity> set = activityRepository.getActivities(parent);
-        for (Activity activity1 : set) {
-            System.out.println("activity1 = " + activity1);
-        }
-        System.out.println("activity = " + activity);
+
+
         adminActivitiesController.createActivity(activityRepository, activity, parent);
     }
 
