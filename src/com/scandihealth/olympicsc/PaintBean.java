@@ -8,7 +8,6 @@ import java.awt.*;
 public class PaintBean {
 
     public void paint(Graphics2D g2, Object obj) {
-        System.out.println("paint");
         Activity activity = (Activity) obj;
 
         g2.setColor(Color.ORANGE);

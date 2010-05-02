@@ -12,10 +12,8 @@ public class EventRepository {
     private DataManager dataManager;
 
     public EventRepository() {
-        System.out.println("Init");
         dataManager = new DataManager();
         events = dataManager.getEvents();
-        System.out.println("Got " + events.size() + " events");
         if (events == null) {
             events = new ArrayList<Event>();
         }

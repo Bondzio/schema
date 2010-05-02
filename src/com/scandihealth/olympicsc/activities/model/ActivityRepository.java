@@ -17,7 +17,6 @@ public class ActivityRepository {
     public ActivityRepository() {
         DataManager dataManager = new DataManager();
         activities = dataManager.getActivities();
-        System.out.println("Got " + activities.size() + " activities");
         if (activities == null) {
             activities = new ArrayList<Activity>();
         }
@@ -26,19 +25,13 @@ public class ActivityRepository {
 
     public boolean addActivity(Activity activity) {
         boolean result;
-        for (Activity activity1 : activities) {
-            System.out.println("activity1 = " + activity1);
-        }
         if (!activities.contains(activity)) {
-            System.out.println("did not contain activity");
             activities.add(activity);
             result = true;
         } else {
-            System.out.println("contained activity");
             result = false;
         }
         for (Activity activity1 : activities) {
-            System.out.println("activity1 = " + activity1);
         }
         return result;
     }

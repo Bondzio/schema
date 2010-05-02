@@ -96,11 +96,11 @@ public class ActivitiesController implements Serializable {
 
         Date activityStartDate = activity.getStart();
         long timeIntoEvent = activityStartDate.getTime() - parentStartDate.getTime();
-        if (parentElapsed >0) {
+        if (parentElapsed > 0) {
             return 250 * timeIntoEvent / parentElapsed;
         }
 
-        return 1;
+        return 0;
     }
 
     private long calculateActivityTime(Activity activity) {
@@ -110,10 +110,10 @@ public class ActivitiesController implements Serializable {
         Date parentEndDate = parent.getEnd();
         Date parentStartDate = parent.getStart();
         long parentElapsed = parentEndDate.getTime() - parentStartDate.getTime();
-        if (parentElapsed >0) {
+        if (parentElapsed > 0) {
             return 250 * elapsed / parentElapsed;
         }
-        return 0;  
+        return 0;
     }
 
     private void addPartnerRequestToActivity(Activity activity1) {
@@ -143,14 +143,6 @@ public class ActivitiesController implements Serializable {
 
     @Restrict("#{s:hasRole('admin')}")
     public void createActivity() {
-        if (parent == null) {
-            System.out.println("parent was null");
-        } else {
-            System.out.println("got a parent " + parent);
-        }
-        List<Activity> set = activityRepository.getActivities(parent);
-
-
         adminActivitiesController.createActivity(activityRepository, activity, parent);
     }
 
