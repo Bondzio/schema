@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
+    <style type="text/css">
+        .headerstyle {
+            background-color: #a52a2a;
+        }
+    </style>
+    <ui:define name="content">
+        <h:form>
+            <table width="80%" align="center">
+                <tr>
+                    <td>
+                        <rich:panel>
+
+                            <h:outputLabel value="Afsender: Personaleforeningen (mail)"/>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Til"/>
+                                <h:inputText value="#{mail.to}" id="mailto" disabled="#{mailController.tooAll}"/>
+                            </h:panelGrid>
+                            <h:outputLabel value="Til alle medlemmer"/>
+                            <h:selectBooleanCheckbox value="#{mailController.tooAll}">
+                                <a4j:support event="onchange" reRender="mailto"/>
+                            </h:selectBooleanCheckbox>
+
+                        </rich:panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <rich:panel>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Emne"/>
+                                <h:inputText value="#{mail.subject}"/>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <rich:panel>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Brug hilsen"/>
+                                <h:selectBooleanCheckbox value="#{mailController.useGreeting}">
+                                    <!--<a4j:support event="onchange" reRender="beforenameid, afternameid"/>-->
+                                </h:selectBooleanCheckbox>
+                                <h:outputLabel value="Send bruger detaljer"/>
+                                <h:selectBooleanCheckbox value="#{mailController.sendUserDetails}"/>
+                            </h:panelGrid>
+                            <!--<h:outputLabel value="Before name"/>-->
+                            <!--<h:inputText value="#{mail.beforeName}" disabled="#{!mailController.useGreeting}"-->
+                            <!--id="beforenameid"/>-->
+                            <!--<h:outputLabel value="After name"/>-->
+                            <!--<h:inputText value="#{mail.afterName}" disabled="#{!mailController.useGreeting}"-->
+                            <!--id="afternameid"/>-->
+                        </rich:panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70%" colspan="2">
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="Content"/>
+                            </f:facet>
+                            <h:panelGroup layout="block">
+                                <h:inputTextarea value="#{mail.body}" cols="120" rows="20"/>
+                            </h:panelGroup>
+                        </rich:panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:commandButton value="Send" action="#{mailController.send}"/>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </ui:define>
+</ui:composition>

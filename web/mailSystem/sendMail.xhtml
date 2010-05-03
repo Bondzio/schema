@@ -1,25 +1,18 @@
-<ui:repeat value="#{eventController.users}" var="user" xmlns:ui="http://richfaces.org/a4j">
+<ui:repeat value="#{mailController.mailContent}" var="recipient" xmlns:ui="http://richfaces.org/a4j">
     <m:message xmlns="http://www.w3.org/1999/xhtml"
                xmlns:m="http://jboss.com/products/seam/mail"
                xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://richfaces.org/a4j">
 
         <m:from name="Martin Hylleberg" address="mhylle@gmail.com"/>
 
-        <m:to name="#{user.firstname} #{user.lastname}" address="#{user.mail}"/>
+        <m:to name="#{recipient.name}" address="#{recipient.to}"/>
 
-        <m:subject>#{eventController.selectedEvent.name} update</m:subject>
+        <m:subject>#{recipient.subject}</m:subject>
 
         <m:body>
-            Hej #{user.firstname}
-            <p>
-            Tilmelding til  #{eventController.selectedEvent.name} er nu aabnet. Skynd dig ind paa <a
-                href="http://localhost:8080/schema">http://localhost:8080/schema</a> for at tilmelde dig.
-            </p>
-            <p>#{eventController.selectedEvent.name} foregaar #{eventController.selectedEvent.start}</p>
-
-            <p>Regards,</p>
-
-            <p>Peter</p>
+            <p>#{recipient.greeting}</p>
+            <p>#{recipient.body}</p>
+            <p>#{recipient.userDetails}</p>
         </m:body>
 
     </m:message>

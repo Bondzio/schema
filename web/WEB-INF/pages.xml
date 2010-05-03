@@ -69,6 +69,9 @@
             <rule if-outcome="sendMail">
                 <redirect view-id="/mailSystem/sendMail.xhtml"/>
             </rule>
+            <rule if-outcome="createMail">
+                <redirect view-id="/mailSystem/mailer.xhtml"/>
+            </rule>
         </navigation>
     </page>
 
