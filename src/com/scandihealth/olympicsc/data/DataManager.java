@@ -424,10 +424,13 @@ public class DataManager {
     public ActivityPartnerRequest getPartnerRequest(User user, Activity activity) {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        ActivityPartnerRequest activityPartnerRequest = (ActivityPartnerRequest) session.createQuery("from ActivityPartnerRequest as request " +
-                "where request.idactivity=" + activity.getIdactivity() + " and request.iduser=" + user.getIduser()).uniqueResult();
+        List result = session.createQuery("from ActivityPartnerRequest as partnerrequest " +
+                "where partnerrequest.idactivity=" + activity.getIdactivity() + " and partnerrequest.iduser=" + user.getIduser()).list();
         transaction.commit();
-        return activityPartnerRequest;
+        if (result != null && result.size()>0) {
+            return (ActivityPartnerRequest) result.get(0);
+        }
+        return null;
     }
 
     public void deleteUser(User user) {
