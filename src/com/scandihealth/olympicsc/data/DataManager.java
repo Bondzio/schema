@@ -437,11 +437,28 @@ public class DataManager {
         User o = (User) session.createQuery("from User as user where user.userName='" + user.getUserName() + "'").uniqueResult();
         transaction.commit();
         if (o != null) {
-        Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
+            Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
             Transaction transaction1 = session1.beginTransaction();
             session1.delete(o);
             transaction1.commit();
 
         }
+    }
+
+    public void savePartnerRequest(ActivityPartnerRequest activityPartnerRequest) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List result = session.createQuery("from ActivityPartnerRequest as partnerrequest " +
+                "where partnerrequest.idactivity=" + activityPartnerRequest.getIdactivity() + " and partnerrequest.iduser=" + activityPartnerRequest.getIduser()).list();
+        transaction.commit();
+        if (result != null && result.size()>0) {
+            Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
+            Transaction transaction1 = session.beginTransaction();
+            for (Object o : result) {
+                session1.delete(o);
+            }
+            transaction1.commit();
+        }
+        saveObject(activityPartnerRequest);
     }
 }

@@ -24,7 +24,7 @@ public class CreatePartnerRequestCommand implements Command {
         activityPartnerRequest.setIduser(user.getIduser());
         activityPartnerRequest.setPartnernames(partnerRequest);
         DataManager dataManager = new DataManager();
-        dataManager.saveObject(activityPartnerRequest);
+        dataManager.savePartnerRequest(activityPartnerRequest);
         return true;
     }
 
