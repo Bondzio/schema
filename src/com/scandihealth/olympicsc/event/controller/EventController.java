@@ -76,14 +76,16 @@ public class EventController implements Serializable {
 
 
     public String join() {
+        User user = authenticator.getUser();
+        System.out.println("User: " + user.getUserName() + "(" + user.getIduser() + ") tried joining " + selectedEvent.getName() + "(" + selectedEvent.getIdevent() + ")");
         String result = "";
-        JoinEventCommand joinEventCommand = new JoinEventCommand(authenticator.getUser(), selectedEvent);
+        JoinEventCommand joinEventCommand = new JoinEventCommand(user, selectedEvent);
         commandController.executeCommand(joinEventCommand);
         if (selectedEvent.getActivities().size() > 0) {
             result = "showEventInfo";
         }
 
-        SaveUserCommand saveUserCommand = new SaveUserCommand(authenticator.getUser());
+        SaveUserCommand saveUserCommand = new SaveUserCommand(user);
         commandController.executeCommand(saveUserCommand);
 
         return result;

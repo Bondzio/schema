@@ -161,14 +161,16 @@ public class ActivitiesController implements Serializable {
     }
 
     public String joinActivity() {
-        JoinActivityCommand joinActivityCommand = new JoinActivityCommand(selectedActivity, authenticator.getUser());
+        User user = authenticator.getUser();
+        System.out.println("User: " + user.getUserName() + "(" + user.getIduser() + ") tried joining " + selectedActivity.getName() + "(" + selectedActivity.getIdactivity() + ")");
+        JoinActivityCommand joinActivityCommand = new JoinActivityCommand(selectedActivity, user);
         commandController.executeCommand(joinActivityCommand);
-        SaveUserCommand saveUserCommand = new SaveUserCommand(authenticator.getUser());
+        SaveUserCommand saveUserCommand = new SaveUserCommand(user);
         commandController.executeCommand(saveUserCommand);
 
         String partnerRequest = selectedActivity.getPartnerRequest();
         if (partnerRequest != null && !"".equals(partnerRequest)) {
-            CreatePartnerRequestCommand createPartnerRequestCommand = new CreatePartnerRequestCommand(authenticator.getUser(), selectedActivity, partnerRequest);
+            CreatePartnerRequestCommand createPartnerRequestCommand = new CreatePartnerRequestCommand(user, selectedActivity, partnerRequest);
             commandController.executeCommand(createPartnerRequestCommand);
         }
         return "";
