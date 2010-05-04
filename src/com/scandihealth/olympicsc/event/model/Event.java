@@ -18,7 +18,7 @@ import java.util.List;
 public class Event implements Serializable {
 
     private int idevent;
-    private int version;
+//    private int version;
     private String name;
     private String description;
     private Date start;
@@ -47,15 +47,15 @@ public class Event implements Serializable {
         this.idevent = idevent;
     }
 
-    @Version
-    @Column(name = "version")
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
+//    @Version
+//    @Column(name = "version")
+//    public int getVersion() {
+//        return version;
+//    }
+//
+//    public void setVersion(int version) {
+//        this.version = version;
+//    }
 
     @javax.persistence.Column(name = "name")
     @Basic

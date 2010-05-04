@@ -27,7 +27,7 @@ public class Activity implements Serializable {
     private Integer memberPrice;
     private Integer notMemberPrice;
     private Integer noShowPrice;
-    private int version;
+//    private int version;
     private String partnerRequest;
 
 
@@ -42,15 +42,15 @@ public class Activity implements Serializable {
         this.idactivity = idactivity;
     }
 
-    @Version
-    @Column(name = "version")
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
+//    @Version
+//    @Column(name = "version")
+//    public int getVersion() {
+//        return version;
+//    }
+//
+//    public void setVersion(int version) {
+//        this.version = version;
+//    }
 
     @javax.persistence.Column(name = "name")
     @Basic
