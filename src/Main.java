@@ -17,7 +17,7 @@ public class Main {
 
         DataManager dataManager = new DataManager();
 
-        cleanData(dataManager);
+//        cleanData(dataManager);
         createUsers(dataManager);
         createData(dataManager);
         testUsers(dataManager);
@@ -161,47 +161,47 @@ public class Main {
         System.out.println("user = " + user);
     }
 
-    private static void cleanData(DataManager dataManager) {
-        Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
-        Transaction transaction1 = session1.beginTransaction();
-        List result1 = session1.createQuery("from Event").list();
-        System.out.println("Found " + result1.size() + " events");
-        transaction1.commit();
-
-        for (Object o : result1) {
-            Event event = (Event) o;
-            dataManager.deleteEvent(event);
-        }
-        Session session3 = SessionFactoryUtil.getInstance().getCurrentSession();
-        Transaction transaction3 = session3.beginTransaction();
-        List result3 = session3.createQuery("from Activity").list();
-        System.out.println("Found " + result3.size() + " activities");
-        transaction3.commit();
-
-        for (Object o : result3) {
-            Activity activity = (Activity) o;
-            dataManager.deleteActivity(activity);
-        }
-        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        List result = session.createQuery("from Location").list();
-        System.out.println("Found " + result.size() + " locations");
-        transaction.commit();
-
-        for (Object o : result) {
+//    private static void cleanData(DataManager dataManager) {
+//        Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
+//        Transaction transaction1 = session1.beginTransaction();
+//        List result1 = session1.createQuery("from Event").list();
+//        System.out.println("Found " + result1.size() + " events");
+//        transaction1.commit();
+//
+//        for (Object o : result1) {
+//            Event event = (Event) o;
+//            dataManager.deleteEvent(event);
+//        }
+//        Session session3 = SessionFactoryUtil.getInstance().getCurrentSession();
+//        Transaction transaction3 = session3.beginTransaction();
+//        List result3 = session3.createQuery("from Activity").list();
+//        System.out.println("Found " + result3.size() + " activities");
+//        transaction3.commit();
+//
+//        for (Object o : result3) {
+//            Activity activity = (Activity) o;
+//            dataManager.deleteActivity(activity);
+//        }
+//        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+//        Transaction transaction = session.beginTransaction();
+//        List result = session.createQuery("from Location").list();
+//        System.out.println("Found " + result.size() + " locations");
+//        transaction.commit();
+//
+//        for (Object o : result) {
+////            dataManager.deleteObject(o);
+//        }
+//
+//        Session session2 = SessionFactoryUtil.getInstance().getCurrentSession();
+//        Transaction transaction2 = session2.beginTransaction();
+//        List result2 = session2.createQuery("from User").list();
+//        System.out.println("Found " + result2.size() + " users");
+//        transaction2.commit();
+//
+//        for (Object o : result2) {
 //            dataManager.deleteObject(o);
-        }
-
-        Session session2 = SessionFactoryUtil.getInstance().getCurrentSession();
-        Transaction transaction2 = session2.beginTransaction();
-        List result2 = session2.createQuery("from User").list();
-        System.out.println("Found " + result2.size() + " users");
-        transaction2.commit();
-
-        for (Object o : result2) {
-            dataManager.deleteObject(o);
-        }
-
-
-    }
+//        }
+//
+//
+//    }
 }

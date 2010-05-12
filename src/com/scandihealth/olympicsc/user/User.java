@@ -2,6 +2,7 @@ package com.scandihealth.olympicsc.user;
 
 
 import com.scandihealth.olympicsc.activities.model.Activity;
+import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.event.model.Event;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.ScopeType;
@@ -14,10 +15,7 @@ import org.jboss.seam.annotations.security.management.UserPrincipal;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @javax.persistence.Table(name = "user", catalog = "olympicsc")
 @Entity
@@ -40,9 +38,7 @@ public class User implements Serializable {
     private Set<Event> events = new HashSet<Event>();
     private Set<Activity> activities = new HashSet<Activity>();
     private List<String> roles;
-    private List<Event> eventList;
-    private List<Activity> activityList;
-
+    
     public User() {
         roles = new ArrayList<String>();
     }
@@ -190,36 +186,25 @@ public class User implements Serializable {
         return events;
     }
 
-    @Transient
-    public List<Event> getEventList() {
-        return eventList;
-    }
-
     public void setEvents(Set<Event> events) {
         this.events = events;
-        eventList = new ArrayList<Event>();
-        eventList.addAll(events);
 
     }
 
     public void addEvent(Event event) {
-        if (eventList == null) {
-            eventList = new ArrayList<Event>();
-        }
         events.add(event);
-        eventList.add(event);
     }
 
     public void removeEvent(Event event) {
         events.remove(event);
-
-        if (eventList != null) {
-            eventList.remove(event);
-        }
     }
 
 
     public boolean hasJoinedEvent(Event event) {
+        if (events == null || events.size() == 0) {
+            DataManager dataManager = new DataManager();
+            
+        }
         return events.contains(event);
     }
 
@@ -233,28 +218,14 @@ public class User implements Serializable {
 
     public void setActivities(Set<Activity> activities) {
         this.activities = activities;
-        activityList = new ArrayList<Activity>();
-        activityList.addAll(activities);
     }
 
     public void addActivity(Activity activity) {
         activities.add(activity);
-        if (activityList == null) {
-            activityList = new ArrayList<Activity>();
-        }
-        activityList.add(activity);
     }
 
     public void removeActivity(Activity activity) {
         activities.remove(activity);
-        if (activityList != null) {
-            activityList.remove(activity);
-        }
-    }
-
-    @Transient
-    public List<Activity> getActivityList() {
-        return activityList;
     }
 
     public boolean hasJoinedActivity(Activity activity) {

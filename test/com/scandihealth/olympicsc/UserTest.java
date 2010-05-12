@@ -7,9 +7,9 @@ import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.user.User;
 import junit.framework.TestCase;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public class UserTest extends TestCase {
     private DataManager dataManager;
@@ -111,7 +111,7 @@ public class UserTest extends TestCase {
 
         assertNotNull(user1);
 
-        Set<Event> set1 = user1.getEvents();
+        Collection<Event> set1 = user1.getEvents();
         assertNotNull(set1);
         assertFalse(set1.isEmpty());
 
@@ -126,7 +126,7 @@ public class UserTest extends TestCase {
         dataManager.updateObject(user);
 
         User user11 = dataManager.getUser("test", "");
-        Set<Event> set = user11.getEvents();
+        Collection<Event> set = user11.getEvents();
         assertNotNull(set);
         assertTrue("User had events when user should not have any.", set.isEmpty());
 
@@ -161,7 +161,7 @@ public class UserTest extends TestCase {
 
         assertNotNull(user1);
 
-        Set<Activity> set1 = user1.getActivities();
+        Collection<Activity> set1 = user1.getActivities();
         assertNotNull(set1);
         assertFalse(set1.isEmpty());
 
@@ -176,7 +176,7 @@ public class UserTest extends TestCase {
         dataManager.updateObject(user);
 
         User user11 = dataManager.getUser("test", "");
-        Set<Activity> set = user11.getActivities();
+        Collection<Activity> set = user11.getActivities();
         assertNotNull(set);
         assertTrue("User had activities when user should not have any.", set.isEmpty());
 

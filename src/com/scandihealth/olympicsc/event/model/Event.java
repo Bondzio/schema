@@ -7,10 +7,7 @@ import org.jboss.seam.annotations.Name;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @javax.persistence.Table(name = "event", catalog = "olympicsc")
@@ -31,7 +28,7 @@ public class Event implements Serializable {
     private Integer noShowPrice;
     private Location location;
     private Logo logo;
-    private Collection<Activity> activities = new ArrayList<Activity>();
+    private Set<Activity> activities = new HashSet<Activity>();
     private List<Activity> activityList;
 
     @javax.persistence.Column(name = "idevent")
@@ -45,7 +42,6 @@ public class Event implements Serializable {
     public void setIdevent(int idevent) {
         this.idevent = idevent;
     }
-
 
     @javax.persistence.Column(name = "name")
     @Basic
@@ -200,11 +196,11 @@ public class Event implements Serializable {
     @JoinTable(name = "event_has_activity",
             joinColumns = {@JoinColumn(name = "event_idevent")},
             inverseJoinColumns = {@JoinColumn(name = "activitiy_idactivity")})
-    public Collection<Activity> getActivities() {
+    public Set<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(Collection<Activity> activities) {
+    public void setActivities(Set<Activity> activities) {
         this.activities = activities;
         activityList = new ArrayList<Activity>();
         activityList.addAll(activities);
@@ -212,6 +208,17 @@ public class Event implements Serializable {
 
     @Transient
     public List<Activity> getActivityList() {
+        Collections.sort(activityList, new Comparator<Activity>() {
+            public int compare(Activity o1, Activity o2) {
+                if (o2.getStart() == null) {
+                    return -1;
+                }
+                if (o1.getStart() == null) {
+                    return 1;
+                }
+                return o1.getStart().compareTo(o2.getStart());
+            }
+        });
         return activityList;
     }
 

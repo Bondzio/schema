@@ -102,11 +102,9 @@
     <page view-id="/event/events.xhtml">
         <navigation>
             <rule if-outcome="showDetails">
-                <!--<out name="newevent" value="#{eventblof}" scope="CONVERSATION"/>-->
                 <redirect view-id="/event/showEvent.xhtml"/>
             </rule>
             <rule if-outcome="updateEvent">
-                <!--<out name="newevent" value="#{eventblof}" scope="CONVERSATION"/>-->
                 <redirect view-id="/event/updateEvent.xhtml"/>
             </rule>
         </navigation>

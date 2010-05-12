@@ -1,5 +1,6 @@
 package com.scandihealth.olympicsc.event.controller;
 
+import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.commandsystem.CommandController;
 import com.scandihealth.olympicsc.commandsystem.event.*;
 import com.scandihealth.olympicsc.commandsystem.user.SaveUserCommand;
@@ -87,15 +88,18 @@ public class EventController implements Serializable {
 
         SaveUserCommand saveUserCommand = new SaveUserCommand(user);
         commandController.executeCommand(saveUserCommand);
-
+        System.out.println("join successfull " + result);
         return result;
     }
 
     public String cancel() {
-        UnJoinEventCommand unJoinEventCommand = new UnJoinEventCommand(authenticator.getUser(), selectedEvent);
+        User user = authenticator.getUser();
+        System.out.println("User: " + user.getUserName() + "(" + user.getIduser() + ") tried cancelling " + selectedEvent.getName() + "(" + selectedEvent.getIdevent() + ")");
+        UnJoinEventCommand unJoinEventCommand = new UnJoinEventCommand(user, selectedEvent);
         commandController.executeCommand(unJoinEventCommand);
-        SaveUserCommand saveUserCommand = new SaveUserCommand(authenticator.getUser());
+        SaveUserCommand saveUserCommand = new SaveUserCommand(user);
         commandController.executeCommand(saveUserCommand);
+        System.out.println("cancel successful");
         return "";
 
     }
@@ -197,5 +201,15 @@ public class EventController implements Serializable {
 //            facesMessages.add("Email sending failed: " + e.getMessage());
         }
         return "sendMail";
+    }
+
+    public List<User> usersForActivity(Activity activity) {
+        List<User> result = getUsersForActivity(activity);
+        return result;
+    }
+    
+    private List<User> getUsersForActivity(Activity activity) {
+        DataManager dataManager = new DataManager();
+        return dataManager.getUserForActivity(activity);
     }
 }

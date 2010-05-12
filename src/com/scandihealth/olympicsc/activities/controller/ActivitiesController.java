@@ -18,10 +18,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Name("activitiesController")
 @Scope(ScopeType.CONVERSATION)
@@ -49,6 +46,7 @@ public class ActivitiesController implements Serializable {
 
     @In
     Authenticator authenticator;
+    private Object users;
 
     @Create
     public void init() {
@@ -63,21 +61,22 @@ public class ActivitiesController implements Serializable {
             activityRepository = new ActivityRepository();
         }
         if (parent != null) {
-            activityList = parent.getActivityList();
+            activityList = new ArrayList<Activity>(parent.getActivities());
         } else {
             System.out.println("no parent");
             activityList = activityRepository.getActivities();
         }
         if (activityList != null) {
-            Collections.sort(activityList, new Comparator<Activity>() {
-                public int compare(Activity o1, Activity o2) {
-                    if (o1.getStart() != null && o2.getStart() != null) {
-                        return o1.getStart().compareTo(o2.getStart());
-                    }
-
-                    return 0;
-                }
-            });
+//
+//            Collections.sort(activityList, new Comparator<Activity>() {
+//                public int compare(Activity o1, Activity o2) {
+//                    if (o1.getStart() != null && o2.getStart() != null) {
+//                        return o1.getStart().compareTo(o2.getStart());
+//                    }
+//
+//                    return 0;
+//                }
+//            });
             for (Activity activity1 : activityList) {
                 long activityTime = calculateActivityTime(activity1);
                 long offset = calculateActivityOffset(activity1);
@@ -92,9 +91,15 @@ public class ActivitiesController implements Serializable {
     private long calculateActivityOffset(Activity activity) {
         Date parentEndDate = parent.getEnd();
         Date parentStartDate = parent.getStart();
+        if (parentEndDate == null || parentStartDate == null) {
+            return 0;
+        }
         long parentElapsed = parentEndDate.getTime() - parentStartDate.getTime();
 
         Date activityStartDate = activity.getStart();
+        if (activityStartDate == null) {
+            return 0;
+        }
         long timeIntoEvent = activityStartDate.getTime() - parentStartDate.getTime();
         if (parentElapsed > 0) {
             return 250 * timeIntoEvent / parentElapsed;
@@ -106,6 +111,9 @@ public class ActivitiesController implements Serializable {
     private long calculateActivityTime(Activity activity) {
         Date endDate = activity.getEnd();
         Date startDate = activity.getStart();
+        if (endDate == null || startDate == null) {
+            return 0;
+        }
         long elapsed = endDate.getTime() - startDate.getTime();
         Date parentEndDate = parent.getEnd();
         Date parentStartDate = parent.getStart();
@@ -173,25 +181,34 @@ public class ActivitiesController implements Serializable {
             CreatePartnerRequestCommand createPartnerRequestCommand = new CreatePartnerRequestCommand(user, selectedActivity, partnerRequest);
             commandController.executeCommand(createPartnerRequestCommand);
         }
+        System.out.println("join successful");
         return "";
     }
 
     public String removeActivity() {
-        UnJoinActivityCommand unJoinActivityCommand = new UnJoinActivityCommand(selectedActivity, authenticator.getUser());
+        User user = authenticator.getUser();
+        System.out.println("User: " + user.getUserName() + "(" + user.getIduser() + ") tried cancelling " + selectedActivity.getName() + "(" + selectedActivity.getIdactivity() + ")");
+        UnJoinActivityCommand unJoinActivityCommand = new UnJoinActivityCommand(selectedActivity, user);
         commandController.executeCommand(unJoinActivityCommand);
-        SaveUserCommand saveUserCommand = new SaveUserCommand(authenticator.getUser());
+        SaveUserCommand saveUserCommand = new SaveUserCommand(user);
         commandController.executeCommand(saveUserCommand);
 
         if (selectedActivity.isCanRequestPartner()) {
-            RemovePartnerRequestCommand removePartnerRequestCommand = new RemovePartnerRequestCommand(authenticator.getUser(), selectedActivity);
+            RemovePartnerRequestCommand removePartnerRequestCommand = new RemovePartnerRequestCommand(user, selectedActivity);
             commandController.executeCommand(removePartnerRequestCommand);
         }
+        System.out.println("cancel successful");
         return "";
     }
 
     public boolean isHasJoined() {
         User user = authenticator.getUser();
         return user.hasJoinedActivity(selectedActivity);
+    }
+
+    public List<User> getUsers(Activity activity) {
+        DataManager dataManager = new DataManager();
+        return dataManager.getUserForActivity(activity);
     }
 
     public String updateActivity() {
@@ -203,6 +220,4 @@ public class ActivitiesController implements Serializable {
     public String doUpdateActivity() {
         return "updateActivity";
     }
-
-
 }

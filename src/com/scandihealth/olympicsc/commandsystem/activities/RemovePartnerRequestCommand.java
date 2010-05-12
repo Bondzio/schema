@@ -20,7 +20,7 @@ public class RemovePartnerRequestCommand implements Command {
         DataManager dataManager = new DataManager();
         old_activityPartnerRequest = dataManager.getPartnerRequest(user, activity);
         if (old_activityPartnerRequest != null) {
-            dataManager.deleteObject(old_activityPartnerRequest);
+            dataManager.deletePartnerRequest(old_activityPartnerRequest);
         }
 
         return true;

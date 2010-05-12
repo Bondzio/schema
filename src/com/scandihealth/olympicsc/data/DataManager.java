@@ -679,4 +679,45 @@ public class DataManager {
         }
         saveObject(activityPartnerRequest);
     }
+
+    public List<User> getUserForActivity(Activity activity) {
+         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        List<User> result = new ArrayList<User>();
+        try {
+            Transaction transaction = session.beginTransaction();
+
+            String queryString = "select user from User as user where " + activity.getIdactivity() + " in elements (user.activities)";
+            List users = session.createQuery(queryString).list();
+            transaction.commit();
+
+            for (Object user : users) {
+                result.add((User) user);
+            }
+        } finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+        return result;
+    }
+
+    public void deletePartnerRequest(ActivityPartnerRequest activityPartnerRequest) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            transaction.commit();
+            session.delete(activityPartnerRequest);
+            session.flush();
+            transaction.commit();
+
+        } finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+    }
 }

@@ -34,9 +34,10 @@
                     <rich:spacer width="10px"/>
                     <h:outputLabel value="(C) 2010"/>
                 </td>
+                <td align="left">Bruger: #{user.firstname} #{user.lastname}</td>
                 <td align="right">
                     <h:panelGrid columns="2">
-                        <h:outputLabel value="Schema version 1.0.0"/>
+                        <h:outputLabel value="Schema version #{versioninformation.major}.#{versioninformation.majorminor}.#{versioninformation.minor}.#{versioninformation.minorminor}"/>
                     </h:panelGrid>
                 </td>
                 <td align="right">

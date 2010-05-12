@@ -31,7 +31,7 @@
                         rowClasses="simpleRow"
                         onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
                         onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-                rendered="#{activityList.size gt 0}">
+                        rendered="#{activityList.size gt 0}">
             <rich:column sortBy="#{activity.name}">
                 <f:facet name="header">
                     <h:outputLabel value="#{messages['activity.details']}"/>
@@ -49,7 +49,8 @@
                     </tr>
                     <tr>
                         <td>
-                            #{messages['activity.location']}: <h:outputLabel value="#{activity.location}" converter="locationConverter"/>
+                            #{messages['activity.location']}: <h:outputLabel value="#{activity.location}"
+                                                                             converter="locationConverter"/>
                         </td>
                     </tr>
                 </table>
@@ -61,7 +62,8 @@
                 <table width="250" cellpadding="0" cellspacing="0" border="0">
                     <tr>
                         <td>
-                            <rich:paint2D id="painter" width="250" height="20" data="#{activity}" format="png" paint="#{paintBean.paint}"/>
+                            <rich:paint2D id="painter" width="250" height="20" data="#{activity}" format="png"
+                                          paint="#{paintBean.paint}"/>
                         </td>
                     </tr>
                     <tr valign="top">
@@ -92,9 +94,11 @@
             </rich:column>
             <h:column>
                 <f:facet name="header">
-                    <h:outputLabel value="#{messages['activity.partnerrequest']}" title="#{messages['activity.partnerrequesthelp']}"/>
+                    <h:outputLabel value="#{messages['activity.partnerrequest']}"
+                                   title="#{messages['activity.partnerrequesthelp']}"/>
                 </f:facet>
-                <h:inputText value="#{activity.partnerRequest}" rendered="#{activity.canRequestPartner}" title="#{messages['activity.partnerrequesthelp']}"/>
+                <h:inputText value="#{activity.partnerRequest}" rendered="#{activity.canRequestPartner}"
+                             title="#{messages['activity.partnerrequesthelp']}"/>
             </h:column>
             <rich:column rendered="#{s:hasRole('admin')}">
                 <f:facet name="header">
@@ -118,12 +122,18 @@
                         <td>
                             <h:panelGrid columns="2"
                                          rendered="#{activity.memberPrice gt 0 or activity.notMemberPrice gt 0 or activity.noShowPrice gt 0}">
-                                <h:outputLabel value="#{messages['activity.memberprice']}"/>
-                                <h:outputLabel value="#{activity.memberPrice}"/>
-                                <h:outputLabel value="#{messages['activity.notmemberprice']}"/>
-                                <h:outputLabel value="#{activity.notMemberPrice}"/>
-                                <h:outputLabel value="#{messages['activity.noshowprice']}"/>
-                                <h:outputLabel value="#{activity.noShowPrice}"/>
+                                <h:outputLabel value="#{messages['activity.memberprice']}"
+                                               rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
+                                <h:outputLabel value="#{activity.memberPrice}"
+                                               rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
+                                <h:outputLabel value="#{messages['activity.notmemberprice']}"
+                                               rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
+                                <h:outputLabel value="#{activity.notMemberPrice}"
+                                               rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
+                                <h:outputLabel value="#{messages['activity.noshowprice']}"
+                                               rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
+                                <h:outputLabel value="#{activity.noShowPrice}"
+                                               rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
                             </h:panelGrid>
                         </td>
                     </tr>
