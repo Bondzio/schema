@@ -1,12 +1,14 @@
 package com.scandihealth.olympicsc.event.controller;
 
 import com.scandihealth.olympicsc.activities.model.Activity;
+import com.scandihealth.olympicsc.activities.model.UserForActivityPaintBean;
 import com.scandihealth.olympicsc.commandsystem.CommandController;
 import com.scandihealth.olympicsc.commandsystem.event.*;
 import com.scandihealth.olympicsc.commandsystem.user.SaveUserCommand;
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.event.model.EventRepository;
+import com.scandihealth.olympicsc.event.model.UserForActivityPaintData;
 import com.scandihealth.olympicsc.security.Authenticator;
 import com.scandihealth.olympicsc.user.User;
 import org.jboss.seam.ScopeType;
@@ -52,6 +54,10 @@ public class EventController implements Serializable {
 
     @In(create = true)
     private Renderer renderer;
+    private UserForActivityPaintData usersForActivityPaintData;
+
+    UserForActivityPaintBean userForActivityPaintBean;
+    private List<User> userForActivity;
 
     @Create
     public void init() {
@@ -141,7 +147,7 @@ public class EventController implements Serializable {
     public String doUpdateEvent() {
         UpdateEventCommand updateEventCommand = new UpdateEventCommand(eventRepository, selectedEvent);
         commandController.executeCommand(updateEventCommand);
-        FacesContext.getCurrentInstance().addMessage("eventList", new FacesMessage( selectedEvent.getName() + " er blevet opdateret."));
+        FacesContext.getCurrentInstance().addMessage("eventList", new FacesMessage(selectedEvent.getName() + " er blevet opdateret."));
         return "";
     }
 
@@ -203,13 +209,28 @@ public class EventController implements Serializable {
         return "sendMail";
     }
 
-    public List<User> usersForActivity(Activity activity) {
-        List<User> result = getUsersForActivity(activity);
-        return result;
+    public List<User> getUsersForActivity() {
+        return userForActivity;
     }
-    
-    private List<User> getUsersForActivity(Activity activity) {
+
+    private void calculateUsersForActivity(Activity activity) {
         DataManager dataManager = new DataManager();
-        return dataManager.getUserForActivity(activity);
+        userForActivity = dataManager.getUserForActivity(activity);
+        usersForActivityPaintData = new UserForActivityPaintData();
+        usersForActivityPaintData.setNumberOfUsers(userForActivity.size());
+        usersForActivityPaintData.setActivity(activity);
+    }
+
+    public UserForActivityPaintData usersForActivityPaint(Activity activity) {
+        calculateUsersForActivity(activity);
+        return usersForActivityPaintData;
+    }
+
+    public UserForActivityPaintBean getUserForActivityPaintBean() {
+        return userForActivityPaintBean;
+    }
+
+    public void setUserForActivityPaintBean(UserForActivityPaintBean userForActivityPaintBean) {
+        this.userForActivityPaintBean = userForActivityPaintBean;
     }
 }

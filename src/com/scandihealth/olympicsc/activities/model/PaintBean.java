@@ -1,10 +1,12 @@
-package com.scandihealth.olympicsc;
+package com.scandihealth.olympicsc.activities.model;
 
 import com.scandihealth.olympicsc.activities.model.Activity;
+import org.jboss.seam.annotations.Name;
 
 import java.awt.*;
 
 
+@Name("gantPaintBean")
 public class PaintBean {
 
     public void paint(Graphics2D g2, Object obj) {
