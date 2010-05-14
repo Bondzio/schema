@@ -5,17 +5,56 @@
                 xmlns:s="http://jboss.com/products/seam/taglib"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
-    <style type="text/css">
-        .headerstyle {
-            background-color: #a52a2a;
-        }
-    </style>
+
     <ui:define name="content">
+        <style type="text/css">
+            .headerstyle {
+                background-color: #a52a2a;
+            }
+
+            .paintedHeader {
+                background-color: aqua;
+                border: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .rich-stglpanel-header {
+                background: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .rich-stglpanel-body {
+                background: aqua;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .rich-stglpanel {
+                background: #8b0000;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .rich-table-cell {
+                /*border: blue;*/
+                padding: 0;
+                /*margin: 0;*/
+            }
+
+        </style>
         <h:form>
             #{eventController.users.size} Users for #{eventController.selectedEvent.name}
             <rich:dataTable id="eventList" value="#{eventController.users}" var="user"
                             cellpadding="0" cellspacing="0" border="0"
-                            width="100%">
+                            width="100%"
+                    onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
                 <rich:column>
                     <f:facet name="header">
                         <h:outputLabel value="Name"/>
@@ -38,16 +77,28 @@
             <rich:dataTable id="activityList" value="#{eventController.selectedEvent.activityList}" var="activity"
                             cellpadding="0" cellspacing="0" border="0" width="100%">
                 <rich:column sortOrder="#{activity.start}">
-                    <rich:simpleTogglePanel switchType="client" opened="false">
+                    <rich:simpleTogglePanel switchType="client" opened="false" headerClass="paintedHeader">
                         <f:facet name="header">
-                            <rich:paint2D id="painter" width="500" height="16" data="#{eventController.usersForActivityPaint(activity)}" format="png"
+                            <rich:paint2D id="painter" width="500" height="16"
+                                          data="#{eventController.usersForActivityPaint(activity)}" format="png"
                                           paint="#{userForActivityPaintBean.paint}"/>
                         </f:facet>
                         <rich:dataTable id="activityList" value="#{eventController.usersForActivity}"
                                         var="user"
                                         cellpadding="0" cellspacing="0" border="0" width="100%">
                             <rich:column>
-                                <h:outputLabel value="#{user.firstname} #{user.lastname}"/>
+                                <table width="100%">
+                                    <tr>
+                                        <td width="500px">
+                                            <h:outputLabel value="#{user.firstname} #{user.lastname}"/>
+                                        </td>
+                                        <td>
+                                            <h:panelGrid columns="2">
+                                            <h:outputLabel value="Makkeroenske" rendered="#{not empty userController.getPartnerRequestForActivity(user, activity)}"/><h:outputLabel value="#{userController.getPartnerRequestForActivity(user, activity)}"/>
+                                            </h:panelGrid>
+                                        </td>
+                                    </tr>
+                                </table>
                             </rich:column>
                         </rich:dataTable>
                     </rich:simpleTogglePanel>

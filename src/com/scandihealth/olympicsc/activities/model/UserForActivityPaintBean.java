@@ -21,11 +21,11 @@ public class UserForActivityPaintBean implements Serializable {
             int numberOfUsers = userForActivityPaintData.getNumberOfUsers();
             if (numberOfUsers < minimumplayers) {
                 g2.setColor(Color.RED);
-                g2.fillRect(0, 0, numberOfUsers*8, 16);
+                g2.fillRect(0, -4, numberOfUsers*8, 20);
                 g2.setColor(Color.WHITE);
             } else {
                 g2.setColor(Color.GREEN);
-                g2.fillRect(0, 0, numberOfUsers*8, 16);
+                g2.fillRect(0, -4, numberOfUsers*8, 20);
                 g2.setColor(Color.BLACK);
             }
 

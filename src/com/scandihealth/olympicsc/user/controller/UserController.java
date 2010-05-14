@@ -1,5 +1,7 @@
 package com.scandihealth.olympicsc.user.controller;
 
+import com.scandihealth.olympicsc.activities.model.Activity;
+import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
 import com.scandihealth.olympicsc.commandsystem.CommandController;
 import com.scandihealth.olympicsc.commandsystem.user.DeleteUserCommand;
 import com.scandihealth.olympicsc.data.DataManager;
@@ -143,6 +145,15 @@ public class UserController {
         DeleteUserCommand deleteUserCommand = new DeleteUserCommand(selectedUser);
         commandController.executeCommand(deleteUserCommand);
         findUsers();
+        return "";
+    }
+
+    public String getPartnerRequestForActivity(User user, Activity activity) {
+        DataManager dataManager = new DataManager();
+        ActivityPartnerRequest activityPartnerRequest = dataManager.getPartnerRequest(user, activity);
+        if (activityPartnerRequest != null) {
+            return activityPartnerRequest.getPartnernames();
+        }
         return "";
     }
 }

@@ -67,16 +67,6 @@ public class ActivitiesController implements Serializable {
             activityList = activityRepository.getActivities();
         }
         if (activityList != null) {
-//
-//            Collections.sort(activityList, new Comparator<Activity>() {
-//                public int compare(Activity o1, Activity o2) {
-//                    if (o1.getStart() != null && o2.getStart() != null) {
-//                        return o1.getStart().compareTo(o2.getStart());
-//                    }
-//
-//                    return 0;
-//                }
-//            });
             for (Activity activity1 : activityList) {
                 long activityTime = calculateActivityTime(activity1);
                 long offset = calculateActivityOffset(activity1);
