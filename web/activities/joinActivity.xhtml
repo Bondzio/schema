@@ -123,17 +123,17 @@
                             <h:panelGrid columns="2"
                                          rendered="#{activity.memberPrice gt 0 or activity.notMemberPrice gt 0 or activity.noShowPrice gt 0}">
                                 <h:outputLabel value="#{messages['activity.memberprice']}"
-                                               rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
+                                               rendered="#{activity.memberPrice gt 0}"/>
                                 <h:outputLabel value="#{activity.memberPrice}"
-                                               rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
+                                               rendered="#{activity.memberPrice gt 0}"/>
                                 <h:outputLabel value="#{messages['activity.notmemberprice']}"
-                                               rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
+                                               rendered="#{activity.notMemberPrice gt 0}"/>
                                 <h:outputLabel value="#{activity.notMemberPrice}"
-                                               rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
+                                               rendered="#{activity.notMemberPrice gt 0}"/>
                                 <h:outputLabel value="#{messages['activity.noshowprice']}"
-                                               rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
+                                               rendered="#{activity.noShowPrice gt 0}"/>
                                 <h:outputLabel value="#{activity.noShowPrice}"
-                                               rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
+                                               rendered="#{activity.noShowPrice gt 0}"/>
                             </h:panelGrid>
                         </td>
                     </tr>
