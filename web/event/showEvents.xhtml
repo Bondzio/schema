@@ -55,6 +55,12 @@
                 </f:facet>
                 <h:commandButton action="#{eventController.deleteEvent}" value="delete"/>
             </rich:column>
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputLabel value="Excel"/>
+                </f:facet>
+                <h:commandButton action="#{eventController.showExcel}" value="Export til excel"/>
+            </rich:column>
         </rich:dataTable>
     </a4j:form>
 </ui:composition>

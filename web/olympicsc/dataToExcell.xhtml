@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+                template="/pagelayout.xhtml">
+
+    <ui:define name="content">
+        <h:form id="theForm">
+        <rich:dataTable id="eventList" value="#{eventController.columnData}" var="columnData"
+                        cellpadding="0" cellspacing="0" border="0"
+                        width="100%"
+                        onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+            <rich:columns value="#{eventController.excelColumnHeaders}" var="columns" index="ind" id="column#{ind}">
+                <f:facet name="header">
+                    <h:outputLabel value="#{columns}"/>
+                </f:facet>
+                <h:outputLabel value="#{columnData[ind]}"/>
+            </rich:columns>
+            </rich:dataTable>
+            <h:commandLink value="Export" action="#{excelExporter.export('theForm:eventList')}"/>
+        </h:form>
+        <!--<e:workbook>-->
+        <!--<e:worksheet>-->
+        <!--<e:cell column="0" row="0" value="Hello world!"/>-->
+        <!--</e:worksheet>-->
+
+        <!--&lt;!&ndash;<e:worksheet value="#{eventController.dataForOlympicscExcell}" var="excelItem">&ndash;&gt;-->
+        <!--&lt;!&ndash;<e:column value="#{excelItem.values}" var="columnValues">&ndash;&gt;-->
+        <!--&lt;!&ndash;<f:facet name="header">&ndash;&gt;-->
+        <!--&lt;!&ndash;<e:cell value="#{columnValues}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</f:facet>&ndash;&gt;-->
+        <!--&lt;!&ndash;<e:cell value="#{columnValues}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</e:column>&ndash;&gt;-->
+        <!--&lt;!&ndash;</e:worksheet>&ndash;&gt;-->
+        <!--</e:workbook>-->
+    </ui:define>
+</ui:composition>

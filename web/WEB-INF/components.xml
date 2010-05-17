@@ -1,56 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <components xmlns="http://jboss.com/products/seam/components"
-			xmlns:core="http://jboss.com/products/seam/core"
-			xmlns:i18n="http://jboss.com/products/seam/international"
-			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			xmlns:transaction="http://jboss.com/products/seam/transaction"
-			xmlns:web="http://jboss.com/products/seam/web"
-			xmlns:security="http://jboss.com/products/seam/security"
-			xmlns:mail="http://jboss.com/products/seam/mail"
-			xsi:schemaLocation="http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.1.xsd
+            xmlns:core="http://jboss.com/products/seam/core"
+            xmlns:i18n="http://jboss.com/products/seam/international"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:transaction="http://jboss.com/products/seam/transaction"
+            xmlns:web="http://jboss.com/products/seam/web"
+            xmlns:security="http://jboss.com/products/seam/security"
+            xmlns:mail="http://jboss.com/products/seam/mail"
+            xmlns:excel="http://jboss.com/products/seam/excel" xmlns:document="http://jboss.com/products/seam/document"
+            xsi:schemaLocation="http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.1.xsd
 			http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.0.xsd
 			http://jboss.com/products/seam/i18n http://jboss.com/products/seam/international-2.0.xsd
 			http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.1.xsd
 			http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.0.xsd
-            http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.2.xsd">
+            http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.2.xsd
+        http://jboss.com/products/seam/excel http://jboss.com/products/seam/excel-2.2.xsd">
 
-	<core:init transaction-management-enabled="false" jndi-pattern="/#{ejbName}/local" debug="true"
-			   distributable="false"/>
-	<transaction:no-transaction/>
-	<core:manager concurrent-request-timeout="500"
-				  conversation-timeout="120000"
-				  conversation-id-parameter="cid"
-				  parent-conversation-id-parameter="pid"/>
+    <core:init transaction-management-enabled="false" jndi-pattern="/#{ejbName}/local" debug="true"
+               distributable="false"/>
+    <transaction:no-transaction/>
+    <core:manager concurrent-request-timeout="500"
+                  conversation-timeout="120000"
+                  conversation-id-parameter="cid"
+                  parent-conversation-id-parameter="pid"/>
 
-	<i18n:locale-config default-locale="dk" supported-locales="en dk"/>
-	<core:resource-loader>
-		<core:bundle-names>
-			<value>messages</value>
-		</core:bundle-names>
-	</core:resource-loader>
+    <i18n:locale-config default-locale="dk" supported-locales="en dk"/>
+    <core:resource-loader>
+        <core:bundle-names>
+            <value>messages</value>
+        </core:bundle-names>
+    </core:resource-loader>
 
-	<i18n:locale-selector cookie-enabled="true"/>
-	<web:character-encoding-filter encoding="UTF-8" override-client="true" url-pattern="*.osc"/>
+    <i18n:locale-selector cookie-enabled="true"/>
+    <web:character-encoding-filter encoding="UTF-8" override-client="true" url-pattern="*.osc"/>
 
-	<security:identity authenticate-method="#{authenticator.authenticate}"/>
-	<security:jpa-token-store token-class="com.scandihealth.olympicsc.security.model.AuthenticationToken"/>
-	<security:remember-me mode="autoLogin"/>
-	<event type="org.jboss.seam.security.notLoggedIn">
-		<action execute="#{redirect.captureCurrentView}"/>
-		<action execute="#{identity.tryLogin()}"/>
-	</event>
+    <security:identity authenticate-method="#{authenticator.authenticate}"/>
+    <security:jpa-token-store token-class="com.scandihealth.olympicsc.security.model.AuthenticationToken"/>
+    <security:remember-me mode="autoLogin"/>
+    <event type="org.jboss.seam.security.notLoggedIn">
+        <action execute="#{redirect.captureCurrentView}"/>
+        <action execute="#{identity.tryLogin()}"/>
+    </event>
 
-	<event type="org.jboss.seam.security.loginSuccessful">
-		<action execute="#{redirect.returnToCapturedView}"/>
-	</event>
-	<component class="org.jboss.seam.web.MultipartFilter">
-		<property name="createTempFiles">false</property>
-		<property name="maxRequestSize">10000000</property>
-	</component>
+    <event type="org.jboss.seam.security.loginSuccessful">
+        <action execute="#{redirect.returnToCapturedView}"/>
+    </event>
+    <component class="org.jboss.seam.web.MultipartFilter">
+        <property name="createTempFiles">false</property>
+        <property name="maxRequestSize">10000000</property>
+    </component>
 
-	<i18n:time-zone-selector cookie-enabled="true" time-zone-id="Europe/Copenhagen"/>
+    <i18n:time-zone-selector cookie-enabled="true" time-zone-id="Europe/Copenhagen"/>
 
-	<mail:mailSession host="gwhmail.csc.dk" debug="true">
-	</mail:mailSession>
+    <mail:mailSession host="gwhmail.csc.dk" debug="true">
+    </mail:mailSession>
+
+    <document:document-store use-extensions="true"/>
+    <!--<excel:excelFactory>-->
+        <!--<property name="implementations">-->
+            <!--<key>myExcelExporter</key>-->
+            <!--<value>my.excel.exporter.ExcelExport</value>-->
+        <!--</property>-->
+    <!--</excel:excelFactory>-->
 </components>

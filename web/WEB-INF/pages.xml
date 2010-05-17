@@ -72,6 +72,9 @@
             <rule if-outcome="createMail">
                 <redirect view-id="/mailSystem/mailer.xhtml"/>
             </rule>
+            <rule if-outcome="olympicscDataToExcell">
+                <redirect view-id="/olympicsc/dataToExcell.xhtml"/>
+            </rule>
         </navigation>
     </page>
 

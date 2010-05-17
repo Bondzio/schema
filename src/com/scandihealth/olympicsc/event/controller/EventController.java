@@ -8,6 +8,7 @@ import com.scandihealth.olympicsc.commandsystem.user.SaveUserCommand;
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.event.model.EventRepository;
+import com.scandihealth.olympicsc.event.model.ExcelColumnData;
 import com.scandihealth.olympicsc.event.model.UserForActivityPaintData;
 import com.scandihealth.olympicsc.security.Authenticator;
 import com.scandihealth.olympicsc.user.User;
@@ -21,10 +22,7 @@ import org.jboss.seam.faces.Renderer;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Name("eventController")
 @Scope(ScopeType.SESSION)
@@ -139,6 +137,7 @@ public class EventController implements Serializable {
         return hasActivities;
     }
 
+
     public void deleteEvent() {
         DeleteEventCommand deleteEventCommand = new DeleteEventCommand(eventRepository, selectedEvent);
         commandController.executeCommand(deleteEventCommand);
@@ -154,6 +153,11 @@ public class EventController implements Serializable {
     public String updateEvent() {
         return "updateEvent";
     }
+
+    public String showExcel() {
+        return "olympicscDataToExcell";
+    }
+
 
     public List<User> getUsers() {
         DataManager dataManager = new DataManager();
@@ -213,7 +217,7 @@ public class EventController implements Serializable {
         return userForActivity;
     }
 
-    private void calculateUsersForActivity(Activity activity) {
+    public void calculateUsersForActivity(Activity activity) {
         DataManager dataManager = new DataManager();
         userForActivity = dataManager.getUserForActivity(activity);
         usersForActivityPaintData = new UserForActivityPaintData();
@@ -232,5 +236,63 @@ public class EventController implements Serializable {
 
     public void setUserForActivityPaintBean(UserForActivityPaintBean userForActivityPaintBean) {
         this.userForActivityPaintBean = userForActivityPaintBean;
+    }
+
+
+    public List<String> getExcelColumnHeaders() {
+        List<String> result = new ArrayList<String>();
+        result.add("Navn");
+        List<Activity> activities = selectedEvent.getActivityList();
+         Collections.sort(activities, new Comparator<Activity>() {
+            public int compare(Activity o1, Activity o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        for (Activity activity : activities) {
+            result.add(activity.getName());
+        }
+        return result;
+    }
+
+    List<List<String>> data;
+
+    public List<List<String>> getColumnData() {
+        List<List<String>> result = new ArrayList<List<String>>();
+
+        List<User> userList = getUsers();
+        Collections.sort(userList, new Comparator<User>() {
+            public int compare(User o1, User o2) {
+                return o1.getFirstname().compareTo(o2.getFirstname());
+            }
+        });
+        List<Activity> activities = selectedEvent.getActivityList();
+        Collections.sort(activities, new Comparator<Activity>() {
+            public int compare(Activity o1, Activity o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        for (User user : userList) {
+            List<String> column = new ArrayList<String>();
+            column.add(user.getFirstname() + " " + user.getLastname());
+            for (Activity activity : activities) {
+                if (user.getActivities().contains(activity)) {
+                    column.add("1");
+                } else {
+                    column.add("0");
+                }
+            }
+            result.add(column);
+        }
+
+
+        return result;
+    }
+
+    public String userHasJoinedActivity(User user, Activity activity) {
+        if (user.getActivities().contains(activity)) {
+            return "1";
+        } else {
+            return "0";
+        }
     }
 }
