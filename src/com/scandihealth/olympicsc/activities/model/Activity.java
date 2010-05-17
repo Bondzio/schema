@@ -13,250 +13,300 @@ import java.util.Date;
 @javax.persistence.Table(name = "activity", catalog = "olympicsc")
 @Name("activity")
 @Scope(ScopeType.EVENT)
-public class Activity implements Serializable {
-    private int idactivity;
-    private String name;
-    private String description;
-    private Date start;
-    private Date end;
-    private int minimumplayers;
-    private int minimumteams;
-    private Location location;
-    private String responsible;
-    private boolean canRequestPartner = false;
-    private Integer memberPrice;
-    private Integer notMemberPrice;
-    private Integer noShowPrice;
-    private String partnerRequest;
+public class Activity implements Serializable
+{
+	private int idactivity;
+	private String name;
+	private String description;
+	private Date start;
+	private Date end;
+	private int minimumplayers;
+	private int minimumteams;
+	private Location location;
+	private String responsible;
+	private boolean canRequestPartner = false;
+	private Integer memberPrice;
+	private Integer notMemberPrice;
+	private Integer noShowPrice;
+	private String partnerRequest;
 
 
-    @javax.persistence.Column(name = "idactivity")
-    @GeneratedValue
-    @Id
-    public int getIdactivity() {
-        return idactivity;
-    }
+	@javax.persistence.Column(name = "idactivity")
+	@GeneratedValue
+	@Id
+	public int getIdactivity()
+	{
+		return idactivity;
+	}
 
-    public void setIdactivity(int idactivity) {
-        this.idactivity = idactivity;
-    }
+	public void setIdactivity( int idactivity )
+	{
+		this.idactivity = idactivity;
+	}
 
-    @javax.persistence.Column(name = "name")
-    @Basic
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@javax.persistence.Column(name = "name")
+	@Basic
+	public String getName()
+	{
+		return name;
+	}
 
-    @javax.persistence.Column(name = "description")
-    @Basic
-    public String getDescription() {
-        return description;
-    }
+	public void setName( String name )
+	{
+		this.name = name;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	@javax.persistence.Column(name = "description")
+	@Basic
+	public String getDescription()
+	{
+		return description;
+	}
 
-    @javax.persistence.Column(name = "start")
-    @Basic
-    public Date getStart() {
-        return start;
-    }
+	public void setDescription( String description )
+	{
+		this.description = description;
+	}
 
-    public void setStart(Date start) {
-        this.start = start;
-    }
+	@javax.persistence.Column(name = "start")
+	@Basic
+	public Date getStart()
+	{
+		return start;
+	}
 
-    @javax.persistence.Column(name = "end")
-    @Basic
-    public Date getEnd() {
-        return end;
-    }
+	public void setStart( Date start )
+	{
+		this.start = start;
+	}
 
-    public void setEnd(Date end) {
-        this.end = end;
-    }
+	@javax.persistence.Column(name = "end")
+	@Basic
+	public Date getEnd()
+	{
+		return end;
+	}
 
-    @javax.persistence.Column(name = "minimumPlayers")
-    @Basic
-    public int getMinimumplayers() {
-        return minimumplayers;
-    }
+	public void setEnd( Date end )
+	{
+		this.end = end;
+	}
 
-    public void setMinimumplayers(int minimumplayers) {
-        this.minimumplayers = minimumplayers;
-    }
+	@javax.persistence.Column(name = "minimumPlayers")
+	@Basic
+	public int getMinimumplayers()
+	{
+		return minimumplayers;
+	}
 
-    @javax.persistence.Column(name = "minimumTeams")
-    @Basic
-    public int getMinimumteams() {
-        return minimumteams;
-    }
+	public void setMinimumplayers( int minimumplayers )
+	{
+		this.minimumplayers = minimumplayers;
+	}
 
-    public void setMinimumteams(int minimumteams) {
-        this.minimumteams = minimumteams;
-    }
+	@javax.persistence.Column(name = "minimumTeams")
+	@Basic
+	public int getMinimumteams()
+	{
+		return minimumteams;
+	}
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "location_idlocation")
-    public Location getLocation() {
-        return location;
-    }
+	public void setMinimumteams( int minimumteams )
+	{
+		this.minimumteams = minimumteams;
+	}
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, optional = true)
+	@JoinColumn(name = "location_idlocation")
+	public Location getLocation()
+	{
+		return location;
+	}
 
-    @Column(name = "responsible", nullable = true, length = 90)
-    public String getResponsible() {
-        return responsible;
-    }
+	public void setLocation( Location location )
+	{
+		this.location = location;
+	}
 
-    public void setResponsible(String responsible) {
-        this.responsible = responsible;
-    }
+	@Column(name = "responsible", nullable = true, length = 90)
+	public String getResponsible()
+	{
+		return responsible;
+	}
 
-    @Column(name = "canrequestpartner")
-    public boolean isCanRequestPartner() {
-        return canRequestPartner;
-    }
+	public void setResponsible( String responsible )
+	{
+		this.responsible = responsible;
+	}
 
-    public void setCanRequestPartner(boolean canRequestPartner) {
-        this.canRequestPartner = canRequestPartner;
-    }
+	@Column(name = "canrequestpartner")
+	public boolean isCanRequestPartner()
+	{
+		return canRequestPartner;
+	}
 
-    @Column(name = "memberprice")
-    public Integer getMemberPrice() {
-        return memberPrice;
-    }
+	public void setCanRequestPartner( boolean canRequestPartner )
+	{
+		this.canRequestPartner = canRequestPartner;
+	}
 
-    public void setMemberPrice(Integer memberPrice) {
-        this.memberPrice = memberPrice;
-    }
+	@Column(name = "memberprice")
+	public Integer getMemberPrice()
+	{
+		return memberPrice;
+	}
 
-    @Column(name = "notmemberprice")
-    public Integer getNotMemberPrice() {
-        return notMemberPrice;
-    }
+	public void setMemberPrice( Integer memberPrice )
+	{
+		this.memberPrice = memberPrice;
+	}
 
-    public void setNotMemberPrice(Integer notMemberPrice) {
-        this.notMemberPrice = notMemberPrice;
-    }
+	@Column(name = "notmemberprice")
+	public Integer getNotMemberPrice()
+	{
+		return notMemberPrice;
+	}
 
-    @Column(name = "noshowprice")
-    public Integer getNoShowPrice() {
-        return noShowPrice;
-    }
+	public void setNotMemberPrice( Integer notMemberPrice )
+	{
+		this.notMemberPrice = notMemberPrice;
+	}
 
-    public void setNoShowPrice(Integer noShowPrice) {
-        this.noShowPrice = noShowPrice;
-    }
+	@Column(name = "noshowprice")
+	public Integer getNoShowPrice()
+	{
+		return noShowPrice;
+	}
 
-    @Transient
-    public String getShortDescription() {
-        if (description.length() > 300) {
-            return description.substring(0, 297) + "...";
-        }
-        return description;
-    }
+	public void setNoShowPrice( Integer noShowPrice )
+	{
+		this.noShowPrice = noShowPrice;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	@Transient
+	public String getShortDescription()
+	{
+		if ( description.length() > 300 )
+		{
+			return description.substring( 0, 297 ) + "...";
+		}
+		return description;
+	}
 
-        Activity activity = (Activity) o;
+	@Override
+	public boolean equals( Object o )
+	{
+		if ( this == o )
+		{
+			return true;
+		}
+		if ( o == null || getClass() != o.getClass() )
+		{
+			return false;
+		}
 
-        if (idactivity != activity.idactivity) {
-            return false;
-        }
-        if (name != null ? !name.equals(activity.name) : activity.name != null) {
-            return false;
-        }
-        return true;
-    }
+		Activity activity = ( Activity ) o;
 
-    @Override
-    public int hashCode() {
-        int result = idactivity;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
-    }
+		if ( idactivity != activity.idactivity )
+		{
+			return false;
+		}
+		if ( name != null ? !name.equals( activity.name ) : activity.name != null )
+		{
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        return "Activity{" +
-                "idactivity=" + idactivity +
-                ", name='" + name + '\'' +
-                '}';
-    }
+	@Override
+	public int hashCode()
+	{
+		int result = idactivity;
+		result = 31 * result + ( name != null ? name.hashCode() : 0 );
+		return result;
+	}
 
-    @Transient
-    public String getPartnerRequest() {
-        return partnerRequest;
-    }
+	@Override
+	public String toString()
+	{
+		return "Activity{" +
+			"idactivity=" + idactivity +
+			", name='" + name + '\'' +
+			'}';
+	}
 
-    public void setPartnerRequest(String partnerRequest) {
-        this.partnerRequest = partnerRequest;
-    }
+	@Transient
+	public String getPartnerRequest()
+	{
+		return partnerRequest;
+	}
 
-    private String text;
-    private Integer color;
-    private float scale;
+	public void setPartnerRequest( String partnerRequest )
+	{
+		this.partnerRequest = partnerRequest;
+	}
 
-    @Transient
-    public Integer getColor() {
-        return color;
-    }
+	private String text;
+	private Integer color;
+	private float scale;
 
-    public void setColor(Integer color) {
-        this.color = color;
-    }
+	@Transient
+	public Integer getColor()
+	{
+		return color;
+	}
 
-    @Transient
-    public float getScale() {
-        return scale;
-    }
+	public void setColor( Integer color )
+	{
+		this.color = color;
+	}
 
-    public void setScale(float scale) {
-        this.scale = scale;
-    }
+	@Transient
+	public float getScale()
+	{
+		return scale;
+	}
 
-    @Transient
-    public String getText() {
-        return "Test";
-    }
+	public void setScale( float scale )
+	{
+		this.scale = scale;
+	}
 
-    public void setText(String text) {
+	@Transient
+	public String getText()
+	{
+		return "Test";
+	}
+
+	public void setText( String text )
+	{
 //        this.text = text;
-    }
+	}
 
-    private long percentage;
-    @Transient
-    public long getPercentage() {
-        return percentage;
-    }
+	private long percentage;
 
-    public void setPercentage(long percentage) {
-        this.percentage = percentage;
-    }
+	@Transient
+	public long getPercentage()
+	{
+		return percentage;
+	}
 
-    private long offset;
+	public void setPercentage( long percentage )
+	{
+		this.percentage = percentage;
+	}
 
-    @Transient
-    public long getOffset() {
-        return offset;
-    }
+	private long offset;
 
-    public void setOffset(long offset) {
-        this.offset = offset;
-    }
+	@Transient
+	public long getOffset()
+	{
+		return offset;
+	}
+
+	public void setOffset( long offset )
+	{
+		this.offset = offset;
+	}
 }
