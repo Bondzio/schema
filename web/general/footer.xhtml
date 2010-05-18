@@ -1,52 +1,51 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:s="http://jboss.com/products/seam/taglib"
-				xmlns:rich="http://richfaces.org/rich"
-				xmlns:a4j="http://richfaces.org/a4j">
-	<style type="text/css">
-		.leftAligned {
-			text-align: left;
-		}
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <style type="text/css">
+        .leftAligned {
+            text-align: left;
+        }
 
-		.rightAligned {
-			text-align: right;
-		}
+        .rightAligned {
+            text-align: right;
+        }
 
-		.body1 {
-			margin: 0;
-			padding: 0;
-			text-align: center;
-		}
+        .body1 {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
 
-		.headerText {
-		/*background-color: white;*/
-			color: black;
-			text-align: right;
-		}
+        .headerText {
+        /*background-color: white;*/
+            color: black;
+            text-align: right;
+        }
 
-	</style>
-	<rich:panel bodyClass="body1">
-		<table width="100%" style="height:35px">
-			<tr>
-				<td align="left">
-					<rich:spacer width="10px"/>
-					<h:outputLabel value="Logget ind som: #{user.firstname} #{user.lastname}"
-								   rendered="#{not empty user.firstname or not empty user.lastname}"/>
-					<h:outputLabel value="Ikke logget ind" rendered="#{empty user.firstname and empty user.lastname}"/>
+    </style>
 
-				</td>
-				<td align="left">
-				</td>
-				<td align="right">
-					<h:panelGrid columns="2">
-						<h:outputLabel value="Schema version 1.0.1"/>
-					</h:panelGrid>
-				</td>
-				<td align="right">
-				</td>
-			</tr>
-		</table>
-	</rich:panel>
+    <rich:panel bodyClass="body1">
+        <table width="100%" style="height:35px">
+            <tr>
+                <td align="left">
+                    <rich:spacer width="10px"/>
+                    <h:outputLabel value="Logget ind som: #{user.firstname} #{user.lastname}"
+                                   rendered="#{not empty user.firstname or not empty user.lastname}"/>
+                    <h:outputLabel value="Ikke logget ind" rendered="#{empty user.firstname and empty user.lastname}"/>
+
+                </td>
+                <td align="left">
+                </td>
+                <td align="right">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Schema version 1.0.1"/>
+                    </h:panelGrid>
+                </td>
+            </tr>
+        </table>
+    </rich:panel>
 </ui:composition>

@@ -22,8 +22,9 @@
 
 
     </style>
-    <h:panelGrid columns="1" rendered="#{eventController.selectedEvent.canRequestPartner}">
-        <h:outputLabel value="Hvis du vil have en ledsager med kan du skrive det her."/>
-        <h:inputText value="#{eventController.selectedEvent.partnerRequest}" id="choosePartner"/>
+    <h:panelGrid columns="2" rendered="#{eventController.selectedEvent.canRequestPartner}">
+        <h:outputLabel value="Jeg vil gerne have en ledsager med"/>
+        <h:selectBooleanCheckbox value="#{eventController.selectedEvent.partnerRequest}"/>
+        <!--<h:inputText value="#{eventController.selectedEvent.partnerRequest}" id="choosePartner"/>-->
     </h:panelGrid>
 </ui:composition>

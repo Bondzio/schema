@@ -1,7 +1,6 @@
 package com.scandihealth.olympicsc.event.model;
 
 import com.scandihealth.olympicsc.activities.model.Activity;
-import com.scandihealth.olympicsc.configurableinfo.ConfigurableInfoValueRange;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
 import com.scandihealth.olympicsc.location.model.Location;
 import org.jboss.seam.annotations.Name;
@@ -30,11 +29,10 @@ public class Event implements Serializable {
     private Logo logo;
     private boolean canRequestPartner = false;
     private boolean canRequestVegetarian = false;
-    private String partnerRequest;
-    private boolean vegetarianRequest = false;
+    private boolean partnerRequest;
+    private int vegetarianRequest = 0;
     private Set<Activity> activities = new HashSet<Activity>();
     private List<Activity> activityList;
-    private Set<ConfigurableInfoValueRange> configurableinfovalueRanges = new HashSet<ConfigurableInfoValueRange>();
 
     @javax.persistence.Column(name = "idevent")
     @GeneratedValue
@@ -188,20 +186,20 @@ public class Event implements Serializable {
     }
 
     @Transient
-    public String getPartnerRequest() {
+    public boolean isPartnerRequest() {
         return partnerRequest;
     }
 
-    public void setPartnerRequest(String partnerRequest) {
+    public void setPartnerRequest(boolean partnerRequest) {
         this.partnerRequest = partnerRequest;
     }
 
     @Transient
-    public boolean isVegetarianRequest() {
+    public int getVegetarianRequest() {
         return vegetarianRequest;
     }
 
-    public void setVegetarianRequest(boolean vegetarianRequest) {
+    public void setVegetarianRequest(int vegetarianRequest) {
         this.vegetarianRequest = vegetarianRequest;
     }
 
@@ -246,17 +244,6 @@ public class Event implements Serializable {
         this.activities = activities;
         activityList = new ArrayList<Activity>();
         activityList.addAll(activities);
-    }
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "configurableinfovaluerange_has_event", joinColumns = {@JoinColumn(name = "configurableinfovaluerange_idconfigurableinfovaluerange")},
-            inverseJoinColumns = {@JoinColumn(name = "event_idevent")})
-    public Set<ConfigurableInfoValueRange> getConfigurableinfovalueRanges() {
-        return configurableinfovalueRanges;
-    }
-
-    public void setConfigurableinfovalueRanges(Set<ConfigurableInfoValueRange> configurableinfovalueRanges) {
-        this.configurableinfovalueRanges = configurableinfovalueRanges;
     }
 
     @Transient

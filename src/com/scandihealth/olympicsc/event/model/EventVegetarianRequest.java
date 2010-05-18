@@ -43,15 +43,15 @@ public class EventVegetarianRequest {
         this.idevent = idevent;
     }
 
-    private boolean vegetarian;
+    private int vegetarian;
 
     @javax.persistence.Column(name = "vegetarian", nullable = false, insertable = true, updatable = true, length = 0, precision = 0)
     @Basic
-    public boolean isVegetarian() {
+    public int getVegetarian() {
         return vegetarian;
     }
 
-    public void setVegetarian(boolean vegetarian) {
+    public void setVegetarian(int vegetarian) {
         this.vegetarian = vegetarian;
     }
 
@@ -75,7 +75,7 @@ public class EventVegetarianRequest {
         int result = idvegetarianrequest;
         result = 31 * result + iduser;
         result = 31 * result + idevent;
-        result = 31 * result + (vegetarian ? 1 : 0);
+        result = 31 * result + vegetarian;
         return result;
     }
 }

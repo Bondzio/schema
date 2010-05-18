@@ -87,7 +87,7 @@ public class EventController implements Serializable {
         DataManager dataManager = new DataManager();
         EventPartnerRequest eventPartnerRequest = dataManager.getEventPartnerRequest(user, event);
         if (eventPartnerRequest != null) {
-            event.setPartnerRequest(eventPartnerRequest.getPartnernames());
+            event.setPartnerRequest(eventPartnerRequest.isPartnerRequest());
         }
     }
 
@@ -96,7 +96,7 @@ public class EventController implements Serializable {
         DataManager dataManager = new DataManager();
         EventVegetarianRequest eventVegetarianRequest = dataManager.getEventVegetarianRequest(user, event);
         if (eventVegetarianRequest != null) {
-            event.setVegetarianRequest(eventVegetarianRequest.isVegetarian());
+            event.setVegetarianRequest(eventVegetarianRequest.getVegetarian());
         }
     }
 
@@ -160,22 +160,30 @@ public class EventController implements Serializable {
             EventVegetarianRequest eventVegetarianRequest = new EventVegetarianRequest();
             eventVegetarianRequest.setIduser(authenticator.getUser().getIduser());
             eventVegetarianRequest.setIdevent(selectedEvent.getIdevent());
-            eventVegetarianRequest.setVegetarian(selectedEvent.isVegetarianRequest());
+            eventVegetarianRequest.setVegetarian(selectedEvent.getVegetarianRequest());
             dataManager.saveEventVegetarianRequest(eventVegetarianRequest);
         }
-        String partnerRequest = selectedEvent.getPartnerRequest();
-        if (partnerRequest != null && !"".equals(partnerRequest)) {
+
+        if (selectedEvent.isCanRequestPartner()) {
             DataManager dataManager = new DataManager();
             EventPartnerRequest eventPartnerRequest = new EventPartnerRequest();
             eventPartnerRequest.setIduser(authenticator.getUser().getIduser());
             eventPartnerRequest.setIdevent(selectedEvent.getIdevent());
-            eventPartnerRequest.setPartnernames(partnerRequest);
+            eventPartnerRequest.setPartnerRequest(selectedEvent.isPartnerRequest());
             dataManager.saveEventPartnerRequest(eventPartnerRequest);
         }
         UpdateEventCommand updateEventCommand = new UpdateEventCommand(eventRepository, selectedEvent);
         commandController.executeCommand(updateEventCommand);
         FacesContext.getCurrentInstance().addMessage("eventList", new FacesMessage(selectedEvent.getName() + " er blevet opdateret."));
         return "";
+    }
+
+    public Boolean getHasActivities() {
+        return hasActivities;
+    }
+
+    public void setHasActivities(Boolean hasActivities) {
+        this.hasActivities = hasActivities;
     }
 
     public String updateEvent() {

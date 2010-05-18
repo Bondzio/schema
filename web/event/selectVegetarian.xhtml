@@ -16,14 +16,17 @@
             vertical-align: top;
         }
 
-        p {
-            margin: 0;
-        }
+        /*p {*/
+        /*margin: 0;*/
+        /*}*/
 
 
     </style>
-    <h:outputLabel value="Jeg vil gerne have vegetar mad"/>
-    <h:selectBooleanCheckbox value="#{eventController.selectedEvent.vegetarianRequest}"
-                             rendered="#{eventController.selectedEvent.canRequestVegetarian}"
-                             id="chooseVegetarian"/>
+    <h:outputLabel value="Antal vegetarer" rendered="#{eventController.selectedEvent.canRequestVegetarian}"/>
+    <rich:comboBox selectFirstOnUpdate="false" value="#{eventController.selectedEvent.vegetarianRequest}"
+                   defaultLabel="Select some value">
+        <f:selectItem itemValue="0"/>
+        <f:selectItem itemValue="1"/>
+        <f:selectItem itemValue="2"/>
+    </rich:comboBox>
 </ui:composition>

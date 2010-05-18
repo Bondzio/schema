@@ -26,7 +26,6 @@
         <mapping class="com.scandihealth.olympicsc.user.User"/>
         <mapping class="com.scandihealth.olympicsc.imageupload.model.Logo"/>
         <mapping class="com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest"/>
-        <mapping class="com.scandihealth.olympicsc.configurableinfo.ConfigurableInfoValueRange"/>
         <mapping class="com.scandihealth.olympicsc.event.model.EventPartnerRequest"/>
         <mapping class="com.scandihealth.olympicsc.event.model.EventVegetarianRequest"/>
         <!--<mapping class="com.scandihealth.olympicsc.imageupload.Thumbnail"/>-->
