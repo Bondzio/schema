@@ -15,7 +15,10 @@ import org.jboss.seam.annotations.security.management.UserPrincipal;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @javax.persistence.Table(name = "user", catalog = "olympicsc")
 @Entity
@@ -38,7 +41,7 @@ public class User implements Serializable {
     private Set<Event> events = new HashSet<Event>();
     private Set<Activity> activities = new HashSet<Activity>();
     private List<String> roles;
-    
+
     public User() {
         roles = new ArrayList<String>();
     }
@@ -203,7 +206,7 @@ public class User implements Serializable {
     public boolean hasJoinedEvent(Event event) {
         if (events == null || events.size() == 0) {
             DataManager dataManager = new DataManager();
-            
+
         }
         return events.contains(event);
     }

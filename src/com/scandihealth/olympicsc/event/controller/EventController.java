@@ -8,7 +8,6 @@ import com.scandihealth.olympicsc.commandsystem.user.SaveUserCommand;
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.event.model.EventRepository;
-import com.scandihealth.olympicsc.event.model.ExcelColumnData;
 import com.scandihealth.olympicsc.event.model.UserForActivityPaintData;
 import com.scandihealth.olympicsc.security.Authenticator;
 import com.scandihealth.olympicsc.user.User;
@@ -243,7 +242,7 @@ public class EventController implements Serializable {
         List<String> result = new ArrayList<String>();
         result.add("Navn");
         List<Activity> activities = selectedEvent.getActivityList();
-         Collections.sort(activities, new Comparator<Activity>() {
+        Collections.sort(activities, new Comparator<Activity>() {
             public int compare(Activity o1, Activity o2) {
                 return o1.getName().compareTo(o2.getName());
             }

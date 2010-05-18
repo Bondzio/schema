@@ -1,6 +1,5 @@
 package com.scandihealth.olympicsc.security.provider;
 
-import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.user.User;
 
 public class LdapSecurityProvider implements SecurityProvider {

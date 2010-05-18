@@ -1,6 +1,5 @@
 package com.scandihealth.olympicsc.activities.model;
 
-import com.scandihealth.olympicsc.activities.model.Activity;
 import org.jboss.seam.annotations.Name;
 
 import java.awt.*;

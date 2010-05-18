@@ -2,7 +2,10 @@ package com.scandihealth.olympicsc.data;
 
 import com.scandihealth.olympicsc.user.User;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +72,7 @@ public class UserImporter {
                     datauser.username.equalsIgnoreCase("mah")) {
                 user.setAdmin(true);
             }
-            
+
             dataManager.saveUser(user);
         }
     }

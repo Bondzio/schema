@@ -6,7 +6,7 @@ import org.jboss.seam.annotations.Name;
 import java.io.Serializable;
 
 @Name("userForActivityPaintData")
-public class UserForActivityPaintData implements Serializable{
+public class UserForActivityPaintData implements Serializable {
     private int numberOfUsers;
     private Activity activity;
 
