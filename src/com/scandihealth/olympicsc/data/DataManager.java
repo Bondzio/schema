@@ -547,17 +547,14 @@ public class DataManager
 
 		if ( getUser( user ) != null )
 		{
-			EntityManagerFactory entityManagerFactory = SessionFactoryUtil.getEntityManagerFactory();
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
-			EntityTransaction transaction = entityManager.getTransaction();
-			transaction.begin();
-//			Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-//            Transaction transaction = session.beginTransaction();
+			Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+			Transaction transaction = session.beginTransaction();
 			try
 			{
 
-				entityManager.merge( user );
+				session.save( user );
 				result = true;
+				session.flush();
 				transaction.commit();
 			}
 			catch ( StaleObjectStateException sose )
@@ -573,19 +570,21 @@ public class DataManager
 			}
 			finally
 			{
-				entityManager.close();
+				if ( session.isOpen() )
+				{
+					session.close();
+				}
 			}
 
 		}
 		else
 		{
-			EntityManagerFactory entityManagerFactory = SessionFactoryUtil.getEntityManagerFactory();
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
-			EntityTransaction transaction = entityManager.getTransaction();
-			transaction.begin();
+			Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+			Transaction transaction = session.beginTransaction();
+
 			try
 			{
-				entityManager.persist( user );
+				session.update( user );
 				transaction.commit();
 				result = true;
 			}
@@ -597,7 +596,10 @@ public class DataManager
 			}
 			finally
 			{
-				entityManager.close();
+				if ( session.isOpen() )
+				{
+					session.close();
+				}
 			}
 
 		}
@@ -605,8 +607,7 @@ public class DataManager
 		return result;
 	}
 
-	public List<User> getUsers
-		()
+	public List<User> getUsers()
 	{
 		Session session = SessionFactoryUtil.getInstance().getCurrentSession();
 		List<User> result = new ArrayList<User>();

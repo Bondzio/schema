@@ -1,172 +1,172 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:s="http://jboss.com/products/seam/taglib"
-                xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:s="http://jboss.com/products/seam/taglib"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:a4j="http://richfaces.org/a4j">
 
-    <style type="text/css">
-        .simpleColumn {
-            border: none;
-        }
+	<style type="text/css">
+		.simpleColumn {
+			border: none;
+		}
 
-        .simpleRow {
-            border: none;
-            vertical-align: top;
-        }
+		.simpleRow {
+			border: none;
+			vertical-align: top;
+		}
 
-        p {
-            margin: 0;
-        }
+		p {
+			margin: 0;
+		}
 
 
-    </style>
-    <h:outputLabel value="#{messages['activity.welcome']}" rendered="#{activityList.size gt 0}"/>
+	</style>
+	<h:outputLabel value="#{messages['activity.welcome']}" rendered="#{activityList.size gt 0}"/>
 
-    <a4j:form ajaxSubmit="true" reRender="activityList" style="border:none;">
-        <rich:dataTable id="activityList" value="#{activityList}" var="activity"
-                        cellpadding="0" cellspacing="0" border="0"
-                        width="100%"
-                        rowClasses="simpleRow"
-                        onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-                        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-                        rendered="#{activityList.size gt 0}">
-            <rich:column sortBy="#{activity.name}">
-                <f:facet name="header">
-                    <h:outputLabel value="#{messages['activity.details']}"/>
-                </f:facet>
-                <table width="100" cellpadding="0" cellspacing="0" border="0">
-                    <tr>
-                        <td>
-                            <h:outputLabel value="#{activity.name}" style="font-weight:bold;"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <rich:spacer height="1"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            #{messages['activity.location']}: <h:outputLabel value="#{activity.location}"
-                                                                             converter="locationConverter"/>
-                        </td>
-                    </tr>
-                </table>
-            </rich:column>
-            <rich:column sortBy="#{activity.start}">
-                <f:facet name="header">
-                    <h:outputLabel value="#{messages['activity.time']}"/>
-                </f:facet>
-                <table width="250" cellpadding="0" cellspacing="0" border="0">
-                    <tr>
-                        <td>
-                            <rich:paint2D id="painter" width="250" height="20" data="#{activity}" format="png"
-                                          paint="#{gantPaintBean.paint}"/>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <td>
-                            #{messages['activity.from']}: <h:outputLabel value="#{activity.start}">
-                            <f:convertDateTime pattern="HH:mm"
-                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
-                        </h:outputLabel>
-                            #{messages['activity.to']}: <h:outputLabel value="#{activity.end}">
-                            <f:convertDateTime pattern="HH:mm"
-                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
-                        </h:outputLabel>
-                        </td>
-                    </tr>
-                </table>
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">
-                    <h:outputLabel value="#{messages['activity.description']}"/>
-                </f:facet>
-                <table width="350" cellpadding="0" cellspacing="0" border="0">
-                    <tr valign="top">
-                        <td>
-                            <s:formattedText value="#{activity.shortDescription}"/>
-                        </td>
-                    </tr>
-                </table>
-            </rich:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputLabel value="#{messages['activity.partnerrequest']}"
-                                   title="#{messages['activity.partnerrequesthelp']}"/>
-                </f:facet>
-                <h:inputText value="#{activity.partnerRequest}" rendered="#{activity.canRequestPartner}"
-                             title="#{messages['activity.partnerrequesthelp']}"/>
-            </h:column>
-            <rich:column rendered="#{s:hasRole('admin')}">
-                <f:facet name="header">
-                    <h:outputLabel value="#{messages['activity.minimumdemands']}"/>
-                </f:facet>
-                <table cellpadding="0" cellspacing="0" border="0">
-                    <tr valign="top">
-                        <td>
-                            <h:outputLabel value="#{activity.minimumplayers}"/>
-                            <h:outputLabel value="#{activity.minimumteams}"/>
-                        </td>
-                    </tr>
-                </table>
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">
-                    <h:outputLabel value="#{messages['activity.prices']}"/>
-                </f:facet>
-                <table cellpadding="0" cellspacing="0" border="0">
-                    <tr valign="top">
-                        <td>
-                            <h:panelGrid columns="2"
-                                         rendered="#{activity.memberPrice gt 0 or activity.notMemberPrice gt 0 or activity.noShowPrice gt 0}">
-                                <h:outputLabel value="#{messages['activity.memberprice']}"
-                                               rendered="#{activity.memberPrice gt 0}"/>
-                                <h:outputLabel value="#{activity.memberPrice}"
-                                               rendered="#{activity.memberPrice gt 0}"/>
-                                <h:outputLabel value="#{messages['activity.notmemberprice']}"
-                                               rendered="#{activity.notMemberPrice gt 0}"/>
-                                <h:outputLabel value="#{activity.notMemberPrice}"
-                                               rendered="#{activity.notMemberPrice gt 0}"/>
-                                <h:outputLabel value="#{messages['activity.noshowprice']}"
-                                               rendered="#{activity.noShowPrice gt 0}"/>
-                                <h:outputLabel value="#{activity.noShowPrice}"
-                                               rendered="#{activity.noShowPrice gt 0}"/>
-                            </h:panelGrid>
-                        </td>
-                    </tr>
-                </table>
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">
-                    <h:outputLabel value="#{messages['activity.responsible']}"/>
-                </f:facet>
-                <table cellpadding="0" cellspacing="0" border="0">
-                    <tr valign="top">
-                        <td>
-                            <h:outputLabel value="#{activity.responsible}"/>
-                        </td>
-                    </tr>
-                </table>
-            </rich:column>
-            <rich:column rendered="#{eventController.hasJoined}"
-                         id="joinColumn">
-                <h:commandButton value="#{messages['general.attend']}"
-                                 action="#{activitiesController.joinActivity}"
-                                 rendered="#{!activitiesController.hasJoined}"/>
-                <h:commandButton value="#{messages['general.unjoin']}"
-                                 action="#{activitiesController.removeActivity}"
-                                 rendered="#{activitiesController.hasJoined}"/>
-            </rich:column>
-            <rich:column id="joinColumn1" sortBy="#{activitiesController.hasJoined}"
-                         rendered="#{eventController.hasJoined}">
-                <h:graphicImage url="/resources/redx.png" rendered="#{!activitiesController.hasJoined}"
-                                width="24" height="24" id="notjoinedimage"/>
-                <h:graphicImage url="/resources/Checkmark.png" rendered="#{activitiesController.hasJoined}"
-                                width="24" height="24" id="joinedimage"/>
-            </rich:column>
-        </rich:dataTable>
-    </a4j:form>
+	<a4j:form ajaxSubmit="true" reRender="activityList" style="border:none;">
+		<rich:dataTable id="activityList" value="#{activityList}" var="activity"
+						cellpadding="0" cellspacing="0" border="0"
+						width="100%"
+						rowClasses="simpleRow"
+						onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						rendered="#{activityList.size gt 0}">
+			<rich:column sortBy="#{activity.name}">
+				<f:facet name="header">
+					<h:outputLabel value="#{messages['activity.details']}"/>
+				</f:facet>
+				<table width="100" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td>
+							<h:outputLabel value="#{activity.name}" style="font-weight:bold;"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<rich:spacer height="1"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							#{messages['activity.location']}: <h:outputLabel value="#{activity.location}"
+																			 converter="locationConverter"/>
+						</td>
+					</tr>
+				</table>
+			</rich:column>
+			<rich:column sortBy="#{activity.start}" sortOrder="#{activity.start}">
+				<f:facet name="header">
+					<h:outputLabel value="#{messages['activity.time']}"/>
+				</f:facet>
+				<table width="250" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td>
+							<rich:paint2D id="painter" width="250" height="20" data="#{activity}" format="png"
+										  paint="#{gantPaintBean.paint}"/>
+						</td>
+					</tr>
+					<tr valign="top">
+						<td>
+							#{messages['activity.from']}: <h:outputLabel value="#{activity.start}">
+							<f:convertDateTime pattern="HH:mm"
+											   timeZone="#{org.jboss.seam.international.timeZone}"/>
+						</h:outputLabel>
+							#{messages['activity.to']}: <h:outputLabel value="#{activity.end}">
+							<f:convertDateTime pattern="HH:mm"
+											   timeZone="#{org.jboss.seam.international.timeZone}"/>
+						</h:outputLabel>
+						</td>
+					</tr>
+				</table>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputLabel value="#{messages['activity.description']}"/>
+				</f:facet>
+				<table width="350" cellpadding="0" cellspacing="0" border="0">
+					<tr valign="top">
+						<td>
+							<s:formattedText value="#{activity.shortDescription}"/>
+						</td>
+					</tr>
+				</table>
+			</rich:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="#{messages['activity.partnerrequest']}"
+								   title="#{messages['activity.partnerrequesthelp']}"/>
+				</f:facet>
+				<h:inputText value="#{activity.partnerRequest}" rendered="#{activity.canRequestPartner}"
+							 title="#{messages['activity.partnerrequesthelp']}"/>
+			</h:column>
+			<rich:column rendered="#{s:hasRole('admin')}">
+				<f:facet name="header">
+					<h:outputLabel value="#{messages['activity.minimumdemands']}"/>
+				</f:facet>
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr valign="top">
+						<td>
+							<h:outputLabel value="#{activity.minimumplayers}"/>
+							<h:outputLabel value="#{activity.minimumteams}"/>
+						</td>
+					</tr>
+				</table>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputLabel value="#{messages['activity.prices']}"/>
+				</f:facet>
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr valign="top">
+						<td>
+							<h:panelGrid columns="2"
+										 rendered="#{activity.memberPrice gt 0 or activity.notMemberPrice gt 0 or activity.noShowPrice gt 0}">
+								<h:outputLabel value="#{messages['activity.memberprice']}"
+											   rendered="#{activity.memberPrice gt 0}"/>
+								<h:outputLabel value="#{activity.memberPrice}"
+											   rendered="#{activity.memberPrice gt 0}"/>
+								<h:outputLabel value="#{messages['activity.notmemberprice']}"
+											   rendered="#{activity.notMemberPrice gt 0}"/>
+								<h:outputLabel value="#{activity.notMemberPrice}"
+											   rendered="#{activity.notMemberPrice gt 0}"/>
+								<h:outputLabel value="#{messages['activity.noshowprice']}"
+											   rendered="#{activity.noShowPrice gt 0}"/>
+								<h:outputLabel value="#{activity.noShowPrice}"
+											   rendered="#{activity.noShowPrice gt 0}"/>
+							</h:panelGrid>
+						</td>
+					</tr>
+				</table>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputLabel value="#{messages['activity.responsible']}"/>
+				</f:facet>
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr valign="top">
+						<td>
+							<h:outputLabel value="#{activity.responsible}"/>
+						</td>
+					</tr>
+				</table>
+			</rich:column>
+			<rich:column rendered="#{eventController.hasJoined}"
+						 id="joinColumn">
+				<h:commandButton value="#{messages['general.attend']}"
+								 action="#{activitiesController.joinActivity}"
+								 rendered="#{!activitiesController.hasJoined}"/>
+				<h:commandButton value="#{messages['general.unjoin']}"
+								 action="#{activitiesController.removeActivity}"
+								 rendered="#{activitiesController.hasJoined}"/>
+			</rich:column>
+			<rich:column id="joinColumn1" sortBy="#{activitiesController.hasJoined}"
+						 rendered="#{eventController.hasJoined}">
+				<h:graphicImage url="/resources/redx.png" rendered="#{!activitiesController.hasJoined}"
+								width="24" height="24" id="notjoinedimage"/>
+				<h:graphicImage url="/resources/Checkmark.png" rendered="#{activitiesController.hasJoined}"
+								width="24" height="24" id="joinedimage"/>
+			</rich:column>
+		</rich:dataTable>
+	</a4j:form>
 </ui:composition>
