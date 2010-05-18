@@ -10,11 +10,7 @@
     <style type="text/css">
         .headerstyle {
             color: red;
-            font-weight: bold; /*background-color: #a52a2a;*/
-        }
-
-        .smallheader {
-
+            font-weight: bold;
         }
 
         .paintedHeader {
@@ -48,7 +44,7 @@
 
         .rich-table-cell {
         /*border: blue;*/
-            padding: 0; /*margin: 0;*/
+            padding: 1px; /*margin: 0;*/
         }
 
         .nobackground {
@@ -181,7 +177,8 @@
                                 <td colspan="2" align="right">
                                     <h:commandButton value="Opdater"
                                                      action="#{eventController.updateExtraInformation}"
-                                                     disabled="#{!eventController.hasJoined}"/>
+                                                     disabled="#{!eventController.hasJoined}"
+                                                     rendered="#{eventController.selectedEvent.canRequestPartner or eventController.selectedEvent.canRequestVegetarian}"/>
                                 </td>
                             </tr>
                         </table>
