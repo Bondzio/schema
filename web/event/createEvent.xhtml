@@ -67,9 +67,22 @@
                                                datePattern="d/M/yy HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                             </h:panelGrid>
-
                         </rich:panel>
-
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputLabel value="Extra information"/>
+                            </f:facet>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Kan have ledsager?"/>
+                                <h:selectBooleanCheckbox value="#{event.canRequestPartner}"/>
+                                <h:outputLabel value="Kan vaelge vegetar?"/>
+                                <h:selectBooleanCheckbox value="#{event.canRequestVegetarian}"/>
+                            </h:panelGrid>
+                        </rich:panel>
                     </td>
                 </tr>
                 <tr>

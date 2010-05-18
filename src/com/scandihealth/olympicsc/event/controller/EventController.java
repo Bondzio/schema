@@ -6,9 +6,7 @@ import com.scandihealth.olympicsc.commandsystem.CommandController;
 import com.scandihealth.olympicsc.commandsystem.event.*;
 import com.scandihealth.olympicsc.commandsystem.user.SaveUserCommand;
 import com.scandihealth.olympicsc.data.DataManager;
-import com.scandihealth.olympicsc.event.model.Event;
-import com.scandihealth.olympicsc.event.model.EventRepository;
-import com.scandihealth.olympicsc.event.model.UserForActivityPaintData;
+import com.scandihealth.olympicsc.event.model.*;
 import com.scandihealth.olympicsc.security.Authenticator;
 import com.scandihealth.olympicsc.user.User;
 import org.jboss.seam.ScopeType;
@@ -76,8 +74,31 @@ public class EventController implements Serializable {
                 return 0;
             }
         });
+        if (eventList != null) {
+            for (Event event1 : eventList) {
+                addPartnerRequestToEvent(event1);
+                addVegetarianRequestToEvent(event1);
+            }
+        }
     }
 
+    private void addPartnerRequestToEvent(Event event) {
+        User user = authenticator.getUser();
+        DataManager dataManager = new DataManager();
+        EventPartnerRequest eventPartnerRequest = dataManager.getEventPartnerRequest(user, event);
+        if (eventPartnerRequest != null) {
+            event.setPartnerRequest(eventPartnerRequest.getPartnernames());
+        }
+    }
+
+    private void addVegetarianRequestToEvent(Event event) {
+        User user = authenticator.getUser();
+        DataManager dataManager = new DataManager();
+        EventVegetarianRequest eventVegetarianRequest = dataManager.getEventVegetarianRequest(user, event);
+        if (eventVegetarianRequest != null) {
+            event.setVegetarianRequest(eventVegetarianRequest.isVegetarian());
+        }
+    }
 
     public String join() {
         User user = authenticator.getUser();
@@ -85,7 +106,7 @@ public class EventController implements Serializable {
         String result = "";
         JoinEventCommand joinEventCommand = new JoinEventCommand(user, selectedEvent);
         commandController.executeCommand(joinEventCommand);
-        if (selectedEvent.getActivities().size() > 0) {
+        if (selectedEvent.isCanRequestPartner() || selectedEvent.isCanRequestVegetarian() || selectedEvent.getActivities().size() > 0) {
             result = "showEventInfo";
         }
 
@@ -128,21 +149,29 @@ public class EventController implements Serializable {
         return "createActivities";
     }
 
-    public void setHasActivities(Boolean hasActivities) {
-        this.hasActivities = hasActivities;
-    }
-
-    public Boolean getHasActivities() {
-        return hasActivities;
-    }
-
-
     public void deleteEvent() {
         DeleteEventCommand deleteEventCommand = new DeleteEventCommand(eventRepository, selectedEvent);
         commandController.executeCommand(deleteEventCommand);
     }
 
     public String doUpdateEvent() {
+        if (selectedEvent.isCanRequestVegetarian()) {
+            DataManager dataManager = new DataManager();
+            EventVegetarianRequest eventVegetarianRequest = new EventVegetarianRequest();
+            eventVegetarianRequest.setIduser(authenticator.getUser().getIduser());
+            eventVegetarianRequest.setIdevent(selectedEvent.getIdevent());
+            eventVegetarianRequest.setVegetarian(selectedEvent.isVegetarianRequest());
+            dataManager.saveEventVegetarianRequest(eventVegetarianRequest);
+        }
+        String partnerRequest = selectedEvent.getPartnerRequest();
+        if (partnerRequest != null && !"".equals(partnerRequest)) {
+            DataManager dataManager = new DataManager();
+            EventPartnerRequest eventPartnerRequest = new EventPartnerRequest();
+            eventPartnerRequest.setIduser(authenticator.getUser().getIduser());
+            eventPartnerRequest.setIdevent(selectedEvent.getIdevent());
+            eventPartnerRequest.setPartnernames(partnerRequest);
+            dataManager.saveEventPartnerRequest(eventPartnerRequest);
+        }
         UpdateEventCommand updateEventCommand = new UpdateEventCommand(eventRepository, selectedEvent);
         commandController.executeCommand(updateEventCommand);
         FacesContext.getCurrentInstance().addMessage("eventList", new FacesMessage(selectedEvent.getName() + " er blevet opdateret."));
@@ -201,17 +230,6 @@ public class EventController implements Serializable {
         return user.hasJoinedEvent(selectedEvent);
     }
 
-    public String mailAttendees() {
-        try {
-            renderer.render("/mailSystem/sendMail.xhtml");
-//            facesMessages.add("Email sent successfully");
-        } catch (Exception e) {
-            e.printStackTrace();
-//            facesMessages.add("Email sending failed: " + e.getMessage());
-        }
-        return "sendMail";
-    }
-
     public List<User> getUsersForActivity() {
         return userForActivity;
     }
@@ -229,14 +247,6 @@ public class EventController implements Serializable {
         return usersForActivityPaintData;
     }
 
-    public UserForActivityPaintBean getUserForActivityPaintBean() {
-        return userForActivityPaintBean;
-    }
-
-    public void setUserForActivityPaintBean(UserForActivityPaintBean userForActivityPaintBean) {
-        this.userForActivityPaintBean = userForActivityPaintBean;
-    }
-
 
     public List<String> getExcelColumnHeaders() {
         List<String> result = new ArrayList<String>();
@@ -252,8 +262,6 @@ public class EventController implements Serializable {
         }
         return result;
     }
-
-    List<List<String>> data;
 
     public List<List<String>> getColumnData() {
         List<List<String>> result = new ArrayList<List<String>>();
@@ -287,11 +295,8 @@ public class EventController implements Serializable {
         return result;
     }
 
-    public String userHasJoinedActivity(User user, Activity activity) {
-        if (user.getActivities().contains(activity)) {
-            return "1";
-        } else {
-            return "0";
-        }
+    public void updateExtraInformation() {
+        System.out.println("test");
+        doUpdateEvent();
     }
 }

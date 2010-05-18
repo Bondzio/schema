@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <style type="text/css">
+        .simpleColumn {
+            border: none;
+        }
+
+        .simpleRow {
+            border: none;
+            vertical-align: top;
+        }
+
+        p {
+            margin: 0;
+        }
+
+
+    </style>
+    <h:panelGrid columns="1" rendered="#{eventController.selectedEvent.canRequestPartner}">
+        <h:outputLabel value="Hvis du vil have en ledsager med kan du skrive det her."/>
+        <h:inputText value="#{eventController.selectedEvent.partnerRequest}" id="choosePartner"/>
+    </h:panelGrid>
+</ui:composition>

@@ -17,7 +17,7 @@
                          -->
         <property name="current_session_context_class">thread</property>
         <!-- this will show us all sql statements -->
-        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="connection.autocommit">false</property>
         <mapping class="com.scandihealth.olympicsc.activities.model.Activity"/>
@@ -26,6 +26,9 @@
         <mapping class="com.scandihealth.olympicsc.user.User"/>
         <mapping class="com.scandihealth.olympicsc.imageupload.model.Logo"/>
         <mapping class="com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest"/>
+        <mapping class="com.scandihealth.olympicsc.configurableinfo.ConfigurableInfoValueRange"/>
+        <mapping class="com.scandihealth.olympicsc.event.model.EventPartnerRequest"/>
+        <mapping class="com.scandihealth.olympicsc.event.model.EventVegetarianRequest"/>
         <!--<mapping class="com.scandihealth.olympicsc.imageupload.Thumbnail"/>-->
         <!--<mapping class="com.scandihealth.olympicsc.imageupload.LogoInformation"/>-->
         <!-- DB schema will be updated if needed -->

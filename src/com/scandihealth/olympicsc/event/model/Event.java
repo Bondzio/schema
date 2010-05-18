@@ -1,6 +1,7 @@
 package com.scandihealth.olympicsc.event.model;
 
 import com.scandihealth.olympicsc.activities.model.Activity;
+import com.scandihealth.olympicsc.configurableinfo.ConfigurableInfoValueRange;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
 import com.scandihealth.olympicsc.location.model.Location;
 import org.jboss.seam.annotations.Name;
@@ -13,7 +14,6 @@ import java.util.*;
 @javax.persistence.Table(name = "event", catalog = "olympicsc")
 @Name("event")
 public class Event implements Serializable {
-
     private int idevent;
     private String name;
     private String description;
@@ -28,8 +28,13 @@ public class Event implements Serializable {
     private Integer noShowPrice;
     private Location location;
     private Logo logo;
+    private boolean canRequestPartner = false;
+    private boolean canRequestVegetarian = false;
+    private String partnerRequest;
+    private boolean vegetarianRequest = false;
     private Set<Activity> activities = new HashSet<Activity>();
     private List<Activity> activityList;
+    private Set<ConfigurableInfoValueRange> configurableinfovalueRanges = new HashSet<ConfigurableInfoValueRange>();
 
     @javax.persistence.Column(name = "idevent")
     @GeneratedValue
@@ -164,6 +169,42 @@ public class Event implements Serializable {
         this.noShowPrice = noShowPrice;
     }
 
+    @Column(name = "canrequestpartner")
+    public boolean isCanRequestPartner() {
+        return canRequestPartner;
+    }
+
+    public void setCanRequestPartner(boolean canRequestPartner) {
+        this.canRequestPartner = canRequestPartner;
+    }
+
+    @Column(name = "canrequestvegetarian")
+    public boolean isCanRequestVegetarian() {
+        return canRequestVegetarian;
+    }
+
+    public void setCanRequestVegetarian(boolean canRequestVegetarian) {
+        this.canRequestVegetarian = canRequestVegetarian;
+    }
+
+    @Transient
+    public String getPartnerRequest() {
+        return partnerRequest;
+    }
+
+    public void setPartnerRequest(String partnerRequest) {
+        this.partnerRequest = partnerRequest;
+    }
+
+    @Transient
+    public boolean isVegetarianRequest() {
+        return vegetarianRequest;
+    }
+
+    public void setVegetarianRequest(boolean vegetarianRequest) {
+        this.vegetarianRequest = vegetarianRequest;
+    }
+
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "location_idlocation")
     public Location getLocation() {
@@ -205,6 +246,17 @@ public class Event implements Serializable {
         this.activities = activities;
         activityList = new ArrayList<Activity>();
         activityList.addAll(activities);
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "configurableinfovaluerange_has_event", joinColumns = {@JoinColumn(name = "configurableinfovaluerange_idconfigurableinfovaluerange")},
+            inverseJoinColumns = {@JoinColumn(name = "event_idevent")})
+    public Set<ConfigurableInfoValueRange> getConfigurableinfovalueRanges() {
+        return configurableinfovalueRanges;
+    }
+
+    public void setConfigurableinfovalueRanges(Set<ConfigurableInfoValueRange> configurableinfovalueRanges) {
+        this.configurableinfovalueRanges = configurableinfovalueRanges;
     }
 
     @Transient

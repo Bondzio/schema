@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="/pagelayout.xhtml">
+
+    <ui:define name="content">
+        <a4j:form ajaxSubmit="true">
+            <table>
+                <tr>
+                    <td>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Name"/>
+                            <h:inputText value="#{configurableinfovaluerange.name}"/>
+                            <h:outputLabel value="Minimum value"/>
+                            <rich:inputNumberSpinner value="#{configurableinfovaluerange.min}"/>
+                            <h:outputLabel value="Maximum value"/>
+                            <rich:inputNumberSpinner value="#{configurableinfovaluerange.max}"/>
+                            <h:outputLabel value="Step size"/>
+                            <rich:inputNumberSpinner value="#{configurableinfovaluerange.stepsize}"/>
+                            <h:outputLabel value="Initial value"/>
+                            <rich:inputNumberSpinner value="#{configurableinfovaluerange.initial}"/>
+                        </h:panelGrid>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:commandButton value="Create" action="#{configurableInfoController.createValueRange}"/>
+                    </td>
+                </tr>
+            </table>
+
+        </a4j:form>
+    </ui:define>
+</ui:composition>

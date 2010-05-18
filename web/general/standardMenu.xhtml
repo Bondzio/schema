@@ -119,6 +119,12 @@
             </rich:dropDownMenu>
             <rich:dropDownMenu rendered="#{s:hasRole('admin')}">
                 <f:facet name="label">
+                    <h:outputText value="Configurable Information"/>
+                </f:facet>
+                <rich:menuItem submitMode="ajax" value="Create value range" action="createValueRange"/>
+            </rich:dropDownMenu>
+            <rich:dropDownMenu rendered="#{s:hasRole('admin')}">
+                <f:facet name="label">
                     <h:outputText value="Group"/>
                 </f:facet>
                 <rich:menuItem submitMode="ajax" value="Kommer senere"/>

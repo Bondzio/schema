@@ -1,188 +1,183 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:s="http://jboss.com/products/seam/taglib"
-				xmlns:rich="http://richfaces.org/rich"
-				xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
-	<style type="text/css">
-		.headerstyle {
-			background-color: #a52a2a;
-		}
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
 
-		.blof {
-			background-color: #faebd7;
-		}
+    <ui:define name="content">
+        <style type="text/css">
+            .headerstyle {
+                background-color: #a52a2a;
+            }
 
-		.column75 {
-			width: 75%;
-			text-align: center;
-			vertical-align: top;
-		}
+            .paintedHeader {
+                background-color: aqua;
+                border: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
 
-		.column25 {
-			width: 25%;
-			text-align: center;
-			vertical-align: top;
-		}
+            .rich-stglpanel-header {
+                background: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
 
-		.topaligned {
-			vertical-align: top;
-		}
+            .rich-stglpanel-body {
+                background: aqua;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
 
-		.centered {
-			text-align: center;
-		}
-	</style>
-	<ui:define name="content">
-		<style type="text/css">
-			.headerstyle {
-				background-color: #a52a2a;
-			}
+            .rich-stglpanel {
+                background: #8b0000;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
 
-			.paintedHeader {
-				background-color: aqua;
-				border: none;
-				border: none;
-				padding: 0;
-				margin: 0;
-			}
+            .rich-table-cell {
+            /*border: blue;*/
+                padding: 0; /*margin: 0;*/
+            }
 
-			.rich-stglpanel-header {
-				background: none;
-				border: none;
-				padding: 0;
-				margin: 0;
-			}
+            .nobackground {
+                background: white;
+                border: white;
+                padding: 0;
+                margin: 0;
+            }
 
-			.rich-stglpanel-body {
-				background: aqua;
-				border: none;
-				padding: 0;
-				margin: 0;
-			}
+        </style>
+        <table width="90%" align="center">
+            <tr valign="top">
+                <td width="50%">
+                    <h:outputLabel value="#{eventController.selectedEvent.name}"
+                                   style="font-weight:bolder;font-size:20px;"/>
+                    <h:panelGrid columns="2">
+                        <h:column>
+                            <rich:spacer width="20"/>
+                            <h:outputLabel value="#{messages['event.from']}" style="font-weight:bolder;"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputLabel value="#{eventController.selectedEvent.start}">
+                                <f:convertDateTime pattern="d/M/yy HH:mm"
+                                                   timeZone="#{org.jboss.seam.international.timeZone}"/>
+                            </h:outputLabel>
+                        </h:column>
+                        <h:column>
+                            <rich:spacer width="20"/>
+                            <h:outputLabel value="#{messages['event.to']}" style="font-weight:bolder;"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputLabel value="#{eventController.selectedEvent.end}">
+                                <f:convertDateTime pattern="d/M/yy HH:mm"
+                                                   timeZone="#{org.jboss.seam.international.timeZone}"/>
+                            </h:outputLabel>
+                        </h:column>
+                        <h:column rendered="#{not empty eventController.selectedEvent.location}">
+                            <rich:spacer width="20"/>
+                            <h:outputLabel value="#{messages['event.location']}" style="font-weight:bolder;"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputLabel value="#{eventController.selectedEvent.location}"
+                                           converter="locationConverter"/>
+                        </h:column>
+                    </h:panelGrid>
+                </td>
+                <td width="25%">
+                    <rich:spacer width="20"/>
+                    <h:panelGrid columns="2"
+                                 rendered="#{eventController.selectedEvent.memberPrice gt 0 or eventController.selectedEvent.notMemberPrice gt 0 or eventController.selectedEvent.noShowPrice gt 0}">
+                        <h:outputLabel value="Medlemspris"
+                                       rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
+                        <h:outputLabel value="#{eventController.selectedEvent.memberPrice}"
+                                       rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
+                        <h:outputLabel value="Ikke Medlemspris"
+                                       rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
+                        <h:outputLabel value="#{eventController.selectedEvent.notMemberPrice}"
+                                       rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
+                        <h:outputLabel value="Udeblivelse"
+                                       rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
+                        <h:outputLabel value="#{eventController.selectedEvent.noShowPrice}"
+                                       rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
+                    </h:panelGrid>
+                </td>
+                <td width="25%" align="center">
+                    <table width="100%">
+                        <tr>
+                            <td align="center">
+                                <h:graphicImage url="/resources/Checkmark.png"
+                                                rendered="#{eventController.joinedEvent}"/>
+                                <h:graphicImage url="/resources/redx.png"
+                                                rendered="#{!eventController.joinedEvent}"/><br/>
+                                <h:outputLabel value="#{messages['general.attending']}"
+                                               rendered="#{eventController.joinedEvent}"/>
+                                <h:outputLabel value="#{messages['general.notattending']}"
+                                               rendered="#{!eventController.joinedEvent}"/>
+                            </td>
+                            <td align="center">
+                                <s:graphicImage value="#{eventController.selectedEvent.logoImage}"
+                                                alt="#{eventController.selectedEvent.logo.name}"
+                                                rendered="#{eventController.selectedEvent.logoImage ne null}"
+                                                style="border:none;">
+                                    <s:transformImageSize width="125" height="125"/>
+                                </s:graphicImage>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <rich:panel bodyClass="nobackground">
+                                    <s:formattedText value="#{eventController.selectedEvent.description}"/>
+                                </rich:panel>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <a4j:form ajaxSubmit="true">
+            <rich:panel>
+                <f:facet name="header">
+                    <h:outputLabel value="Ekstra information"/>
+                </f:facet>
+                <table align="center">
+                    <tr valign="top">
+                        <td>
+                            <ui:include src="/event/choosePartner.xhtml"/>
+                        </td>
+                        <td>
+                            <ui:include src="/event/selectVegetarian.xhtml"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="right">
+                            <h:commandButton value="Opdater" action="#{eventController.updateExtraInformation}"
+                                             disabled="#{!eventController.hasJoined}"/>
+                        </td>
+                    </tr>
+                </table>
+            </rich:panel>
 
-			.rich-stglpanel {
-				background: #8b0000;
-				border: none;
-				padding: 0;
-				margin: 0;
-			}
+        </a4j:form>
+        <table align="center">
+            <tr>
+                <td>
+                    <ui:include src="/activities/joinActivity.xhtml"/>
+                </td>
+            </tr>
+        </table>
 
-			.rich-table-cell {
-			/*border: blue;*/
-				padding: 0; /*margin: 0;*/
-			}
-
-			.nobackground {
-				background: white;
-				border: white;
-				padding: 0;
-				margin: 0;
-			}
-
-		</style>
-		<table width="90%" align="center">
-			<tr valign="top">
-				<td width="50%">
-					<h:outputLabel value="#{eventController.selectedEvent.name}"
-								   style="font-weight:bolder;font-size:20px;"/>
-					<h:panelGrid columns="2">
-						<h:column>
-							<rich:spacer width="20"/>
-							<h:outputLabel value="#{messages['event.from']}" style="font-weight:bolder;"/>
-						</h:column>
-						<h:column>
-							<h:outputLabel value="#{eventController.selectedEvent.start}">
-								<f:convertDateTime pattern="d/M/yy HH:mm"
-												   timeZone="#{org.jboss.seam.international.timeZone}"/>
-							</h:outputLabel>
-						</h:column>
-						<h:column>
-							<rich:spacer width="20"/>
-							<h:outputLabel value="#{messages['event.to']}" style="font-weight:bolder;"/>
-						</h:column>
-						<h:column>
-							<h:outputLabel value="#{eventController.selectedEvent.end}">
-								<f:convertDateTime pattern="d/M/yy HH:mm"
-												   timeZone="#{org.jboss.seam.international.timeZone}"/>
-							</h:outputLabel>
-						</h:column>
-						<h:column rendered="#{not empty eventController.selectedEvent.location}">
-							<rich:spacer width="20"/>
-							<h:outputLabel value="#{messages['event.location']}" style="font-weight:bolder;"/>
-						</h:column>
-						<h:column>
-							<h:outputLabel value="#{eventController.selectedEvent.location}"
-										   converter="locationConverter"/>
-						</h:column>
-					</h:panelGrid>
-				</td>
-				<td width="25%">
-					<rich:spacer width="20"/>
-					<h:panelGrid columns="2"
-								 rendered="#{eventController.selectedEvent.memberPrice gt 0 or eventController.selectedEvent.notMemberPrice gt 0 or eventController.selectedEvent.noShowPrice gt 0}">
-						<h:outputLabel value="Medlemspris"
-									   rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
-						<h:outputLabel value="#{eventController.selectedEvent.memberPrice}"
-									   rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
-						<h:outputLabel value="Ikke Medlemspris"
-									   rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
-						<h:outputLabel value="#{eventController.selectedEvent.notMemberPrice}"
-									   rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
-						<h:outputLabel value="Udeblivelse"
-									   rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
-						<h:outputLabel value="#{eventController.selectedEvent.noShowPrice}"
-									   rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
-					</h:panelGrid>
-				</td>
-				<td width="25%" align="center">
-					<table width="100%">
-						<tr>
-							<td align="center">
-								<h:graphicImage url="/resources/Checkmark.png"
-												rendered="#{eventController.joinedEvent}"/>
-								<h:graphicImage url="/resources/redx.png"
-												rendered="#{!eventController.joinedEvent}"/><br/>
-								<h:outputLabel value="#{messages['general.attending']}"
-											   rendered="#{eventController.joinedEvent}"/>
-								<h:outputLabel value="#{messages['general.notattending']}"
-											   rendered="#{!eventController.joinedEvent}"/>
-							</td>
-							<td align="center">
-								<s:graphicImage value="#{eventController.selectedEvent.logoImage}"
-												alt="#{eventController.selectedEvent.logo.name}"
-												rendered="#{eventController.selectedEvent.logoImage ne null}"
-												style="border:none;">
-									<s:transformImageSize width="125" height="125"/>
-								</s:graphicImage>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr valign="top">
-				<td colspan="2">
-					<table>
-						<tr>
-							<td>
-								<rich:panel bodyClass="nobackground">
-									<s:formattedText value="#{eventController.selectedEvent.description}"/>
-								</rich:panel>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-
-		</table>
-		<table align="center">
-			<tr>
-				<td>
-					<ui:include src="/activities/joinActivity.xhtml"/>
-				</td>
-			</tr>
-		</table>
-
-	</ui:define>
+    </ui:define>
 </ui:composition>

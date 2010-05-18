@@ -3,6 +3,8 @@ package com.scandihealth.olympicsc.data;
 import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
 import com.scandihealth.olympicsc.event.model.Event;
+import com.scandihealth.olympicsc.event.model.EventPartnerRequest;
+import com.scandihealth.olympicsc.event.model.EventVegetarianRequest;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
 import com.scandihealth.olympicsc.location.model.Location;
 import com.scandihealth.olympicsc.user.User;
@@ -451,7 +453,7 @@ public class DataManager {
             Transaction transaction = session.beginTransaction();
             try {
 
-                session.save(user);
+                session.update(user);
                 result = true;
                 session.flush();
                 transaction.commit();
@@ -474,9 +476,9 @@ public class DataManager {
         } else {
             Session session = SessionFactoryUtil.getInstance().getCurrentSession();
             Transaction transaction = session.beginTransaction();
-
             try {
-                session.update(user);
+                session.save(user);
+                session.flush();
                 transaction.commit();
                 result = true;
             }
@@ -668,6 +670,28 @@ public class DataManager {
         return null;
     }
 
+    public EventPartnerRequest getEventPartnerRequest(User user, Event event) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventPartnerRequest as eventPartnerRequest " +
+                    "where eventPartnerRequest.idevent=" + event.getIdevent() + " and eventPartnerRequest.iduser=" + user.getIduser()).list();
+            transaction.commit();
+
+            if (result != null && result.size() > 0) {
+                return (EventPartnerRequest) result.get(0);
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+        return null;
+    }
+
     public void deleteUser(User user) {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         try {
@@ -745,7 +769,6 @@ public class DataManager {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         try {
             Transaction transaction = session.beginTransaction();
-            transaction.commit();
             session.delete(activityPartnerRequest);
             session.flush();
             transaction.commit();
@@ -758,5 +781,81 @@ public class DataManager {
                 session.close();
             }
         }
+    }
+
+    public void saveEventVegetarianRequest(EventVegetarianRequest eventVegetarianRequest) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventVegetarianRequest as eventVegetarianRequest " +
+                    "where eventVegetarianRequest.idevent=" + eventVegetarianRequest.getIdevent() + " and eventVegetarianRequest.iduser=" + eventVegetarianRequest.getIduser()).list();
+            transaction.commit();
+            if (result != null && result.size() > 0) {
+                Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
+                Transaction transaction1 = session1.beginTransaction();
+                for (Object o : result) {
+                    session1.delete(o);
+                }
+                transaction1.commit();
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+        saveObject(eventVegetarianRequest);
+
+
+    }
+
+    public void saveEventPartnerRequest(EventPartnerRequest eventPartnerRequest) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventPartnerRequest as eventPartnerRequest " +
+                    "where eventPartnerRequest.idevent=" + eventPartnerRequest.getIdevent() + " and eventPartnerRequest.iduser=" + eventPartnerRequest.getIduser()).list();
+            transaction.commit();
+            if (result != null && result.size() > 0) {
+                Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
+                Transaction transaction1 = session1.beginTransaction();
+                for (Object o : result) {
+                    session1.delete(o);
+                }
+                transaction1.commit();
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+        saveObject(eventPartnerRequest);
+    }
+
+    public EventVegetarianRequest getEventVegetarianRequest(User user, Event event) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventVegetarianRequest as eventVegetarianRequest " +
+                    "where eventVegetarianRequest.idevent=" + event.getIdevent() + " and eventVegetarianRequest.iduser=" + user.getIduser()).list();
+            transaction.commit();
+
+            if (result != null && result.size() > 0) {
+                return (EventVegetarianRequest) result.get(0);
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+        return null;
     }
 }
