@@ -153,7 +153,7 @@
         </tr>
         <tr valign="top">
             <td align="left">
-                <a4j:form ajaxSubmit="true">
+                <a4j:form ajaxSubmit="true" reRender="footerPanel">
                     <rich:panel styleClass="nobackground">
                         <!--<f:facet name="header">-->
                         <!--<h:outputLabel value="Ekstra information"/>-->
@@ -178,10 +178,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <s:message/>
-                                </td>
-                                <td colspan="1" align="right">
+                                <td colspan="2" align="right">
                                     <h:commandButton value="Opdater"
                                                      action="#{eventController.updateExtraInformation}"
                                                      disabled="#{!eventController.hasJoined}"/>

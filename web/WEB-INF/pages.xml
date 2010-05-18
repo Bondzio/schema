@@ -129,7 +129,7 @@
 
     <exception class="org.jboss.seam.security.NotLoggedInException">
         <redirect view-id="/security/login.xhtml">
-            <message>You must be logged in to perform this action</message>
+            <message>Du er ikke logged ind. Log venligst ind.</message>
         </redirect>
     </exception>
 

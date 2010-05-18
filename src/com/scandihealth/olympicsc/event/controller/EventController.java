@@ -174,7 +174,7 @@ public class EventController implements Serializable {
         }
         UpdateEventCommand updateEventCommand = new UpdateEventCommand(eventRepository, selectedEvent);
         commandController.executeCommand(updateEventCommand);
-        FacesContext.getCurrentInstance().addMessage("eventList", new FacesMessage(selectedEvent.getName() + " er blevet opdateret."));
+        FacesContext.getCurrentInstance().addMessage("eventList", new FacesMessage("Informationen er gemt."));
         return "";
     }
 

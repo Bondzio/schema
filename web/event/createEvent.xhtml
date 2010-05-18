@@ -77,9 +77,9 @@
                                 <h:outputLabel value="Extra information"/>
                             </f:facet>
                             <h:panelGrid columns="2">
-                                <h:outputLabel value="Kan have ledsager?"/>
+                                <h:outputLabel value="#{messages['event.canChoosePartner']}"/>
                                 <h:selectBooleanCheckbox value="#{event.canRequestPartner}"/>
-                                <h:outputLabel value="Kan vaelge vegetar?"/>
+                                <h:outputLabel value="#{messages['event.canChooseVegetarian']}"/>
                                 <h:selectBooleanCheckbox value="#{event.canRequestVegetarian}"/>
                             </h:panelGrid>
                         </rich:panel>
