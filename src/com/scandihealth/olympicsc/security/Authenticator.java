@@ -27,6 +27,7 @@ public class Authenticator implements Serializable {
 
 
     public boolean authenticate() {
+        System.out.println(credentials.getUsername() + " tried logging in");
         SecurityProvider securityProvider = new LdapSecurityProvider();
         user = securityProvider.logon(credentials.getUsername(), credentials.getPassword());
         if (user == null) {

@@ -449,6 +449,7 @@ public class DataManager {
         boolean result = false;
 
         if (getUser(user) != null) {
+            System.out.println("update user " + user.getUserName());
             Session session = SessionFactoryUtil.getInstance().getCurrentSession();
             Transaction transaction = session.beginTransaction();
             try {
@@ -474,6 +475,7 @@ public class DataManager {
             }
 
         } else {
+            System.out.println("save user " + user.getUserName());
             Session session = SessionFactoryUtil.getInstance().getCurrentSession();
             Transaction transaction = session.beginTransaction();
             try {
