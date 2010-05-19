@@ -54,44 +54,6 @@ public class DataManager {
         }
     }
 
-    public void saveOrUpdateObject(Object entity) {
-        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-        try {
-            Transaction transaction = session.beginTransaction();
-            session.saveOrUpdate(entity);
-            transaction.commit();
-        }
-        finally {
-            if (session.isOpen()) {
-                session.flush();
-                session.disconnect();
-                session.close();
-            }
-        }
-    }
-
-    public void mergeObject(Object entity) {
-        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-        try {
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.merge(entity);
-            }
-            catch (HibernateException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                transaction.rollback();
-            }
-            transaction.commit();
-        }
-        finally {
-            if (session.isOpen()) {
-                session.flush();
-                session.disconnect();
-                session.close();
-            }
-        }
-    }
-
     public void updateObject(Object entity) {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         try {
@@ -147,7 +109,6 @@ public class DataManager {
                     e.printStackTrace();
                 }
             } else {
-
                 Transaction transaction = session.beginTransaction();
                 try {
                     session.update(event);
@@ -409,8 +370,8 @@ public class DataManager {
 
     public User getUser(String username, String password) {
         User result = null;
-        Session session = null;
-        Object user = null;
+        Session session;
+        Object user;
         session = SessionFactoryUtil.getInstance().getCurrentSession();
         try {
             Transaction transaction = null;
@@ -448,7 +409,6 @@ public class DataManager {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         Transaction transaction = session.beginTransaction();
         try {
-
             session.saveOrUpdate(user);
             result = true;
             session.flush();
