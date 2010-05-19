@@ -9,7 +9,7 @@
         <a4j:form ajaxSubmit="true" reRender="eventList">
             <table align="center">
                 <tr>
-                     <td>
+                    <td>
                         <rich:messages showSummary="true" showDetail="false" id="messageOutput"/>
                     </td>
                 </tr>
@@ -81,6 +81,36 @@
                     <td colspan="2">
                         <rich:panel>
                             <f:facet name="header">
+                                <h:outputLabel value="Extra information"/>
+                            </f:facet>
+                            <table>
+                                <tr valign="top">
+                                    <td>
+                                        <h:panelGrid columns="2">
+                                            <h:outputLabel value="#{messages['event.canChoosePartner']}"/>
+                                            <h:selectBooleanCheckbox
+                                                    value="#{eventController.selectedEvent.canRequestPartner}"/>
+                                            <h:outputLabel value="#{messages['event.canChooseVegetarian']}"/>
+                                            <h:selectBooleanCheckbox
+                                                    value="#{eventController.selectedEvent.canRequestVegetarian}"/>
+                                        </h:panelGrid>
+                                    </td>
+                                    <td>
+                                        <h:panelGrid columns="2">
+                                            <h:outputLabel value="Aktiv"/>
+                                            <h:selectBooleanCheckbox value="#{eventController.selectedEvent.enabled}"/>
+                                        </h:panelGrid>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </rich:panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <rich:panel>
+                            <f:facet name="header">
                                 <h:outputLabel value="Priser"/>
                             </f:facet>
                             <h:panelGrid columns="6">
@@ -123,7 +153,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="right">
-                        <h:commandButton value="#{messages['event.addActivity']}" action="#{eventController.addActivityToEvent}"/>
+                        <h:commandButton value="#{messages['event.addActivity']}"
+                                         action="#{eventController.addActivityToEvent}"/>
                         <h:commandButton value="#{messages['event.update']}" action="#{eventController.doUpdateEvent}"/>
                     </td>
                 </tr>

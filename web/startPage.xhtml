@@ -37,22 +37,25 @@
             .tester {
                 background-color: #f0f8ff;
             }
+
             .row183 {
-                height:183px;;
-                vertical-align:top;
-                margin:0;
-                padding:0;
-                border:0;
+                height: 183px;;
+                vertical-align: top;
+                margin: 0;
+                padding: 0;
+                border: 0;
             }
 
         </style>
 
         <a4j:form ajaxSingle="true" ajaxSubmit="true" reRender="eventOverview">
-            <rich:dataGrid value="#{eventList}" var="event" columns="3" width="100%" columnClasses="column33" rowClasses="row183"
+            <rich:dataGrid value="#{eventList}" var="event" columns="3" width="100%" columnClasses="column33"
+                           rowClasses="row183"
                            border="1" id="tester" align="center">
                 <rich:panel id="eventOverview" style="width:400;height:183"
                             onmouseover="this.style.backgroundColor='#FFFFCC'"
-                            onmouseout="this.style.backgroundColor='#F1F1F1'">
+                            onmouseout="this.style.backgroundColor='#F1F1F1'"
+                            rendered="#{event.enabled or s:hasRole('admin')}">
                     <f:facet name="header">
                         <h:outputLabel value="#{event.name}"/>
                     </f:facet>

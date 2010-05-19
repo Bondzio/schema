@@ -76,12 +76,25 @@
                             <f:facet name="header">
                                 <h:outputLabel value="Extra information"/>
                             </f:facet>
-                            <h:panelGrid columns="2">
-                                <h:outputLabel value="#{messages['event.canChoosePartner']}"/>
-                                <h:selectBooleanCheckbox value="#{event.canRequestPartner}"/>
-                                <h:outputLabel value="#{messages['event.canChooseVegetarian']}"/>
-                                <h:selectBooleanCheckbox value="#{event.canRequestVegetarian}"/>
-                            </h:panelGrid>
+                            <table>
+                                <tr valign="top">
+                                    <td>
+                                        <h:panelGrid columns="2">
+                                            <h:outputLabel value="#{messages['event.canChoosePartner']}"/>
+                                            <h:selectBooleanCheckbox value="#{event.canRequestPartner}"/>
+                                            <h:outputLabel value="#{messages['event.canChooseVegetarian']}"/>
+                                            <h:selectBooleanCheckbox value="#{event.canRequestVegetarian}"/>
+                                        </h:panelGrid>
+                                    </td>
+                                    <td>
+                                        <h:panelGrid columns="2">
+                                            <h:outputLabel value="Aktiv"/>
+                                            <h:selectBooleanCheckbox value="#{event.enabled}"/>
+                                        </h:panelGrid>
+
+                                    </td>
+                                </tr>
+                            </table>
                         </rich:panel>
                     </td>
                 </tr>

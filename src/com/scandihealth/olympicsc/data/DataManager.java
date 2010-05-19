@@ -13,25 +13,22 @@ import org.hibernate.Session;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.Transaction;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import java.util.*;
 
 public class DataManager {
 
     public void deleteObject(Object o) {
-        EntityManagerFactory entityManagerFactory = SessionFactoryUtil.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         try {
-            EntityTransaction transaction = entityManager.getTransaction();
-            transaction.begin();
-            entityManager.remove(o);
-//			session.delete(o);
+            Transaction transaction = session.beginTransaction();
+            session.delete(o);
+            session.flush();
             transaction.commit();
         }
         finally {
-            entityManager.close();
+            if (session.isOpen()) {
+                session.close();
+            }
         }
 
     }
