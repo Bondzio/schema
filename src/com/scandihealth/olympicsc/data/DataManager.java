@@ -448,54 +448,30 @@ public class DataManager {
     public boolean saveUser(User user) {
         boolean result = false;
 
-        if (getUser(user) != null) {
-            System.out.println("update user " + user.getUserName());
-            Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-            Transaction transaction = session.beginTransaction();
-            try {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
 
-                session.update(user);
-                result = true;
-                session.flush();
-                transaction.commit();
-            }
-            catch (StaleObjectStateException sose) {
-                System.out.println("StaleObjectException");
-                transaction.rollback();
-            }
-            catch (HibernateException e) {
-                e.printStackTrace();
-                transaction.rollback();
-                result = false;
-            }
-            finally {
-                if (session.isOpen()) {
-                    session.close();
-                }
-            }
-
-        } else {
-            System.out.println("save user " + user.getUserName());
-            Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.save(user);
-                session.flush();
-                transaction.commit();
-                result = true;
-            }
-            catch (HibernateException e) {
-                e.printStackTrace();
-                transaction.rollback();
-                result = false;
-            }
-            finally {
-                if (session.isOpen()) {
-                    session.close();
-                }
-            }
-
+            session.saveOrUpdate(user);
+            result = true;
+            session.flush();
+            transaction.commit();
         }
+        catch (StaleObjectStateException sose) {
+            System.out.println("StaleObjectException");
+            transaction.rollback();
+        }
+        catch (HibernateException e) {
+            e.printStackTrace();
+            transaction.rollback();
+            result = false;
+        }
+        finally {
+            if (session.isOpen()) {
+                session.close();
+            }
+        }
+
 
         return result;
     }
