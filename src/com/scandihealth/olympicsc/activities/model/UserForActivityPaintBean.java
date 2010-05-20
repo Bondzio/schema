@@ -9,11 +9,9 @@ import java.io.Serializable;
 @Name("userForActivityPaintBean")
 public class UserForActivityPaintBean implements Serializable {
     public UserForActivityPaintBean() {
-        System.out.println("userForActivityPaintBean");
     }
 
     public void paint(Graphics2D g2, Object obj) {
-        System.out.println("userForActivityPaintBean.paint");
         UserForActivityPaintData userForActivityPaintData = (UserForActivityPaintData) obj;
         if (userForActivityPaintData != null) {
             Activity activity = userForActivityPaintData.getActivity();
