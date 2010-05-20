@@ -33,9 +33,9 @@
             <tr>
                 <td align="left">
                     <rich:spacer width="10px"/>
-                    <h:outputLabel value="Logget ind som: #{user.firstname} #{user.lastname}"
-                                   rendered="#{not empty user.firstname or not empty user.lastname}"/>
-                    <h:outputLabel value="Ikke logget ind" rendered="#{empty user.firstname and empty user.lastname}"/>
+                    <h:outputLabel value="Logget ind som: #{authenticator.user.firstname} #{authenticator.user.lastname}"
+                                   rendered="#{not empty authenticator.user.firstname or not empty authenticator.user.lastname}"/>
+                    <h:outputLabel value="Ikke logget ind" rendered="#{empty authenticator.user.firstname and empty authenticator.user.lastname}"/>
 
                 </td>
                 <td align="left">
@@ -43,7 +43,7 @@
                 </td>
                 <td align="right">
                     <h:panelGrid columns="2">
-                        <h:outputLabel value="Schema version 1.0.3a"/>
+                        <h:outputLabel value="Schema version 1.0.2"/>
                     </h:panelGrid>
                 </td>
             </tr>

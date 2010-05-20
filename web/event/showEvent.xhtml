@@ -49,7 +49,7 @@
         </style>
         <h:form>
             <h:outputLabel value="#{eventController.users.size} Users for #{eventController.selectedEvent.name}"/>
-            <rich:dataTable id="eventList" value="#{eventController.users}" var="user"
+            <rich:dataTable id="eventList" value="#{eventController.users}" var="eventUser"
                             cellpadding="0" cellspacing="0" border="0"
                             width="100%"
                             onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
@@ -58,15 +58,15 @@
                     <f:facet name="header">
                         <h:outputLabel value="Name"/>
                     </f:facet>
-                    <h:outputLabel value="#{user.firstname} #{user.lastname}"/>
+                    <h:outputLabel value="#{eventUser.firstname} #{eventUser.lastname}"/>
                 </rich:column>
-                <rich:column>
+                <rich:column rendered="#{eventController.selectedEvent.canRequestPartner}">
                     <f:facet name="header">
                         <h:outputLabel value="Ledsager?"/>
                     </f:facet>
                     <h:selectBooleanCheckbox value="#{eventController.selectedEvent.partnerRequest}" readonly="true"/>
                 </rich:column>
-                <rich:column>
+                <rich:column rendered="#{eventController.selectedEvent.canRequestVegetarian}">
                     <f:facet name="header">
                         <h:outputLabel value="Antal vegetar"/>
                     </f:facet>
@@ -76,13 +76,13 @@
                     <f:facet name="header">
                         <h:outputLabel value="Employeeid"/>
                     </f:facet>
-                    <h:outputLabel value="#{user.employeeId}"/>
+                    <h:outputLabel value="#{eventUser.employeeId}"/>
                 </rich:column>
                 <rich:column>
                     <f:facet name="header">
                         <h:outputLabel value="Mail"/>
                     </f:facet>
-                    <h:outputLabel value="#{user.mail}"/>
+                    <h:outputLabel value="#{eventUser.mail}"/>
                 </rich:column>
             </rich:dataTable>
             <rich:dataTable id="activityList" value="#{eventController.selectedEvent.activityList}" var="activity"
@@ -95,19 +95,19 @@
                                           paint="#{userForActivityPaintBean.paint}"/>
                         </f:facet>
                         <rich:dataTable id="activityList" value="#{eventController.usersForActivity}"
-                                        var="user"
+                                        var="activityUser"
                                         cellpadding="0" cellspacing="0" border="0" width="100%">
                             <rich:column>
                                 <table width="100%">
                                     <tr>
                                         <td width="500px">
-                                            <h:outputLabel value="#{user.firstname} #{user.lastname}"/>
+                                            <h:outputLabel value="#{activityUser.firstname} #{activityUser.lastname}"/>
                                         </td>
                                         <td>
                                             <h:panelGrid columns="2">
                                                 <h:outputLabel value="Makkeroenske"
-                                                               rendered="#{not empty userController.getPartnerRequestForActivity(user, activity)}"/><h:outputLabel
-                                                    value="#{userController.getPartnerRequestForActivity(user, activity)}"/>
+                                                               rendered="#{not empty userController.getPartnerRequestForActivity(activityUser, activity)}"/><h:outputLabel
+                                                    value="#{userController.getPartnerRequestForActivity(activityUser, activity)}"/>
                                             </h:panelGrid>
                                         </td>
                                     </tr>
