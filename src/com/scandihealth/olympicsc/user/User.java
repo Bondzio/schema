@@ -25,6 +25,11 @@ import java.util.Set;
 @Name("user")
 @Scope(ScopeType.SESSION)
 public class User implements Serializable {
+
+    public enum SHIRTSIZES {
+        S, M, L, XL, XXL, XXXL, XXXXL
+    }
+
     private int iduser;
     private String firstname;
     private String lastname;

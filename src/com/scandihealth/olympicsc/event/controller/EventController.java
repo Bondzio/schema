@@ -307,4 +307,37 @@ public class EventController implements Serializable {
         System.out.println("test");
         doUpdateEvent();
     }
+
+    public String unsign(User user) {
+        System.out.println("Admin(" + authenticator.getUser().getUserName() + ") unsign of " + user.getUserName());
+        user.removeEvent(selectedEvent);
+        DataManager dataManager = new DataManager();
+        dataManager.saveUser(user);
+        return "";
+    }
+
+    public String signUser() {
+        if (selectedEvent.getSelectedUser() != null) {
+            System.out.println("Admin(" + authenticator.getUser().getUserName() + ") sign of " + selectedEvent.getSelectedUser().getUserName());
+            selectedEvent.getSelectedUser().addEvent(selectedEvent);
+            DataManager dataManager = new DataManager();
+            dataManager.saveUser(selectedEvent.getSelectedUser());
+        } else {
+            System.out.println("Admin(" + authenticator.getUser().getUserName() + ") tried signing a user (failed, no user selected)");
+        }
+        return "";
+    }
+
+    public String signUserForActivity(Activity activity) {
+        if (selectedEvent.getSelectedUser() != null) {
+            System.out.println("Admin(" + authenticator.getUser().getUserName() + ") sign of " + selectedEvent.getSelectedUser().getUserName() + " for " + activity.getName());
+            selectedEvent.getSelectedUser().addActivity(activity);
+            DataManager dataManager = new DataManager();
+            dataManager.saveUser(selectedEvent.getSelectedUser());
+        } else {
+            System.out.println("Admin(" + authenticator.getUser().getUserName() + ") tried signing a user for " + activity.getName() + " (failed, no user selected)");
+        }
+
+        return "";
+    }
 }

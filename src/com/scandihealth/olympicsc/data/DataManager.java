@@ -8,10 +8,7 @@ import com.scandihealth.olympicsc.event.model.EventVegetarianRequest;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
 import com.scandihealth.olympicsc.location.model.Location;
 import com.scandihealth.olympicsc.user.User;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.StaleObjectStateException;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 
 import java.util.*;
 
@@ -367,6 +364,41 @@ public class DataManager {
 
     }
 
+    public User getUser(String username) {
+        User result = null;
+        Session session;
+        Object user;
+        session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = null;
+            user = null;
+            try {
+                transaction = session.beginTransaction();
+                Query query = session.createQuery("from User as user where user.userName='" + username + "'");
+                user = query.uniqueResult();
+                transaction.commit();
+            }
+            catch (HibernateException e) {
+                transaction.rollback();
+                e.printStackTrace();
+            }
+
+            if (user != null) {
+                result = (User) user;
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                if (session.isOpen()) {
+                    session.flush();
+                    session.disconnect();
+                    session.close();
+                }
+            }
+        }
+        return result;
+    }
+
 
     public User getUser(String username, String password) {
         User result = null;
@@ -378,8 +410,8 @@ public class DataManager {
             user = null;
             try {
                 transaction = session.beginTransaction();
-
-                user = session.createQuery("from User as user where user.userName='" + username + "' and user.password='" + password + "'").uniqueResult();
+                Query query = session.createQuery("from User as user where user.userName='" + username + "' and user.password='" + password + "'");
+                user = query.uniqueResult();
                 transaction.commit();
             }
             catch (HibernateException e) {

@@ -136,6 +136,13 @@
                                 <td valign="top">
                                     <rich:panel>
                                         <h:panelGrid columns="1">
+                                            <!--<rich:comboBox selectFirstOnUpdate="true"-->
+                                            <!--value="#{authenticator.user.shirtsize}"-->
+                                            <!--defaultLabel="Select some value" width="200">-->
+                                            <!--<s:selectItems value="#{user.SHIRTSIZES}" var="users"-->
+                                            <!--label="#{users.userName}"/>-->
+                                            <!--<f:converter converterId="userConverter"/>-->
+                                            <!--</rich:comboBox>-->
                                             <s:decorate id="shirtsizeDecoration"
                                                         template="/general/util/errorStyle.xhtml">
                                                 <ui:define name="label">#{messages['userdetails.shirtsize']}</ui:define>

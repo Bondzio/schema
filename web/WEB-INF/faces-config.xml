@@ -17,6 +17,10 @@
         <converter-class>com.scandihealth.olympicsc.imageupload.converter.LogoConverter</converter-class>
     </converter>
     <converter>
+        <converter-id>userConverter</converter-id>
+        <converter-class>com.scandihealth.olympicsc.imageupload.converter.UserConverter</converter-class>
+    </converter>
+    <converter>
         <converter-id>priorityConverter</converter-id>
         <converter-class>com.scandihealth.olympicsc.issues.PriorityConverter</converter-class>
     </converter>
