@@ -14,7 +14,7 @@ public class UserConverter implements Converter {
         int start = s.indexOf("(");
         int end = s.indexOf(")");
         User user = null;
-        if (s.length() > start && s.length() <= end) {
+        if (s.length() > 0 && s.length() > start && s.length() - 1 <= end) {
             String s1 = s.substring(start + 1, end);
             user = dataManager.getUser(s1);
         }
