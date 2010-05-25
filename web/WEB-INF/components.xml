@@ -34,6 +34,7 @@
 
     <i18n:locale-selector cookie-enabled="true"/>
     <web:character-encoding-filter encoding="UTF-8" override-client="true" url-pattern="*.osc"/>
+    <web:ajax4jsf-filter enable-cache="false"/>
 
     <security:identity authenticate-method="#{authenticator.authenticate}"/>
     <security:jpa-token-store token-class="com.scandihealth.olympicsc.security.model.AuthenticationToken"/>
