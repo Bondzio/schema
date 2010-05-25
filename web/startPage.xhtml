@@ -55,7 +55,8 @@
                 <rich:panel id="eventOverview" style="width:400;height:183"
                             onmouseover="this.style.backgroundColor='#FFFFCC'"
                             onmouseout="this.style.backgroundColor='#F1F1F1'"
-                            rendered="#{event.enabled or s:hasRole('admin')}">
+                        >
+                    <!--rendered="#{event.enabled or s:hasRole('admin')}"-->
                     <f:facet name="header">
                         <h:outputLabel value="#{event.name}"/>
                     </f:facet>
