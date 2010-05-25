@@ -35,7 +35,7 @@ public class DataManager {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.save(entity);
+            session.saveOrUpdate(entity);
             transaction.commit();
         }
         catch (HibernateException e) {

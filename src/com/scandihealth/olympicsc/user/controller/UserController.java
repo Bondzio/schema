@@ -163,7 +163,7 @@ public class UserController {
             user.removeActivity(activity);
         }
         DataManager dataManager = new DataManager();
-        dataManager.saveObject(user);
+        dataManager.saveUser(user);
         return "";
     }
 }
