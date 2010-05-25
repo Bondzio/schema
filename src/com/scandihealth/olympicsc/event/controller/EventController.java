@@ -305,7 +305,8 @@ public class EventController implements Serializable {
     }
 
     public void updateExtraInformation() {
-        System.out.println("test");
+        User user = authenticator.getUser();
+        System.out.println("User: " + user.getUserName() + "(" + user.getIduser() + ") tried updating information.");
         doUpdateEvent();
     }
 
@@ -349,5 +350,24 @@ public class EventController implements Serializable {
 
     public String unsignActivity(User user, Activity activity) {
         return "";
+    }
+
+
+    public Boolean hasUserPartnerRequest(User user) {
+        DataManager dataManager = new DataManager();
+        EventPartnerRequest eventPartnerRequest = dataManager.getEventPartnerRequest(user, selectedEvent);
+        if (eventPartnerRequest != null) {
+            return eventPartnerRequest.isPartnerRequest();
+        }
+        return false;
+    }
+
+    public Integer hasUserVegetarianRequest(User user) {
+        DataManager dataManager = new DataManager();
+        EventVegetarianRequest vegetarianRequest = dataManager.getEventVegetarianRequest(user, selectedEvent);
+        if (vegetarianRequest != null) {
+            return vegetarianRequest.getVegetarian();
+        }
+        return 0;
     }
 }
