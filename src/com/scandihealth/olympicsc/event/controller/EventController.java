@@ -238,7 +238,8 @@ public class EventController implements Serializable {
         return user.hasJoinedEvent(selectedEvent);
     }
 
-    public List<User> getUsersForActivity() {
+    public List<User> usersForActivity(Activity activity) {
+        calculateUsersForActivity(activity);
         return userForActivity;
     }
 
@@ -329,15 +330,24 @@ public class EventController implements Serializable {
     }
 
     public String signUserForActivity(Activity activity) {
-        if (selectedEvent.getSelectedUser() != null) {
-            System.out.println("Admin(" + authenticator.getUser().getUserName() + ") sign of " + selectedEvent.getSelectedUser().getUserName() + " for " + activity.getName());
-            selectedEvent.getSelectedUser().addActivity(activity);
+        User selectedUser = selectedEvent.getSelectedUser();
+        if (selectedUser != null) {
+            System.out.println("Admin(" + authenticator.getUser().getUserName() + ") sign of " + selectedUser.getUserName() + " for " + activity.getName());
+            if (selectedUser.getActivities().contains(activity)) {
+                System.out.println("User was already attending activity");
+            } else {
+                selectedUser.addActivity(activity);
+            }
             DataManager dataManager = new DataManager();
-            dataManager.saveUser(selectedEvent.getSelectedUser());
+            dataManager.saveUser(selectedUser);
         } else {
             System.out.println("Admin(" + authenticator.getUser().getUserName() + ") tried signing a user for " + activity.getName() + " (failed, no user selected)");
         }
 
+        return "";
+    }
+
+    public String unsignActivity(User user, Activity activity) {
         return "";
     }
 }

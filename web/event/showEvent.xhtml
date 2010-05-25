@@ -92,9 +92,9 @@
                 </rich:column>
             </rich:dataTable>
             <rich:panel>
-                <f:facet name="header">
-                    <h:outputLabel value="Manuel tilmelding"/>
-                </f:facet>
+                <!--<f:facet name="header">-->
+                <h:outputLabel value="Manuel tilmelding"/>
+                <!--</f:facet>-->
                 <h:panelGrid columns="2">
                     <rich:comboBox selectFirstOnUpdate="true" value="#{eventController.selectedEvent.selectedUser}"
                                    defaultLabel="Select some value" width="200">
@@ -106,17 +106,20 @@
                 </h:panelGrid>
             </rich:panel>
         </a4j:form>
-        <a4j:form ajaxSubmit="true">
-            <rich:dataTable id="activityList" value="#{eventController.selectedEvent.activityList}" var="activity"
-                            cellpadding="0" cellspacing="0" border="0" width="100%">
-                <rich:column sortOrder="#{activity.start}">
-                    <rich:simpleTogglePanel switchType="client" opened="false" headerClass="paintedHeader">
-                        <f:facet name="header">
-                            <rich:paint2D id="painter" width="500" height="16"
-                                          data="#{eventController.usersForActivityPaint(activity)}" format="png"
-                                          paint="#{userForActivityPaintBean.paint}"/>
-                        </f:facet>
-                        <rich:dataTable id="activityList" value="#{eventController.usersForActivity}"
+
+        <h:outputLabel value="Aktiviteter"/>
+
+        <rich:dataTable id="activityList" value="#{eventController.selectedEvent.activityList}" var="activity"
+                        cellpadding="0" cellspacing="0" border="0" width="100%">
+            <rich:column sortOrder="#{activity.start}">
+                <rich:simpleTogglePanel switchType="client" opened="false" headerClass="paintedHeader">
+                    <f:facet name="header">
+                        <rich:paint2D id="painter" width="500" height="16"
+                                      data="#{eventController.usersForActivityPaint(activity)}" format="png"
+                                      paint="#{userForActivityPaintBean.paint}"/>
+                    </f:facet>
+                    <a4j:form ajaxSubmit="true" reRender="activityUserList">
+                        <rich:dataTable id="activityUserList" value="#{eventController.usersForActivity(activity)}"
                                         var="activityUser"
                                         cellpadding="0" cellspacing="0" border="0" width="100%">
                             <rich:column>
@@ -132,31 +135,37 @@
                                                     value="#{userController.getPartnerRequestForActivity(activityUser, activity)}"/>
                                             </h:panelGrid>
                                         </td>
+                                        <td align="right">
+                                            <h:commandButton value="Afmeld"
+                                                             action="#{userController.unsignActivity(activityUser, activity)}"/>
+                                        </td>
                                     </tr>
                                 </table>
                             </rich:column>
                         </rich:dataTable>
-                    </rich:simpleTogglePanel>
-                    <rich:panel>
-                        <f:facet name="header">
-                            <h:outputLabel value="Manuel tilmelding"/>
-                        </f:facet>
-                        <h:panelGrid columns="2">
-                            <rich:comboBox selectFirstOnUpdate="true"
-                                           value="#{eventController.selectedEvent.selectedUser}"
-                                           defaultLabel="Select some value" width="200">
-                                <s:selectItems value="#{userList}" var="h" label="#{h.userName}"
-                                               itemLabel="#{h.userName}" itemValue="#{h}"
-                                               noSelectionLabel="Valg noget"/>
-                                <f:converter converterId="userConverter"/>
-                            </rich:comboBox>
-                            <h:commandButton value="Tilmeld" action="#{eventController.signUserForActivity(activity)}"/>
-                        </h:panelGrid>
-                    </rich:panel>
-                </rich:column>
+                    </a4j:form>
+                    <a4j:form ajaxSubmit="true" reRender="activityList">
+                        <rich:panel>
+                            <!--<f:facet name="header">-->
+                            <h:outputLabel value="Manuel tilmelding (#{activity.name})"/>
+                            <!--</f:facet>-->
+                            <h:panelGrid columns="2">
+                                <rich:comboBox selectFirstOnUpdate="true"
+                                               value="#{eventController.selectedEvent.selectedUser}"
+                                               defaultLabel="Select some value" width="200">
+                                    <s:selectItems value="#{userList}" var="h" label="#{h.userName}"
+                                                   itemLabel="#{h.userName}" itemValue="#{h}"
+                                                   noSelectionLabel="Valg noget"/>
+                                    <f:converter converterId="userConverter"/>
+                                </rich:comboBox>
+                                <h:commandButton value="Tilmeld"
+                                                 action="#{eventController.signUserForActivity(activity)}"/>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </a4j:form>
+                </rich:simpleTogglePanel>
+            </rich:column>
+        </rich:dataTable>
 
-
-            </rich:dataTable>
-        </a4j:form>
     </ui:define>
 </ui:composition>

@@ -156,4 +156,14 @@ public class UserController {
         }
         return "";
     }
+
+    public String unsignActivity(User user, Activity activity) {
+        System.out.println("Unsigning " + user.getUserName() + " from " + activity.getName());
+        if (user.getActivities().contains(activity)) {
+            user.removeActivity(activity);
+        }
+        DataManager dataManager = new DataManager();
+        dataManager.saveObject(user);
+        return "";
+    }
 }
