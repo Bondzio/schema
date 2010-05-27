@@ -44,7 +44,22 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+    }
+
+    public void mergeObject(Object entity) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            session.merge(entity);
+            session.flush();
+            transaction.commit();
+        }
+        finally {
+            if (session.isOpen()) {
                 session.disconnect();
                 session.close();
             }
@@ -56,11 +71,11 @@ public class DataManager {
         try {
             Transaction transaction = session.beginTransaction();
             session.update(entity);
+            session.flush();
             transaction.commit();
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -312,7 +327,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -334,7 +348,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -355,7 +368,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -390,7 +402,6 @@ public class DataManager {
         finally {
             if (session.isOpen()) {
                 if (session.isOpen()) {
-                    session.flush();
                     session.disconnect();
                     session.close();
                 }
@@ -426,7 +437,6 @@ public class DataManager {
         finally {
             if (session.isOpen()) {
                 if (session.isOpen()) {
-                    session.flush();
                     session.disconnect();
                     session.close();
                 }
@@ -479,8 +489,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -536,7 +544,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -561,7 +568,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -584,7 +590,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -607,7 +612,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -629,7 +633,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -651,7 +654,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -675,7 +677,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -700,7 +701,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -724,7 +724,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -743,7 +742,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -768,7 +766,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -796,7 +793,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }
@@ -818,7 +814,6 @@ public class DataManager {
         }
         finally {
             if (session.isOpen()) {
-                session.flush();
                 session.disconnect();
                 session.close();
             }

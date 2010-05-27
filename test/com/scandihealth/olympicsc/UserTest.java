@@ -56,31 +56,31 @@ public class UserTest extends TestCase {
         DataManager dataManager = new DataManager();
         dataManager.saveUser(user);
 
-        User user1 = dataManager.getUser("test", "");
+        User user1 = dataManager.getUser("test");
         assertEquals(user, user1);
     }
 
     public void testDeleteUser() throws Exception {
         testCreateUser();
-        User user1 = dataManager.getUser("test", "");
+        User user1 = dataManager.getUser("test");
         assertEquals(user, user1);
         dataManager.deleteObject(user1);
 
-        User user2 = dataManager.getUser("test", "");
+        User user2 = dataManager.getUser("test");
         assertNull(user2);
     }
 
     public void testUpdateUser() throws Exception {
         testCreateUser();
 
-        User user1 = dataManager.getUser("test", "");
+        User user1 = dataManager.getUser("test");
         assertEquals(user, user1);
         assertEquals(null, user1.getPhone());
 
         user1.setPhone("347457");
 
         dataManager.updateObject(user1);
-        User user2 = dataManager.getUser("test", "");
+        User user2 = dataManager.getUser("test");
 
         assertEquals("347457", user2.getPhone());
     }
@@ -107,7 +107,7 @@ public class UserTest extends TestCase {
         user.addEvent(event);
         dataManager.updateObject(user);
 
-        User user1 = dataManager.getUser("test", "");
+        User user1 = dataManager.getUser("test");
 
         assertNotNull(user1);
 
@@ -125,7 +125,7 @@ public class UserTest extends TestCase {
 
         dataManager.updateObject(user);
 
-        User user11 = dataManager.getUser("test", "");
+        User user11 = dataManager.getUser("test");
         Collection<Event> set = user11.getEvents();
         assertNotNull(set);
         assertTrue("User had events when user should not have any.", set.isEmpty());
@@ -157,7 +157,7 @@ public class UserTest extends TestCase {
         dataManager.updateObject(user);
 
 
-        User user1 = dataManager.getUser("test", "");
+        User user1 = dataManager.getUser("test");
 
         assertNotNull(user1);
 
@@ -175,7 +175,7 @@ public class UserTest extends TestCase {
 
         dataManager.updateObject(user);
 
-        User user11 = dataManager.getUser("test", "");
+        User user11 = dataManager.getUser("test");
         Collection<Activity> set = user11.getActivities();
         assertNotNull(set);
         assertTrue("User had activities when user should not have any.", set.isEmpty());

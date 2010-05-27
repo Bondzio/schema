@@ -20,15 +20,15 @@ public class EventTest extends TestCase {
     }
 
     public void tearDown() {
-//        List<Event> list = dataManager.getEvent("TestEvent");
-//        if (list != null) {
-//            for (Event event : list) {
-//                Event event1 = dataManager.getEvent(event);
-//                if (event1 != null) {
-//                    dataManager.deleteEvent(event1);
-//                }
-//            }
-//        }
+        List<Event> list = dataManager.getEvent("TestEvent");
+        if (list != null) {
+            for (Event event : list) {
+                Event event1 = dataManager.getEvent(event);
+                if (event1 != null) {
+                    dataManager.deleteEvent(event1);
+                }
+            }
+        }
         dataManager = null;
     }
 
