@@ -179,7 +179,6 @@ public class UserTest extends TestCase {
         Collection<Activity> set = user11.getActivities();
         assertNotNull(set);
         assertTrue("User had activities when user should not have any.", set.isEmpty());
-
-
     }
+
 }

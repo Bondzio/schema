@@ -186,7 +186,7 @@ public class User implements Serializable {
         this.firstlogin = firstlogin;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinTable(name = "user_has_event",
             joinColumns = {@JoinColumn(name = "user_iduser")},
             inverseJoinColumns = {@JoinColumn(name = "event_idevent")})

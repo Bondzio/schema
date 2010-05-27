@@ -504,14 +504,18 @@ public class DataManager {
             tmpActivities.add(activityEntity);
         }
         for (User user : list) {
+            boolean userUpdated = false;
             if (user.getEvents().contains(event)) {
                 for (Activity activity : tmpActivities) {
                     user.getActivities().remove(activity);
                     event.getActivities().remove(activity);
                 }
                 user.getEvents().remove(event);
+                userUpdated = true;
             }
-            updateObject(user);
+            if (userUpdated) {
+                updateObject(user);
+            }
         }
 
         deleteObject(event);
