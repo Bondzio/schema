@@ -7,57 +7,58 @@
                 xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
 
 <ui:define name="content">
-    <style type="text/css">
-        .headerstyle {
-            color: red;
-            font-weight: bold;
-        }
+<style type="text/css">
+    .headerstyle {
+        color: red;
+        font-weight: bold;
+    }
 
-        .paintedHeader {
-            background-color: aqua;
-            border: none;
-            border: none;
-            padding: 0;
-            margin: 0;
-        }
+    .paintedHeader {
+        background-color: aqua;
+        border: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
 
-        .rich-stglpanel-header {
-            background: none;
-            border: none;
-            padding: 0;
-            margin: 0;
-        }
+    .rich-stglpanel-header {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
 
-        .rich-stglpanel-body {
-            background: aqua;
-            border: none;
-            padding: 0;
-            margin: 0;
-        }
+    .rich-stglpanel-body {
+        background: aqua;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
 
-        .rich-stglpanel {
-            background: #8b0000;
-            border: none;
-            padding: 0;
-            margin: 0;
-        }
+    .rich-stglpanel {
+        background: #8b0000;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
 
-        .rich-table-cell {
-        /*border: blue;*/
-            padding: 1px; /*margin: 0;*/
-        }
+    .rich-table-cell {
+    /*border: blue;*/
+        padding: 1px; /*margin: 0;*/
+    }
 
-        .nobackground {
-            background: white;
-            border: none;
-            padding: 0;
-            margin: 0;
-        }
+    .nobackground {
+        background: white;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
 
-    </style>
+</style>
+<rich:panel>
     <table width="90%" align="center">
         <tr valign="top">
-            <td width="50%">
+            <td width="25%">
                 <h:outputLabel value="#{eventController.selectedEvent.name}"
                                style="font-weight:bolder;font-size:20px;"/>
                 <h:panelGrid columns="2">
@@ -91,6 +92,21 @@
                     </h:column>
                 </h:panelGrid>
             </td>
+            <td>
+                <rich:spacer width="20"/>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Sidste tilmelding"/>
+                    <h:outputLabel value="#{eventController.selectedEvent.signend}">
+                        <f:convertDateTime pattern="d/M/yy HH:mm"
+                                           timeZone="#{org.jboss.seam.international.timeZone}"/>
+                    </h:outputLabel>
+                    <h:outputLabel value="Sidste afmelding"/>
+                    <h:outputLabel value="#{eventController.selectedEvent.unsignEnd}">
+                        <f:convertDateTime pattern="d/M/yy HH:mm"
+                                           timeZone="#{org.jboss.seam.international.timeZone}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+            </td>
             <td width="25%">
                 <rich:spacer width="20"/>
                 <h:panelGrid columns="2"
@@ -114,9 +130,9 @@
                     <tr>
                         <td align="center">
                             <h:graphicImage url="/resources/Checkmark.png"
-                                            rendered="#{eventController.joinedEvent}"/>
+                                            rendered="#{eventController.joinedEvent}" height="64" width="64"/>
                             <h:graphicImage url="/resources/redx.png"
-                                            rendered="#{!eventController.joinedEvent}"/><br/>
+                                            rendered="#{!eventController.joinedEvent}" height="64" width="64"/><br/>
                             <h:outputLabel value="#{messages['general.attending']}"
                                            rendered="#{eventController.joinedEvent}"/>
                             <h:outputLabel value="#{messages['general.notattending']}"
@@ -127,76 +143,79 @@
                                             alt="#{eventController.selectedEvent.logo.name}"
                                             rendered="#{eventController.selectedEvent.logoImage ne null}"
                                             style="border:none;">
-                                <s:transformImageSize width="125" height="125"/>
+                                <s:transformImageSize width="64" height="64"/>
                             </s:graphicImage>
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
-        <tr valign="top">
-            <td colspan="2">
-                <table>
-                    <tr>
-                        <td>
-                            <rich:panel styleClass="nobackground">
-                                <s:formattedText value="#{eventController.selectedEvent.description}"/>
-                            </rich:panel>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-
-        </tr>
-        <tr valign="top">
-            <td align="left">
-                <a4j:form ajaxSubmit="true" reRender="footerPanel">
-                    <rich:panel styleClass="nobackground">
-                        <!--<f:facet name="header">-->
-                        <!--<h:outputLabel value="Ekstra information"/>-->
-                        <!--</f:facet>-->
-                        <table align="left">
-                            <tr>
-                                <td>
-                                    <h:outputLabel
-                                            value="Ekstra information"
-                                            rendered="#{eventController.selectedEvent.canRequestPartner or eventController.selectedEvent.canRequestVegetarian}"
-                                            styleClass="headerstyle"/>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <td>
-                                    <ui:include src="/event/choosePartner.xhtml"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <ui:include src="/event/selectVegetarian.xhtml"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" align="right">
-                                    <h:commandButton value="Opdater"
-                                                     action="#{eventController.updateExtraInformation}"
-                                                     disabled="#{!eventController.hasJoined}"
-                                                     rendered="#{eventController.selectedEvent.canRequestPartner or eventController.selectedEvent.canRequestVegetarian}"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </rich:panel>
-
-                </a4j:form>
-            </td>
-        </tr>
     </table>
+</rich:panel>
+<table>
+    <tr valign="top">
+        <td colspan="3">
+            <table>
+                <tr>
+                    <td>
+                        <rich:panel styleClass="nobackground">
+                            <s:formattedText value="#{eventController.selectedEvent.description}"/>
+                        </rich:panel>
+                    </td>
+                </tr>
+            </table>
+        </td>
 
-    <table align="center">
-        <tr>
-            <td>
-                <ui:include src="/activities/joinActivity.xhtml"/>
-            </td>
-        </tr>
-    </table>
+    </tr>
+    <tr valign="top">
+        <td align="left">
+            <a4j:form ajaxSubmit="true" reRender="footerPanel">
+                <rich:panel styleClass="nobackground">
+                    <!--<f:facet name="header">-->
+                    <!--<h:outputLabel value="Ekstra information"/>-->
+                    <!--</f:facet>-->
+                    <table align="left">
+                        <tr>
+                            <td>
+                                <h:outputLabel
+                                        value="Ekstra information"
+                                        rendered="#{eventController.selectedEvent.canRequestPartner or eventController.selectedEvent.canRequestVegetarian}"
+                                        styleClass="headerstyle"/>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td>
+                                <ui:include src="/event/choosePartner.xhtml"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ui:include src="/event/selectVegetarian.xhtml"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right">
+                                <h:commandButton value="Opdater"
+                                                 action="#{eventController.updateExtraInformation}"
+                                                 disabled="#{!eventController.hasJoined}"
+                                                 rendered="#{eventController.selectedEvent.canRequestPartner or eventController.selectedEvent.canRequestVegetarian}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </rich:panel>
+
+            </a4j:form>
+        </td>
+    </tr>
+</table>
+
+<table align="center">
+    <tr>
+        <td>
+            <ui:include src="/activities/joinActivity.xhtml"/>
+        </td>
+    </tr>
+</table>
 
 </ui:define>
 <ui:define name="footer">
