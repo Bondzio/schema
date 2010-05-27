@@ -246,6 +246,16 @@ public class EventController implements Serializable {
     public void calculateUsersForActivity(Activity activity) {
         DataManager dataManager = new DataManager();
         userForActivity = dataManager.getUserForActivity(activity);
+        List<User> tmpList = new ArrayList<User>();
+        for (User user : userForActivity) {
+            if (user.getEvents().contains(selectedEvent)) {
+                tmpList.add(user);
+            }
+        }
+        userForActivity.clear();
+        for (User user : tmpList) {
+            userForActivity.add(user);
+        }
         usersForActivityPaintData = new UserForActivityPaintData();
         usersForActivityPaintData.setNumberOfUsers(userForActivity.size());
         usersForActivityPaintData.setActivity(activity);
