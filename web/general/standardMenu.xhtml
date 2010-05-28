@@ -81,11 +81,9 @@
                 <tr>
 
                     <td align="right">
-                        <h:panelGrid columns="1" class="logolink">
+                        <h:panelGrid columns="1" class="logolink" rendered="#{identity.loggedIn}">
                             <s:link value="#{messages['menu.frontpage']}" action="startpage"/>
                             <s:link value="#{messages['menu.showuserdetails']}" view="/user/updateUserDetails.xhtml"/>
-                            <s:link value="#{messages['menu.login']}" rendered="#{!identity.loggedIn}"
-                                    action="#{identity.login}"/>
                             <s:link value="#{messages['menu.logout']}" rendered="#{identity.loggedIn}"
                                     action="#{identity.logout}"/>
                         </h:panelGrid>

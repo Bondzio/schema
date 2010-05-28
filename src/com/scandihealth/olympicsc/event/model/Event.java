@@ -32,6 +32,7 @@ public class Event implements Serializable {
     private boolean canRequestVegetarian = false;
     private boolean partnerRequest;
     private int vegetarianRequest = 0;
+    private boolean showAttendingUsers = false;
     private Set<Activity> activities = new HashSet<Activity>();
     private List<Activity> activityList;
 
@@ -204,6 +205,15 @@ public class Event implements Serializable {
 
     public void setVegetarianRequest(int vegetarianRequest) {
         this.vegetarianRequest = vegetarianRequest;
+    }
+
+    @Column(name = "showattending")
+    public boolean isShowAttendingUsers() {
+        return showAttendingUsers;
+    }
+
+    public void setShowAttendingUsers(boolean showAttendingUsers) {
+        this.showAttendingUsers = showAttendingUsers;
     }
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, optional = true)
