@@ -75,6 +75,9 @@
             <rule if-outcome="olympicscDataToExcell">
                 <redirect view-id="/olympicsc/dataToExcell.xhtml"/>
             </rule>
+            <rule if-outcome="excelForAccounting">
+                <redirect view-id="/dataExport/excelForAccounting.xhtml"/>
+            </rule>
             <rule if-outcome="createValueRange">
                 <redirect view-id="/configurableTypes/createValueRange.xhtml"/>
             </rule>
@@ -127,6 +130,11 @@
         <restrict>#{s:hasRole('admin')}</restrict>
     </page>
 
+    <exception class="com.scandihealth.olympicsc.exceptions.MissingUserDataException">
+        <redirect view-id="/user/updateUserDetails.xhtml">
+            <message>Du skal indtaste al bruger information</message>
+        </redirect>
+    </exception>
     <exception class="org.jboss.seam.security.NotLoggedInException">
         <redirect view-id="/security/login.xhtml">
             <message>Du er ikke logged ind. Log venligst ind.</message>

@@ -145,9 +145,6 @@ public class EventController implements Serializable {
         }
     }
 
-    public String addActivityToEvent() {
-        return "createActivities";
-    }
 
     public void deleteEvent() {
         DeleteEventCommand deleteEventCommand = new DeleteEventCommand(eventRepository, selectedEvent);
@@ -186,14 +183,6 @@ public class EventController implements Serializable {
         this.hasActivities = hasActivities;
     }
 
-    public String updateEvent() {
-        return "updateEvent";
-    }
-
-    public String showExcel() {
-        return "olympicscDataToExcell";
-    }
-
 
     public List<User> getUsers() {
         DataManager dataManager = new DataManager();
@@ -203,6 +192,23 @@ public class EventController implements Serializable {
     public Event getSelectedEvent() {
         return selectedEvent;
     }
+
+    public String addActivityToEvent() {
+        return "createActivities";
+    }
+
+    public String updateEvent() {
+        return "updateEvent";
+    }
+
+    public String showOlympicscExcel() {
+        return "olympicscDataToExcell";
+    }
+
+    public String showExcelForAccounting() {
+        return "excelForAccounting";
+    }
+
 
     public String showDetails() {
         return "showDetails";
@@ -267,7 +273,42 @@ public class EventController implements Serializable {
     }
 
 
-    public List<String> getExcelColumnHeaders() {
+    public List<String> getExcelColumnHeadersForAccounting() {
+        List<String> result = new ArrayList<String>();
+        result.add("Navn");
+        result.add("Personalenr");
+        result.add("Pris");
+        return result;
+    }
+
+    public List<List<String>> getColumnDataForAccounting() {
+        List<List<String>> result = new ArrayList<List<String>>();
+
+        List<User> userList = getUsers();
+        Collections.sort(userList, new Comparator<User>() {
+            public int compare(User o1, User o2) {
+                return o1.getFirstname().compareTo(o2.getFirstname());
+            }
+        });
+        for (User user : userList) {
+            List<String> column = new ArrayList<String>();
+            column.add(user.getFirstname() + " " + user.getLastname());
+            column.add(user.getEmployeeId());
+            if (user.isPersonaleForening()) {
+                column.add("" + selectedEvent.getMemberPrice());
+            } else {
+                column.add("" + selectedEvent.getNotMemberPrice());
+            }
+
+            // todo noshowprice
+            result.add(column);
+        }
+
+
+        return result;
+    }
+
+    public List<String> getExcelColumnHeadersForOlympicsc() {
         List<String> result = new ArrayList<String>();
         result.add("Navn");
         List<Activity> activities = selectedEvent.getActivityList();
@@ -282,7 +323,7 @@ public class EventController implements Serializable {
         return result;
     }
 
-    public List<List<String>> getColumnData() {
+    public List<List<String>> getColumnDataForOlympicsc() {
         List<List<String>> result = new ArrayList<List<String>>();
 
         List<User> userList = getUsers();

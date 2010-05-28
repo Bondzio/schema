@@ -7,6 +7,7 @@
         <view-handler>
             com.sun.facelets.FaceletViewHandler
         </view-handler>
+
     </application>
     <converter>
         <converter-id>locationConverter</converter-id>
@@ -29,5 +30,11 @@
         <converter-class>com.scandihealth.olympicsc.issues.EstimateConverter</converter-class>
     </converter>
 
+    <lifecycle>
+        <phase-listener id="missingUserData">
+            com.scandihealth.olympicsc.lifecycle.MissingUserDataPhaseListener
+        </phase-listener>
+
+    </lifecycle>
 
 </faces-config>

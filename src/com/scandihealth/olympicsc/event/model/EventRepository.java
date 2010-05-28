@@ -3,10 +3,11 @@ package com.scandihealth.olympicsc.event.model;
 
 import com.scandihealth.olympicsc.data.DataManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventRepository {
+public class EventRepository implements Serializable {
 
     private List<Event> events;
     private DataManager dataManager;
