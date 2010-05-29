@@ -78,7 +78,7 @@
             <rule if-outcome="excelForAccounting">
                 <redirect view-id="/dataExport/excelForAccounting.xhtml"/>
             </rule>
-            <rule if-outcome="createValueRange">
+            <rule if-outcome="createCustomValue">
                 <redirect view-id="/configurableTypes/createValueRange.xhtml"/>
             </rule>
         </navigation>

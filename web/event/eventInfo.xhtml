@@ -54,9 +54,16 @@
         margin: 0;
     }
 
+    .gradientBackground {
+        background-image: url('/schema/resources/subheadergradient.png');
+        border: white;
+        padding: 0;
+        margin: 0;
+    }
+
 </style>
-<rich:panel>
-    <table width="90%" align="center">
+<rich:panel styleClass="gradientBackground">
+    <table width="90%" align="center" border="0">
         <tr valign="top">
             <td width="25%">
                 <h:outputLabel value="#{eventController.selectedEvent.name}"
@@ -95,12 +102,12 @@
             <td>
                 <rich:spacer width="20"/>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Sidste tilmelding"/>
+                    <h:outputLabel value="Sidste tilmelding" style="font-weight:bolder;"/>
                     <h:outputLabel value="#{eventController.selectedEvent.signend}">
                         <f:convertDateTime pattern="d/M/yy HH:mm"
                                            timeZone="#{org.jboss.seam.international.timeZone}"/>
                     </h:outputLabel>
-                    <h:outputLabel value="Sidste afmelding"/>
+                    <h:outputLabel value="Sidste afmelding" style="font-weight:bolder;"/>
                     <h:outputLabel value="#{eventController.selectedEvent.unsignEnd}">
                         <f:convertDateTime pattern="d/M/yy HH:mm"
                                            timeZone="#{org.jboss.seam.international.timeZone}"/>
@@ -111,15 +118,15 @@
                 <rich:spacer width="20"/>
                 <h:panelGrid columns="2"
                              rendered="#{eventController.selectedEvent.memberPrice gt 0 or eventController.selectedEvent.notMemberPrice gt 0 or eventController.selectedEvent.noShowPrice gt 0}">
-                    <h:outputLabel value="Medlemspris"
+                    <h:outputLabel value="Medlemspris" style="font-weight:bolder;"
                                    rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
                     <h:outputLabel value="#{eventController.selectedEvent.memberPrice}"
                                    rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
-                    <h:outputLabel value="Ikke Medlemspris"
+                    <h:outputLabel value="Ikke Medlemspris" style="font-weight:bolder;"
                                    rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
                     <h:outputLabel value="#{eventController.selectedEvent.notMemberPrice}"
                                    rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
-                    <h:outputLabel value="Udeblivelse"
+                    <h:outputLabel value="Udeblivelse" style="font-weight:bolder;"
                                    rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
                     <h:outputLabel value="#{eventController.selectedEvent.noShowPrice}"
                                    rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
@@ -133,9 +140,9 @@
                                             rendered="#{eventController.joinedEvent}" height="64" width="64"/>
                             <h:graphicImage url="/resources/redx.png"
                                             rendered="#{!eventController.joinedEvent}" height="64" width="64"/><br/>
-                            <h:outputLabel value="#{messages['general.attending']}"
+                            <h:outputLabel value="#{messages['general.attending']}" style="font-weight:bolder;"
                                            rendered="#{eventController.joinedEvent}"/>
-                            <h:outputLabel value="#{messages['general.notattending']}"
+                            <h:outputLabel value="#{messages['general.notattending']}" style="font-weight:bolder;"
                                            rendered="#{!eventController.joinedEvent}"/>
                         </td>
                         <td align="center">

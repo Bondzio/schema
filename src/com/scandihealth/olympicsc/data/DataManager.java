@@ -2,6 +2,7 @@ package com.scandihealth.olympicsc.data;
 
 import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
+import com.scandihealth.olympicsc.customvalues.model.ValueTypes;
 import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.event.model.EventPartnerRequest;
 import com.scandihealth.olympicsc.event.model.EventVegetarianRequest;
@@ -823,5 +824,19 @@ public class DataManager {
             }
         }
         return null;
+    }
+
+    public List<ValueTypes> getValueTypes() {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        transaction.begin();
+        List valueTypes = session.createQuery("from ValueTypes").list();
+        transaction.commit();
+        List<ValueTypes> result = new ArrayList<ValueTypes>();
+        for (Object valueType : valueTypes) {
+            result.add((ValueTypes) valueType);
+        }
+        return result;
+
     }
 }

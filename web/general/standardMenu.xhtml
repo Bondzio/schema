@@ -119,7 +119,7 @@
                 <f:facet name="label">
                     <h:outputText value="Configurable Information"/>
                 </f:facet>
-                <rich:menuItem submitMode="ajax" value="Create value range" action="createValueRange"/>
+                <rich:menuItem submitMode="ajax" value="Create Custom value" action="createCustomValue"/>
             </rich:dropDownMenu>
             <rich:dropDownMenu rendered="#{s:hasRole('admin')}">
                 <f:facet name="label">
@@ -140,6 +140,12 @@
                 <rich:menuItem submitMode="ajax" value="Vis brugere" action="showUserList"/>
                 <rich:menuItem submitMode="ajax" value="Opret bruger" action="createUser"/>
                 <rich:menuItem submitMode="ajax" value="Mail" action="createMail"/>
+            </rich:dropDownMenu>
+            <rich:dropDownMenu>
+                <f:facet name="label">
+                    <h:outputLabel value="Olympicsc"/>
+                </f:facet>
+                <rich:menuItem submitMode="ajax" value="Saet hold" action="olympicscCreateTeams"/>
             </rich:dropDownMenu>
         </rich:toolBar>
     </a4j:form>

@@ -99,7 +99,7 @@
                 </f:facet>
                 <h:inputText value="#{activity.partnerRequest}" rendered="#{activity.canRequestPartner}"
                              title="#{messages['activity.partnerrequesthelp']}"
-                             disabled="#{!eventController.hasJoined}"/>
+                             disabled="#{!eventController.hasJoined or activitiesController.hasJoined}"/>
             </h:column>
             <rich:column rendered="#{s:hasRole('admin')}">
                 <f:facet name="header">
@@ -156,10 +156,10 @@
                          id="joinColumn">
                 <h:commandButton value="#{messages['general.attend']}"
                                  action="#{activitiesController.joinActivity}"
-                                 rendered="#{!activitiesController.hasJoined}"/>
+                                 rendered="#{!activitiesController.hasJoined}" disabled="#{!eventController.canSign}"/>
                 <h:commandButton value="#{messages['general.unjoin']}"
                                  action="#{activitiesController.removeActivity}"
-                                 rendered="#{activitiesController.hasJoined}"/>
+                                 rendered="#{activitiesController.hasJoined}" disabled="#{!eventController.canSign}"/>
             </rich:column>
             <rich:column id="joinColumn1" sortBy="#{activitiesController.hasJoined}"
                          rendered="#{eventController.hasJoined}">

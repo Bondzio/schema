@@ -14,21 +14,20 @@
                     <td>
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Name"/>
-                            <h:inputText value="#{configurableinfovaluerange.name}"/>
-                            <h:outputLabel value="Minimum value"/>
-                            <rich:inputNumberSpinner value="#{configurableinfovaluerange.min}"/>
-                            <h:outputLabel value="Maximum value"/>
-                            <rich:inputNumberSpinner value="#{configurableinfovaluerange.max}"/>
-                            <h:outputLabel value="Step size"/>
-                            <rich:inputNumberSpinner value="#{configurableinfovaluerange.stepsize}"/>
-                            <h:outputLabel value="Initial value"/>
-                            <rich:inputNumberSpinner value="#{configurableinfovaluerange.initial}"/>
+                            <!--<h:inputText value="#{configurableinfovaluerange.name}"/>-->
+
+                            <rich:comboBox selectFirstOnUpdate="false"
+                                           defaultLabel="Select some value">
+                                <f:selectItems value="#{valueTypesList}"/>
+                                <!--<s:selectItems value="#{valueTypesList}" var="h" label="#{h.type}"/>-->
+                            </rich:comboBox>
+
                         </h:panelGrid>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h:commandButton value="Create" action="#{configurableInfoController.createValueRange}"/>
+                        <!--<h:commandButton value="Create" action="#{configurableInfoController.createValueRange}"/>-->
                     </td>
                 </tr>
             </table>
