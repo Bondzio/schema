@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="/pagelayout.xhtml">
+
+    <ui:define name="content">
+        <a4j:form ajaxSubmit="true" reRender="teamList">
+            <table>
+                <tr>
+                    <td>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Navn"/>
+                            <h:inputText value="#{team.name}"/>
+                        </h:panelGrid>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <h:commandButton value="Create" action="#{teamController.createTeam}"/>
+                    </td>
+                </tr>
+            </table>
+        </a4j:form>
+        <ui:include src="showTeams.xhtml"/>
+    </ui:define>
+    <ui:define name="footer">
+        <ui:include src="/general/footer.xhtml"/>
+    </ui:define>
+</ui:composition>

@@ -81,6 +81,12 @@
             <rule if-outcome="createCustomValue">
                 <redirect view-id="/configurableTypes/createValueRange.xhtml"/>
             </rule>
+            <rule if-outcome="olympicscCreateTeams">
+                <redirect view-id="/olympicsc/teams/createTeam.xhtml"/>
+            </rule>
+            <rule if-outcome="addPLayersToTeams">
+                <redirect view-id="/olympicsc/teams/addPlayersToTeam.xhtml"/>
+            </rule>
         </navigation>
     </page>
 

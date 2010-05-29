@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <a4j:form ajaxSubmit="true" reRender="eventList">
+        <rich:dataTable id="teamList" value="#{teamList}" var="team"
+                        cellpadding="0" cellspacing="0" border="0"
+                        width="100%">
+            <rich:column>
+                <f:facet name="header">
+                    <h:outputLabel value="Team"/>
+                </f:facet>
+                <h:outputLabel value="#{team.name}"/>
+            </rich:column>
+        </rich:dataTable>
+    </a4j:form>
+</ui:composition>

@@ -9,6 +9,7 @@
         <class>com.scandihealth.olympicsc.imageupload.model.Logo</class>
         <class>com.scandihealth.olympicsc.user.User</class>
         <class>com.scandihealth.olympicsc.data.Versioninformation</class>
+        <class>com.scandihealth.olympicsc.teams.model.Team</class>
 
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/olympicsc"/>

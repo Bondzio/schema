@@ -8,6 +8,7 @@ import com.scandihealth.olympicsc.event.model.EventPartnerRequest;
 import com.scandihealth.olympicsc.event.model.EventVegetarianRequest;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
 import com.scandihealth.olympicsc.location.model.Location;
+import com.scandihealth.olympicsc.teams.model.Team;
 import com.scandihealth.olympicsc.user.User;
 import org.hibernate.*;
 
@@ -838,5 +839,26 @@ public class DataManager {
         }
         return result;
 
+    }
+
+    public List<Team> getTeams() {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        List<Team> result = null;
+        try {
+            Transaction transaction = session.beginTransaction();
+            result = session.createQuery("from Team").list();
+            session.flush();
+            transaction.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
+
+        }
+
+
+        return result;
     }
 }

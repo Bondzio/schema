@@ -28,6 +28,7 @@
         <mapping class="com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest"/>
         <mapping class="com.scandihealth.olympicsc.event.model.EventPartnerRequest"/>
         <mapping class="com.scandihealth.olympicsc.event.model.EventVegetarianRequest"/>
+        <mapping class="com.scandihealth.olympicsc.teams.model.Team"/>
         <!--<mapping class="com.scandihealth.olympicsc.imageupload.Thumbnail"/>-->
         <!--<mapping class="com.scandihealth.olympicsc.imageupload.LogoInformation"/>-->
         <!-- DB schema will be updated if needed -->
