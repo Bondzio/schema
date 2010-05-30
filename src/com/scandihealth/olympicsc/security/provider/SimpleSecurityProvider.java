@@ -1,7 +1,7 @@
 package com.scandihealth.olympicsc.security.provider;
 
 import com.scandihealth.olympicsc.data.DataManager;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 
 public class SimpleSecurityProvider implements SecurityProvider {
     public User logon(User user) {

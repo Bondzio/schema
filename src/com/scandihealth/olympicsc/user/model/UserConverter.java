@@ -1,7 +1,6 @@
-package com.scandihealth.olympicsc.imageupload.converter;
+package com.scandihealth.olympicsc.user.model;
 
 import com.scandihealth.olympicsc.data.DataManager;
-import com.scandihealth.olympicsc.user.User;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

@@ -9,7 +9,8 @@ import com.scandihealth.olympicsc.event.model.EventVegetarianRequest;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
 import com.scandihealth.olympicsc.location.model.Location;
 import com.scandihealth.olympicsc.teams.model.Team;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.teams.model.TeamUserSelection;
+import com.scandihealth.olympicsc.user.model.User;
 import org.hibernate.*;
 
 import java.util.*;
@@ -860,5 +861,55 @@ public class DataManager {
 
 
         return result;
+    }
+
+    public Team getTeam(Team teamSelection) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Team team = (Team) session.createQuery("from Team as team where team.id = " + teamSelection.getId()).uniqueResult();
+        transaction.commit();
+        return team;
+    }
+
+    public List<User> getUsersForTeam(Team team) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List list = session.createQuery("from TeamUserSelection as teamUserSelection where teamUserSelection.idteam= " + team.getId()).list();
+        transaction.commit();
+        if (list != null) {
+            List<User> result = new ArrayList<User>();
+            for (Object o : list) {
+                User user = getUser(((TeamUserSelection) o).getIduser());
+                result.add(user);
+            }
+            return result;
+        }
+        return null;
+    }
+
+    private User getUser(int iduser) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        User user = (User) session.createQuery("from User as user where user.iduser = " + iduser).uniqueResult();
+        transaction.commit();
+        return user;
+    }
+
+    public Team getTeam(String name) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Team team = (Team) session.createQuery("from Team as team where team.name= '" + name + "'").uniqueResult();
+        transaction.commit();
+        return team;
+
+    }
+
+    public TeamUserSelection getTeamUserSelection(User user) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        TeamUserSelection teamUserSelection = (TeamUserSelection) session.createQuery("from TeamUserSelection as teamUserSelection where teamUserSelection.iduser=" + user.getIduser()).uniqueResult();
+        transaction.commit();
+        return teamUserSelection;
+
     }
 }

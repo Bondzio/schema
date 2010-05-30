@@ -4,7 +4,7 @@ import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
 import com.scandihealth.olympicsc.commandsystem.Command;
 import com.scandihealth.olympicsc.data.DataManager;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 
 public class RemovePartnerRequestCommand implements Command {
     private User user;

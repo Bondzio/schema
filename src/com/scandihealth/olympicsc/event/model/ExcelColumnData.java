@@ -1,6 +1,6 @@
 package com.scandihealth.olympicsc.event.model;
 
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

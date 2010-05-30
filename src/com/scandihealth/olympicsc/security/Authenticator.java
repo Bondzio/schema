@@ -3,7 +3,7 @@ package com.scandihealth.olympicsc.security;
 import com.scandihealth.olympicsc.security.provider.LdapSecurityProvider;
 import com.scandihealth.olympicsc.security.provider.SecurityProvider;
 import com.scandihealth.olympicsc.security.provider.SimpleSecurityProvider;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;

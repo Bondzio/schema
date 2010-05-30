@@ -2,7 +2,7 @@ package com.scandihealth.olympicsc.commandsystem.user;
 
 import com.scandihealth.olympicsc.commandsystem.Command;
 import com.scandihealth.olympicsc.data.DataManager;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 
 public class DeleteUserCommand implements Command {
     private User user;

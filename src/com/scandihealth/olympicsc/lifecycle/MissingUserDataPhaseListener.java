@@ -2,7 +2,7 @@ package com.scandihealth.olympicsc.lifecycle;
 
 import com.scandihealth.olympicsc.exceptions.MissingUserDataException;
 import com.scandihealth.olympicsc.security.Authenticator;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 

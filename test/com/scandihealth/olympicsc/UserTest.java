@@ -4,7 +4,7 @@ package com.scandihealth.olympicsc;
 import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.event.model.Event;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 import junit.framework.TestCase;
 
 import java.util.Collection;

@@ -7,7 +7,7 @@ import com.scandihealth.olympicsc.commandsystem.user.SaveUserCommand;
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.location.model.Location;
 import com.scandihealth.olympicsc.location.model.LocationRepository;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 import junit.framework.TestCase;
 
 import java.util.List;

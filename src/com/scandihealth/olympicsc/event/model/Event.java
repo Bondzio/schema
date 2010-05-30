@@ -3,7 +3,7 @@ package com.scandihealth.olympicsc.event.model;
 import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
 import com.scandihealth.olympicsc.location.model.Location;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 import org.jboss.seam.annotations.Name;
 
 import javax.persistence.*;

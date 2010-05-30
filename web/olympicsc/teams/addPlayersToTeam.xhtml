@@ -9,13 +9,26 @@
 
     <ui:define name="content">
         <ui:include src="showTeams.xhtml"/>
+        <a4j:form ajaxSubmit="true">
+            <rich:comboBox selectFirstOnUpdate="true"
+                           value="#{teamController.teamSelection}"
+                           defaultLabel="Select some value" width="200">
+                <s:selectItems value="#{teamList}" var="h" label="#{h.name}"
+                               itemLabel="#{h.name}" itemValue="#{h}"
+                               noSelectionLabel="Valg noget"/>
+                <f:converter converterId="teamConverter"/>
+                <a4j:support event="onselect" reRender="teamUserSeletion"/>
+            </rich:comboBox>
+            <rich:pickList value="#{teamController.usersForTeam}" id="teamUserSeletion">
+                <s:selectItems value="#{teamController.userList}" var="h" label="#{h.userName}"
+                               itemLabel="#{h.userName}"
+                               itemValue="#{h}" hideNoSelectionLabel="false"/>
+                <f:converter converterId="userConverter"/>
 
-        <rich:pickList value="#{teamController.listValues}">
-            <s:selectItems value="#{userList}" var="h" label="#{h.userName}" itemLabel="#{h.userName}"
-                           itemValue="#{h}" hideNoSelectionLabel="false"/>
-            <f:converter converterId="userConverter"/>
-
-        </rich:pickList>
+                <!--<a4j:support event="onlistchanged" reRender="tester"/>-->
+            </rich:pickList>
+            <h:commandButton value="Update" action="#{teamController.updateTeam}"/>
+        </a4j:form>
     </ui:define>
     <ui:define name="footer">
         <ui:include src="/general/footer.xhtml"/>

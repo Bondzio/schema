@@ -3,7 +3,7 @@ package com.scandihealth.olympicsc.mailsystem.controller;
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.mailsystem.model.Mail;
 import com.scandihealth.olympicsc.mailsystem.model.MailContent;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;

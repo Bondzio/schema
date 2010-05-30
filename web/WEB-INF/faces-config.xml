@@ -19,7 +19,11 @@
     </converter>
     <converter>
         <converter-id>userConverter</converter-id>
-        <converter-class>com.scandihealth.olympicsc.imageupload.converter.UserConverter</converter-class>
+        <converter-class>com.scandihealth.olympicsc.user.model.UserConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>teamConverter</converter-id>
+        <converter-class>com.scandihealth.olympicsc.teams.model.TeamConverter</converter-class>
     </converter>
     <converter>
         <converter-id>priorityConverter</converter-id>
@@ -30,11 +34,11 @@
         <converter-class>com.scandihealth.olympicsc.issues.EstimateConverter</converter-class>
     </converter>
 
-    <lifecycle>
-        <phase-listener id="missingUserData">
-            com.scandihealth.olympicsc.lifecycle.MissingUserDataPhaseListener
-        </phase-listener>
+    <!--<lifecycle>-->
+    <!--<phase-listener id="missingUserData">-->
+    <!--com.scandihealth.olympicsc.lifecycle.MissingUserDataPhaseListener-->
+    <!--</phase-listener>-->
 
-    </lifecycle>
+    <!--</lifecycle>-->
 
 </faces-config>

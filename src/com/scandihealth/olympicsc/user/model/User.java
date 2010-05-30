@@ -1,4 +1,4 @@
-package com.scandihealth.olympicsc.user;
+package com.scandihealth.olympicsc.user.model;
 
 
 import com.scandihealth.olympicsc.activities.model.Activity;

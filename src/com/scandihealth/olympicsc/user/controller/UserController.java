@@ -6,7 +6,7 @@ import com.scandihealth.olympicsc.commandsystem.CommandController;
 import com.scandihealth.olympicsc.commandsystem.user.DeleteUserCommand;
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.security.Authenticator;
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.*;
 import org.jboss.seam.annotations.datamodel.DataModel;

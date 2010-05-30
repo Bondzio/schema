@@ -23,12 +23,13 @@
         <mapping class="com.scandihealth.olympicsc.activities.model.Activity"/>
         <mapping class="com.scandihealth.olympicsc.event.model.Event"/>
         <mapping class="com.scandihealth.olympicsc.location.model.Location"/>
-        <mapping class="com.scandihealth.olympicsc.user.User"/>
+        <mapping class="com.scandihealth.olympicsc.user.model.User"/>
         <mapping class="com.scandihealth.olympicsc.imageupload.model.Logo"/>
         <mapping class="com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest"/>
         <mapping class="com.scandihealth.olympicsc.event.model.EventPartnerRequest"/>
         <mapping class="com.scandihealth.olympicsc.event.model.EventVegetarianRequest"/>
         <mapping class="com.scandihealth.olympicsc.teams.model.Team"/>
+        <mapping class="com.scandihealth.olympicsc.teams.model.TeamUserSelection"/>
         <!--<mapping class="com.scandihealth.olympicsc.imageupload.Thumbnail"/>-->
         <!--<mapping class="com.scandihealth.olympicsc.imageupload.LogoInformation"/>-->
         <!-- DB schema will be updated if needed -->

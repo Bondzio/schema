@@ -1,6 +1,6 @@
 package com.scandihealth.olympicsc.data;
 
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,6 +1,6 @@
 package com.scandihealth.olympicsc.security.provider;
 
-import com.scandihealth.olympicsc.user.User;
+import com.scandihealth.olympicsc.user.model.User;
 
 public interface SecurityProvider {
 

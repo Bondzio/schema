@@ -11,16 +11,16 @@
         <a4j:form ajaxSubmit="true" reRender="teamList">
             <table>
                 <tr>
+                    <td align="right">
+                        <h:commandButton value="Create" action="#{teamController.createTeam}"/>
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Navn"/>
                             <h:inputText value="#{team.name}"/>
                         </h:panelGrid>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                        <h:commandButton value="Create" action="#{teamController.createTeam}"/>
                     </td>
                 </tr>
             </table>

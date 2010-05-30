@@ -7,7 +7,7 @@
         <class>com.scandihealth.olympicsc.event.model.Event</class>
         <class>com.scandihealth.olympicsc.location.model.Location</class>
         <class>com.scandihealth.olympicsc.imageupload.model.Logo</class>
-        <class>com.scandihealth.olympicsc.user.User</class>
+        <class>com.scandihealth.olympicsc.user.model.User</class>
         <class>com.scandihealth.olympicsc.data.Versioninformation</class>
         <class>com.scandihealth.olympicsc.teams.model.Team</class>
 
