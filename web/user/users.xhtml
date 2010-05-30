@@ -32,9 +32,11 @@
                         <rich:messages showSummary="true" showDetail="false" id="messageOutput"/>
                     </td>
                     <td align="right">
-                        <h:commandButton action="#{userController.selectAllPersonel}" value="Vaelg alle personaleforening"/>
-                        <h:commandButton action="#{userController.saveAllPersonel}" value="Gem alle" onclick="hideDiv({duration:0.7})"/>
-                        <rich:effect  name="hideDiv"  for="messageOutput" type="Fade" />
+                        <h:commandButton action="#{userController.selectAllPersonel}"
+                                         value="Vaelg alle personaleforening"/>
+                        <h:commandButton action="#{userController.saveAllPersonel}" value="Gem alle"
+                                         onclick="hideDiv({duration:0.7})"/>
+                        <rich:effect name="hideDiv" for="messageOutput" type="Fade"/>
                     </td>
                 </tr>
             </table>
@@ -55,6 +57,12 @@
                         <h:outputLabel value="Username"/>
                     </f:facet>
                     <h:outputLabel value="#{user.userName}"/>
+                </rich:column>
+                <rich:column sortBy="#{user.employeeId}" width="20">
+                    <f:facet name="header">
+                        <h:outputLabel value="Medarbejdernr"/>
+                    </f:facet>
+                    <h:outputLabel value="#{user.employeeId}"/>
                 </rich:column>
                 <rich:column sortBy="#{user.mail}" width="75">
                     <f:facet name="header">
