@@ -59,6 +59,7 @@
                     <!--rendered="#{event.enabled or s:hasRole('admin')}"-->
                     <f:facet name="header">
                         <h:outputLabel value="#{event.name}"/>
+
                     </f:facet>
                     <h:panelGrid columns="3" columnClasses="column240px, column80px, column80px">
                         <h:column>
@@ -79,6 +80,17 @@
                                     <h:outputLabel value="#{messages['event.location']}" style="font-weight:bolder;"/>
                                     <h:outputLabel value="#{event.location}" converter="locationConverter"/>
                                 </h:panelGrid>
+                                <h:outputLabel value="Sidste tilmelding om #{event.timeToLastSign} dage"
+                                               rendered="#{event.timeToLastSign gt 3}"/>
+                                <h:outputLabel value="Sidste tilmelding om #{event.timeToLastSign} dage"
+                                               style="color:red;"
+                                               rendered="#{event.timeToLastSign lt 3 and event.timeToLastSign gt 1}"/>
+                                <h:outputLabel value="Sidste tilmelding i morgen!" style="color:red;"
+                                               rendered="#{event.timeToLastSign eq 1}"/>
+                                <h:outputLabel value="Sidste tilmelding idag" style="color:red;"
+                                               rendered="#{event.timeToLastSign eq 0 and eventController.canSign}"/>
+                                <h:outputLabel value="Tilmelding slut"
+                                               rendered="#{event.timeToLastSign lt 0 or !eventController.canSign}"/>
                                 <s:formattedText value="#{event.shortDescription}"/>
 
                                 <s:link value="#{messages['frontpage.moreinformation']}"

@@ -4,6 +4,7 @@ import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
 import com.scandihealth.olympicsc.location.model.Location;
 import com.scandihealth.olympicsc.user.model.User;
+import com.scandihealth.olympicsc.utilities.dates.DateUtilities;
 import org.jboss.seam.annotations.Name;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class Event implements Serializable {
     private String description;
     private Date start;
     private Date end;
-    private boolean enabled;
+    private boolean enabled = true;
     private Date signstart;
     private Date signend;
     private Date unsignEnd;
@@ -323,5 +324,11 @@ public class Event implements Serializable {
 
     public void setSelectedUser(User selectedUser) {
         this.selectedUser = selectedUser;
+    }
+
+    @Transient
+    public int getTimeToLastSign() {
+        Date now = new Date();
+        return DateUtilities.dayDifference(now, getSignend());
     }
 }
