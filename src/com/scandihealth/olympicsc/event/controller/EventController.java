@@ -282,6 +282,7 @@ public class EventController implements Serializable {
     }
 
     public List<List<String>> getColumnDataForAccounting() {
+        DataManager dataManager = new DataManager();
         List<List<String>> result = new ArrayList<List<String>>();
 
         List<User> userList = getUsers();
@@ -291,13 +292,20 @@ public class EventController implements Serializable {
             }
         });
         for (User user : userList) {
+            EventPartnerRequest partnerRequest = dataManager.getEventPartnerRequest(user, selectedEvent);
             List<String> column = new ArrayList<String>();
             column.add(user.getFirstname() + " " + user.getLastname());
             column.add(user.getEmployeeId());
+            Integer memberPrice = selectedEvent.getMemberPrice();
+            Integer notMemberPrice = selectedEvent.getNotMemberPrice();
+            if (partnerRequest != null && partnerRequest.isPartnerRequest()) {
+                memberPrice *= 2;
+                notMemberPrice *= 2;
+            }
             if (user.isPersonaleForening()) {
-                column.add("" + selectedEvent.getMemberPrice());
+                column.add("" + memberPrice);
             } else {
-                column.add("" + selectedEvent.getNotMemberPrice());
+                column.add("" + notMemberPrice);
             }
 
             // todo noshowprice
