@@ -1,6 +1,7 @@
 package com.scandihealth.olympicsc.mailsystem.controller;
 
 import com.scandihealth.olympicsc.data.DataManager;
+import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.mailsystem.model.Mail;
 import com.scandihealth.olympicsc.mailsystem.model.MailContent;
 import com.scandihealth.olympicsc.user.model.User;
@@ -21,6 +22,8 @@ public class MailController {
     @Out(value = "mail")
     private Mail mail;
 
+    @In
+    Event selectedEvent;
 
     private Boolean tooAll;
     private Boolean useGreeting;
@@ -107,5 +110,18 @@ public class MailController {
 
     public List<MailContent> getMailContent() {
         return mailContent;
+    }
+
+    public String getSelectedUsers() {
+        String result = "";
+        if (selectedEvent != null) {
+            DataManager dataManager = new DataManager();
+            List<User> list = dataManager.getUserForEvent(selectedEvent);
+            for (User user : list) {
+                result += user.getUserName();
+            }
+            return result;
+        }
+        return "";
     }
 }

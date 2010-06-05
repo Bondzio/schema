@@ -16,11 +16,11 @@
                 <tr>
                     <td>
                         <rich:panel>
-
                             <h:outputLabel value="Afsender: Personaleforeningen (mail)"/>
                             <h:panelGrid columns="2">
                                 <h:outputLabel value="Til"/>
                                 <h:inputText value="#{mail.to}" id="mailto" disabled="#{mailController.tooAll}"/>
+                                <h:outputLabel value="#{mailController.selectedUsers}"/>
                             </h:panelGrid>
                             <h:outputLabel value="Til alle medlemmer"/>
                             <h:selectBooleanCheckbox value="#{mailController.tooAll}">
