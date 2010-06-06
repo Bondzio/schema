@@ -6,11 +6,11 @@ import javax.faces.context.FacesContext;
 public class MessageUtils {
 
     public static void createMessage(String message) {
-        FacesContext.getCurrentInstance().addMessage("", new FacesMessage(message));
+        createMessage(message, "");
     }
 
     public static void createMessage(String message, String componentId) {
-        FacesContext.getCurrentInstance().addMessage(componentId, new FacesMessage(message));
+        createMessage(message, componentId, FacesMessage.SEVERITY_INFO);
     }
 
     public static void createMessage(String message, String componentId, FacesMessage.Severity severity) {

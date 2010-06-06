@@ -12,6 +12,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
+import javax.faces.application.FacesMessage;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -107,12 +108,12 @@ public class MassDataUploadAction implements Serializable {
                 }
             }
         } else {
-            errorMessages.add("event was null");
+            errorMessages.add("No event selected.");
         }
 
         if (errorMessages.size() > 0) {
             for (String errorMessage : errorMessages) {
-                MessageUtils.createMessage(errorMessage);
+                MessageUtils.createMessage(errorMessage, "", FacesMessage.SEVERITY_ERROR);
             }
         } else {
             MessageUtils.createMessage("Teams opdateret.");

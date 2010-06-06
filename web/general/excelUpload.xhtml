@@ -14,7 +14,7 @@
                                 label="Upload teams til #{massDataUploadService.selectedEvent.name}">
             <h:panelGrid width="75%">
                 <h:panelGroup id="Upload">
-                    <a4j:form ajaxSubmit="true" enctype="multipart/form-data" reRender="messageOutput">
+                    <h:form enctype="multipart/form-data">
                         <table border="0">
                             <tbody>
                             <tr>
@@ -34,14 +34,15 @@
                                 <td>
                                 </td>
                                 <td>
-                                    <h:commandButton value="Upload" action="#{massDataUploadService.upload}"/>
+                                    <a4j:commandButton value="Upload" action="#{massDataUploadService.upload}"
+                                                       reRender="messageOutput"/>
                                     <rich:spacer width="10"/>
                                     <a4j:commandButton value="Cancel" type="reset"/>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    </a4j:form>
+                    </h:form>
                 </h:panelGroup>
             </h:panelGrid>
         </rich:simpleTogglePanel>

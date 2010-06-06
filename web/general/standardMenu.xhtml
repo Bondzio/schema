@@ -125,12 +125,11 @@
                 <f:facet name="label">
                     <h:outputText value="Team"/>
                 </f:facet>
-                <rich:menuItem submitMode="ajax" value="Kommer senere"/>
-                <rich:menuItem submitMode="ajax" value="Upload Excel" action="uploadExcel"/>
                 <rich:menuItem submitMode="ajax" value="Slet Holdsaetning"
                                action="#{teamController.deleteTeamComposition}"/>
-                <rich:menuItem submitMode="ajax" value="Opret Teams" action="a"/>
-                <rich:menuItem submitMode="ajax" value="Tilfoej spillere til team" action="b"/>
+
+                <rich:menuItem submitMode="ajax" value="Vis Teams" action="a"/>
+                <!--<rich:menuItem submitMode="ajax" value="Tilfoej spillere til team" action="b"/>-->
                 <!--<rich:menuItem submitMode="ajax" value="Opret Teams" action="olympicscCreateTeams"/>-->
                 <!--<rich:menuItem submitMode="ajax" value="Tilfoej til teams" action="addPLayersToTeams"/>-->
             </rich:dropDownMenu>

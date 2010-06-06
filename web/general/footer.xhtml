@@ -26,6 +26,10 @@
             text-align: right;
         }
 
+        .errorStyle {
+            color: red;
+        }
+
     </style>
 
     <rich:panel bodyClass="body1" id="footerPanel">
@@ -41,7 +45,7 @@
 
                 </td>
                 <td align="left">
-                    <rich:messages showSummary="true" showDetail="false" id="messageOutput"/>
+                    <rich:messages showSummary="true" showDetail="false" id="messageOutput" errorClass="errorStyle"/>
                 </td>
                 <td align="right">
                     <h:panelGrid columns="2">
