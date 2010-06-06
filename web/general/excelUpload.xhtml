@@ -9,24 +9,25 @@
                 template="/pagelayout.xhtml">
     <ui:define name="content">
 
-
-        <rich:simpleTogglePanel switchType="client"
-                                label="Upload teams til #{massDataUploadService.selectedEvent.name}">
-            <h:panelGrid width="75%">
+        <rich:panel>
+            <f:facet name="header">
+                <h:outputLabel value="Upload teams til #{teamUploadController.selectedEvent.name}"/>
+            </f:facet>
+            <h:panelGrid>
                 <h:panelGroup id="Upload">
                     <h:form enctype="multipart/form-data">
                         <table border="0">
                             <tbody>
                             <tr>
                                 <th>
-                                    <h:outputText value="UploadExcel :"/>
+                                    <h:outputText value="Upload teamselections :"/>
                                 </th>
                                 <th>
-                                    <s:fileUpload data="${massDataUploadService.data}"
-                                                  accept="${massDataUploadService.accept}"
-                                                  contentType="${massDataUploadService.contentType}"
-                                                  fileName="${massDataUploadService.name}"
-                                                  fileSize="${massDataUploadService.size}" size="40"
+                                    <s:fileUpload data="${teamUploadController.data}"
+                                                  accept="${teamUploadController.accept}"
+                                                  contentType="${teamUploadController.contentType}"
+                                                  fileName="${teamUploadController.name}"
+                                                  fileSize="${teamUploadController.size}" size="40"
                                                   maxlength="80"/>
                                 </th>
                             </tr>
@@ -34,8 +35,7 @@
                                 <td>
                                 </td>
                                 <td>
-                                    <a4j:commandButton value="Upload" action="#{massDataUploadService.upload}"
-                                                       reRender="messageOutput"/>
+                                    <h:commandButton value="Upload" action="#{teamUploadController.upload}"/>
                                     <rich:spacer width="10"/>
                                     <a4j:commandButton value="Cancel" type="reset"/>
                                 </td>
@@ -45,7 +45,7 @@
                     </h:form>
                 </h:panelGroup>
             </h:panelGrid>
-        </rich:simpleTogglePanel>
+        </rich:panel>
     </ui:define>
     <ui:define name="footer">
         <ui:include src="/general/footer.xhtml"/>

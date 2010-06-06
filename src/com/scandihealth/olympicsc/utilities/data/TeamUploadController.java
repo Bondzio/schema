@@ -18,9 +18,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Scope(ScopeType.EVENT)
-@Name("massDataUploadService")
-public class MassDataUploadAction implements Serializable {
+@Scope(ScopeType.SESSION)
+@Name("teamUploadController")
+public class TeamUploadController implements Serializable {
     private static final String accept = "text/plain,text/xml,application/xml,application/vnd.ms-excel";
     private byte[] data;
     private String contentType;
@@ -75,7 +75,6 @@ public class MassDataUploadAction implements Serializable {
     }
 
     public String upload() {
-        // Process uploaded csv file.
 
         if (data != null) {
             if (selectedEvent != null) {
@@ -108,7 +107,7 @@ public class MassDataUploadAction implements Serializable {
                 }
             }
         } else {
-            errorMessages.add("No event selected.");
+            errorMessages.add("Data was null.");
         }
 
         if (errorMessages.size() > 0) {
