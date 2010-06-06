@@ -1,0 +1,49 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://java.sun.com/jsf/html"
+                template="/pagelayout.xhtml">
+    <ui:define name="content">
+        <h:messages globalOnly="true" styleClass="message"/>
+
+        <rich:simpleTogglePanel switchType="client"
+                                label="Upload">
+            <h:panelGrid width="75%">
+                <h:panelGroup id="Upload">
+                    <h:form enctype="multipart/form-data">
+                        <table border="0">
+                            <tbody>
+                            <tr>
+                                <th>
+                                    <h:outputText value="UploadExcel :"/>
+                                </th>
+                                <th>
+                                    <s:fileUpload data="${massDataUploadService.data}"
+                                                  accept="${massDataUploadService.accept}"
+                                                  contentType="${massDataUploadService.contentType}"
+                                                  fileName="${massDataUploadService.name}"
+                                                  fileSize="${massDataUploadService.size}" size="40"
+                                                  maxlength="80"/>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <a4j:commandButton value="Upload" action="#{massDataUploadService.upload}"/>
+                                    <rich:spacer width="10"/>
+                                    <a4j:commandButton value="Cancel" type="reset"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </h:form>
+                </h:panelGroup>
+            </h:panelGrid>
+        </rich:simpleTogglePanel>
+    </ui:define>
+</ui:composition>

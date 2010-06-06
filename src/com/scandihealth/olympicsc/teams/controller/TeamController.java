@@ -12,11 +12,12 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Name("teamController")
 @Scope(ScopeType.SESSION)
-public class TeamController {
+public class TeamController implements Serializable {
 
     @In(create = true)
     Team team;
@@ -107,6 +108,18 @@ public class TeamController {
             System.out.println("test");
         }
 
+        return "";
+    }
+
+    public String deleteTeamComposition() {
+        DataManager dataManager = new DataManager();
+        List<User> userList1 = dataManager.getUsers();
+        for (User user : userList1) {
+            TeamUserSelection teamUserSelection = dataManager.getTeamUserSelection(user);
+            if (teamUserSelection != null) {
+                dataManager.deleteObject(teamUserSelection);
+            }
+        }
         return "";
     }
 }
