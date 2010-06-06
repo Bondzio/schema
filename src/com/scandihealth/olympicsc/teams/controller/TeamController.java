@@ -13,7 +13,9 @@ import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Name("teamController")
 @Scope(ScopeType.SESSION)
@@ -30,9 +32,6 @@ public class TeamController implements Serializable {
 
     private List<User> usersForTeam;
 
-    private Team teamSelection;
-    private List<User> userList;
-
     public String createTeam() {
         if (team != null && team.getName() != null && !"".equals(team.getName())) {
             DataManager dataManager = new DataManager();
@@ -45,49 +44,19 @@ public class TeamController implements Serializable {
     public void findTeams() {
         DataManager dataManager = new DataManager();
         teamList = dataManager.getTeams();
-        userList = dataManager.getUsers();
     }
 
 
-    public List<User> getUsersForTeam() {
+    public List<User> usersForTeam(Team team) {
+        DataManager dataManager = new DataManager();
+        usersForTeam = dataManager.getUsersForTeam(team);
         return usersForTeam;
     }
 
-    public void setUsersForTeam(List<User> usersForTeam) {
-        this.usersForTeam = usersForTeam;
-    }
-
-    public Team getTeamSelection() {
-        return teamSelection;
-    }
-
-    public void setTeamSelection(Team teamSelection) {
-        System.out.println("changing team selection");
-        this.teamSelection = teamSelection;
-        DataManager dataManager = new DataManager();
-        usersForTeam = dataManager.getUsersForTeam(teamSelection);
-    }
-
-    public void setSelectedTeam(Team selectedTeam) {
-        this.selectedTeam = selectedTeam;
-    }
-
-    public Team getSelectedTeam() {
-        return selectedTeam;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
-    public List<User> getUserList() {
-        return userList;
-    }
-
     public String updateTeam() {
-        if (teamSelection != null) {
+        if (selectedTeam != null) {
             DataManager dataManager = new DataManager();
-            Team team1 = dataManager.getTeam(teamSelection);
+            Team team1 = dataManager.getTeam(selectedTeam);
             List<User> result = dataManager.getUsersForTeam(team1);
 
             for (User user : result) {
@@ -99,7 +68,7 @@ public class TeamController implements Serializable {
             for (User user : usersForTeam) {
                 if (!result.contains(user)) {
                     TeamUserSelection teamUserSelection = new TeamUserSelection();
-                    teamUserSelection.setIdteam(teamSelection.getId());
+                    teamUserSelection.setIdteam(selectedTeam.getId());
                     teamUserSelection.setIduser(user.getIduser());
                     dataManager.saveObject(teamUserSelection);
                 }
@@ -121,5 +90,84 @@ public class TeamController implements Serializable {
             }
         }
         return "";
+    }
+
+    public static void main(String[] args) {
+        new TeamController().calculateTShirts();
+    }
+
+    public void calculateTShirts() {
+        findTeams();
+        DataManager dataManager = new DataManager();
+        Map<String, Map<String, Integer>> shirtMap = new HashMap<String, Map<String, Integer>>();
+        for (Team team1 : teamList) {
+            List<User> usersForTeam = dataManager.getUsersForTeam(team1);
+
+            Map<String, Integer> teamShirts = shirtMap.get(team1.getName());
+            if (teamShirts == null) {
+                teamShirts = new HashMap<String, Integer>();
+            }
+            for (User user : usersForTeam) {
+                String shirtSize = user.getShirtsize().toUpperCase().trim();
+                shirtSize = convertShirtSizes(shirtSize);
+                Integer shirtCount = 1;
+                if (teamShirts.containsKey(shirtSize)) {
+                    shirtCount = teamShirts.get(shirtSize) + 1;
+                }
+
+                teamShirts.put(shirtSize, shirtCount);
+
+            }
+            shirtMap.put(team1.getName(), teamShirts);
+        }
+
+
+        for (String s : shirtMap.keySet()) {
+            System.out.println("Team " + s);
+            Map<String, Integer> sizeCountMap = shirtMap.get(s);
+            for (String sizes : sizeCountMap.keySet()) {
+                System.out.println("Number of " + sizes + ": " + sizeCountMap.get(sizes));
+            }
+        }
+    }
+
+    private String convertShirtSizes(String shirtSize) {
+        if ("X-LARGE".equals(shirtSize)) {
+            shirtSize = "XL";
+        }
+        if ("LARGE".equals(shirtSize)) {
+            shirtSize = "L";
+        }
+        if ("MEDIUM".equals(shirtSize)) {
+            shirtSize = "M";
+        }
+        if ("SMALL".equals(shirtSize)) {
+            shirtSize = "S";
+        }
+        if ("14 ÅR".equals(shirtSize)) {
+            shirtSize = "14";
+        }
+        if ("STR. 14 ÅR".equals(shirtSize)) {
+            shirtSize = "14";
+        }
+        if ("39".equals(shirtSize)) {
+            shirtSize = "M";
+        }
+        if ("39 / MEDIUM".equals(shirtSize)) {
+            shirtSize = "M";
+        }
+        if ("42 (M/L)".equals(shirtSize)) {
+            shirtSize = "L";
+        }
+        if ("42".equals(shirtSize)) {
+            shirtSize = "L";
+        }
+        if ("43".equals(shirtSize)) {
+            shirtSize = "L";
+        }
+        if ("44".equals(shirtSize)) {
+            shirtSize = "XL";
+        }
+        return shirtSize;
     }
 }

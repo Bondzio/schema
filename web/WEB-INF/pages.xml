@@ -87,8 +87,11 @@
             <rule if-outcome="addPLayersToTeams">
                 <redirect view-id="/olympicsc/teams/addPlayersToTeam.xhtml"/>
             </rule>
+            <rule if-outcome="showTeams">
+                <redirect view-id="/general/showTeams.xhtml"/>
+            </rule>
             <rule if-outcome="uploadExcel">
-                <redirect view-id="/general/excelUpload.xhtml"/>
+                <redirect view-id="/general/teamUpload.xhtml"/>
             </rule>
         </navigation>
     </page>
