@@ -27,8 +27,10 @@ import java.util.Set;
 public class User implements Serializable {
     private PERSONFOR blof;
 
+    private SHIRTSIZES shirtSizes;
+
     public enum SHIRTSIZES {
-        S, M, L, XL, XXL, XXXL, XXXXL
+        FOURTEEN, S, M, L, XL, XXL, XXXL, XXXXL
     }
 
     public enum PERSONFOR {
@@ -191,6 +193,16 @@ public class User implements Serializable {
     @Transient
     public PERSONFOR getPeronFor() {
         return blof;
+    }
+
+    @Transient
+    public SHIRTSIZES getShirtSizes() {
+        return shirtSizes;
+    }
+
+    public void setShirtSizes(SHIRTSIZES shirtSizes) {
+        setShirtsize(shirtSizes.name());
+        this.shirtSizes = shirtSizes;
     }
 
     @javax.persistence.Column(name = "shirtsize")

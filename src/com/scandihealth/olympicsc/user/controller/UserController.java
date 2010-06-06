@@ -179,4 +179,54 @@ public class UserController {
         }
         return "";
     }
+
+    public String convertShirtSizes() {
+        for (User user1 : userList) {
+            String shirtSize = user1.getShirtsize();
+            String convertedSize = convertShirtSizes(shirtSize);
+            user1.setShirtsize(convertedSize);
+        }
+        MessageUtils.createMessage("Shirtsizes convertet");
+        return "";
+    }
+
+    private String convertShirtSizes(String shirtSize) {
+        if ("X-LARGE".equals(shirtSize)) {
+            shirtSize = "XL";
+        }
+        if ("LARGE".equals(shirtSize)) {
+            shirtSize = "L";
+        }
+        if ("MEDIUM".equals(shirtSize)) {
+            shirtSize = "M";
+        }
+        if ("SMALL".equals(shirtSize)) {
+            shirtSize = "S";
+        }
+        if ("14 ÅR".equals(shirtSize)) {
+            shirtSize = "14";
+        }
+        if ("STR. 14 ÅR".equals(shirtSize)) {
+            shirtSize = "14";
+        }
+        if ("39".equals(shirtSize)) {
+            shirtSize = "M";
+        }
+        if ("39 / MEDIUM".equals(shirtSize)) {
+            shirtSize = "M";
+        }
+        if ("42 (M/L)".equals(shirtSize)) {
+            shirtSize = "L";
+        }
+        if ("42".equals(shirtSize)) {
+            shirtSize = "L";
+        }
+        if ("43".equals(shirtSize)) {
+            shirtSize = "L";
+        }
+        if ("44".equals(shirtSize)) {
+            shirtSize = "XL";
+        }
+        return shirtSize;
+    }
 }
