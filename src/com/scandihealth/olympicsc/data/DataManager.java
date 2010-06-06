@@ -13,9 +13,10 @@ import com.scandihealth.olympicsc.teams.model.TeamUserSelection;
 import com.scandihealth.olympicsc.user.model.User;
 import org.hibernate.*;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class DataManager {
+public class DataManager implements Serializable {
 
     public void deleteObject(Object o) {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();

@@ -25,9 +25,14 @@ import java.util.Set;
 @Name("user")
 @Scope(ScopeType.SESSION)
 public class User implements Serializable {
+    private PERSONFOR blof;
 
     public enum SHIRTSIZES {
         S, M, L, XL, XXL, XXXL, XXXXL
+    }
+
+    public enum PERSONFOR {
+        MEMBER, NONMEMBER
     }
 
     private int iduser;
@@ -158,11 +163,34 @@ public class User implements Serializable {
     @javax.persistence.Column(name = "personaleforening")
     @Basic
     public boolean isPersonaleForening() {
+
+        if (personaleForening) {
+            setPeronFor(PERSONFOR.MEMBER);
+        } else {
+            if (!isFirstlogin()) {
+                setPeronFor(PERSONFOR.NONMEMBER);
+            }
+        }
         return personaleForening;
     }
 
     public void setPersonaleForening(boolean personaleForening) {
         this.personaleForening = personaleForening;
+
+    }
+
+    public void setPeronFor(PERSONFOR peronFor) {
+        if (peronFor.equals(PERSONFOR.MEMBER)) {
+            setPersonaleForening(true);
+        } else if (peronFor.equals(PERSONFOR.NONMEMBER)) {
+            setPersonaleForening(false);
+        }
+        blof = peronFor;
+    }
+
+    @Transient
+    public PERSONFOR getPeronFor() {
+        return blof;
     }
 
     @javax.persistence.Column(name = "shirtsize")

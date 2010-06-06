@@ -6,178 +6,231 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
 
-    <ui:define name="content">
-        <style type="text/css">
-            .headerstyle {
-                background-color: #a52a2a;
-            }
+<ui:define name="content">
+<style type="text/css">
+    .headerstyle {
+        background-color: #a52a2a;
+    }
 
-            .rightAligned {
-                text-align: right;
-            }
+    .rightAligned {
+        text-align: right;
+    }
 
-            .head2 {
-                background-color: #4C9600;
-                height: 16px;
-                text-align: center;
-                vertical-align: middle;
-                color: #CFF;
-                padding: 4px 0;
-            }
-        </style>
-        <h:form>
-            <table width="600" align="center">
-                <tr>
-                    <td>
-                        <h:outputText value="#{messages['userdetails.welcomemessage']}"
-                                      rendered="#{authenticator.user.firstlogin}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td><rich:spacer height="20"/></td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <table>
-                            <tr>
-                                <td colspan="2" align="center" valign="top">
-                                    <rich:panel headerClass="head2">
-                                        <f:facet name="header">
-                                            <h:outputLabel value="#{messages['userdetails.namedetails']}"/>
-                                        </f:facet>
-                                        <table>
-                                            <tr>
-                                                <td valign="top">
-                                                    <table>
-                                                        <tr style="height:24px;">
-                                                            <td valign="center">
-                                                                <h:outputLabel
-                                                                        value="#{messages['userdetails.username']}"/>
-                                                            </td>
-                                                            <td valign="center">
-                                                                <h:outputLabel value="#{authenticator.user.userName}"/>
-                                                            </td>
-                                                        </tr>
-                                                        <tr style="height:24px;">
-                                                            <td valign="center">
-                                                                <h:outputLabel value="Password"/>
-                                                            </td>
-                                                            <td valign="center">
-                                                                <h:inputText value="#{authenticator.user.password}"/>
-                                                            </td>
-                                                        </tr>
-                                                        <tr style="height:24px;">
-                                                            <td valign="center">
-                                                                <h:outputLabel
-                                                                        value="#{messages['userdetails.employeeid']}"/>
-                                                            </td>
-                                                            <td valign="center">
+    .head2 {
+        background-color: #4C9600;
+        height: 16px;
+        text-align: center;
+        vertical-align: middle;
+        color: #CFF;
+        padding: 4px 0;
+    }
+
+    .simplePanel {
+
+        border: white;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nobackground {
+        background: white;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+<h:form>
+
+    <a4j:jsFunction reRender="mainPanel" name="setFormValidState"/>
+    <rich:panel id="mainPanel" styleClass="nobackground">
+        <table width="600" align="center">
+            <tr>
+                <td>
+                    <h:outputText value="#{messages['userdetails.welcomemessage']}"
+                                  rendered="#{authenticator.user.firstlogin}"/>
+                </td>
+            </tr>
+            <tr>
+                <td><rich:spacer height="20"/></td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <table>
+                        <tr>
+                            <td colspan="2" align="center" valign="top">
+                                <rich:panel headerClass="head2">
+                                    <f:facet name="header">
+                                        <h:outputLabel value="#{messages['userdetails.namedetails']}"/>
+                                    </f:facet>
+                                    <table>
+                                        <tr>
+                                            <td valign="top">
+                                                <table>
+                                                    <tr style="height:24px;">
+                                                        <td valign="center">
+                                                            <h:outputLabel
+                                                                    value="#{messages['userdetails.username']}"/>
+                                                        </td>
+                                                        <td valign="center">
+                                                            <h:outputLabel value="#{authenticator.user.userName}"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="height:24px;">
+                                                        <td valign="center">
+                                                            <h:outputLabel value="Password"/>
+                                                        </td>
+                                                        <td valign="center">
+                                                            <h:inputText value="#{authenticator.user.password}"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="height:24px;">
+                                                        <!--<td valign="center">-->
+                                                        <!--<h:outputLabel-->
+                                                        <!--value="#{messages['userdetails.employeeid']}"/>-->
+                                                        <!--</td>-->
+                                                        <td valign="center" colspan="2">
+                                                            <s:decorate id="employeeIdDecoration"
+                                                                        template="/general/util/errorStyle.xhtml">
+                                                                <ui:define
+                                                                        name="label">#{messages['userdetails.employeeid']}</ui:define>
                                                                 <h:inputText
-                                                                        value="#{authenticator.user.employeeId}"/>
-                                                            </td>
-                                                        </tr>
+                                                                        value="#{authenticator.user.employeeId}"
+                                                                        required="true">
+                                                                    <s:validate/>
+                                                                    <a4j:support event="onload"
+                                                                                 reRender="mainPanel"/>
+                                                                    <a4j:support event="onblur"
+                                                                                 reRender="employeeIdDecoration"
+                                                                                 bypassUpdates="true"/>
+                                                                </h:inputText>
+                                                            </s:decorate>
+                                                        </td>
+                                                    </tr>
 
-                                                    </table>
-                                                </td>
-                                                <td valign="top">
-                                                    <table>
-                                                        <tr style="height:24px;">
-                                                            <td>
-                                                                <s:decorate id="firstNameDecoration"
-                                                                            template="/general/util/errorStyle.xhtml">
-                                                                    <ui:define
-                                                                            name="label">#{messages['userdetails.firstname']}</ui:define>
-                                                                    <h:inputText
-                                                                            value="#{authenticator.user.firstname}"
-                                                                            required="true">
-                                                                        <a4j:support event="onblur"
-                                                                                     reRender="firstNameDecoration"
-                                                                                     bypassUpdates="true"/>
-                                                                    </h:inputText>
-                                                                </s:decorate>
-                                                            </td>
-                                                        </tr>
-                                                        <tr style="height:24px;">
-                                                            <td>
-                                                                <s:decorate id="lastNameDecoration"
-                                                                            template="/general/util/errorStyle.xhtml">
-                                                                    <ui:define
-                                                                            name="label">#{messages['userdetails.surname']}</ui:define>
-                                                                    <h:inputText
-                                                                            value="#{authenticator.user.lastname}"
-                                                                            required="true">
-                                                                        <a4j:support event="onblur"
-                                                                                     reRender="lastNameDecoration"
-                                                                                     bypassUpdates="true"/>
-                                                                    </h:inputText>
-                                                                </s:decorate>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </rich:panel>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <rich:panel>
-                                        <h:panelGrid columns="2">
-                                            <h:outputLabel value="#{messages['userdetails.mail']}"/>
-                                            <h:inputText value="#{authenticator.user.mail}"/>
-                                            <h:outputLabel value="#{messages['userdetails.phone']}"/>
-                                            <h:inputText value="#{authenticator.user.phone}"/>
-                                            <h:outputLabel value="#{messages['userdetails.department']}"/>
-                                            <h:inputText value="#{authenticator.user.department}"/>
-                                        </h:panelGrid>
-                                    </rich:panel>
-                                </td>
-                                <td valign="top">
-                                    <rich:panel>
+                                                </table>
+                                            </td>
+                                            <td valign="top">
+                                                <table>
+                                                    <tr style="height:24px;">
+                                                        <td>
+                                                            <s:decorate id="firstNameDecoration"
+                                                                        template="/general/util/errorStyle.xhtml">
+                                                                <ui:define
+                                                                        name="label">#{messages['userdetails.firstname']}</ui:define>
+                                                                <h:inputText value="#{authenticator.user.firstname}"
+                                                                             required="true">
+                                                                    <a4j:support event="onblur"
+                                                                                 reRender="firstNameDecoration"
+                                                                                 bypassUpdates="true"/>
+                                                                </h:inputText>
+                                                            </s:decorate>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="height:24px;">
+                                                        <td>
+                                                            <s:decorate id="lastNameDecoration"
+                                                                        template="/general/util/errorStyle.xhtml">
+                                                                <ui:define
+                                                                        name="label">#{messages['userdetails.surname']}</ui:define>
+                                                                <h:inputText
+                                                                        value="#{authenticator.user.lastname}"
+                                                                        required="true">
+                                                                    <a4j:support event="onblur"
+                                                                                 reRender="lastNameDecoration"
+                                                                                 bypassUpdates="true"/>
+                                                                </h:inputText>
+                                                            </s:decorate>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </rich:panel>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td>
+                                <rich:panel>
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel value="#{messages['userdetails.mail']}"/>
+                                        <h:inputText value="#{authenticator.user.mail}"/>
+                                        <h:outputLabel value="#{messages['userdetails.phone']}"/>
+                                        <h:inputText value="#{authenticator.user.phone}"/>
+                                        <h:outputLabel value="#{messages['userdetails.department']}"/>
+                                        <h:inputText value="#{authenticator.user.department}"/>
+                                    </h:panelGrid>
+                                </rich:panel>
+                            </td>
+                            <td valign="top">
+                                <rich:panel>
+                                    <h:panelGrid columns="1">
+                                        <!--<rich:comboBox selectFirstOnUpdate="true"-->
+                                        <!--value="#{authenticator.user.shirtsize}"-->
+                                        <!--defaultLabel="Select some value" width="200">-->
+                                        <!--<s:selectItems value="#{user.SHIRTSIZES}" var="users"-->
+                                        <!--label="#{users.userName}"/>-->
+                                        <!--<f:converter converterId="userConverter"/>-->
+                                        <!--</rich:comboBox>-->
+                                        <s:decorate id="shirtsizeDecoration"
+                                                    template="/general/util/errorStyle.xhtml">
+                                            <ui:define name="label">#{messages['userdetails.shirtsize']}</ui:define>
+                                            <h:inputText
+                                                    value="#{authenticator.user.shirtsize}"
+                                                    required="true">
+                                                <a4j:support event="onblur"
+                                                             reRender="shirtsizeDecoration"
+                                                             bypassUpdates="true"/>
+                                            </h:inputText>
+                                        </s:decorate>
                                         <h:panelGrid columns="1">
-                                            <!--<rich:comboBox selectFirstOnUpdate="true"-->
-                                            <!--value="#{authenticator.user.shirtsize}"-->
-                                            <!--defaultLabel="Select some value" width="200">-->
-                                            <!--<s:selectItems value="#{user.SHIRTSIZES}" var="users"-->
-                                            <!--label="#{users.userName}"/>-->
-                                            <!--<f:converter converterId="userConverter"/>-->
-                                            <!--</rich:comboBox>-->
-                                            <s:decorate id="shirtsizeDecoration"
-                                                        template="/general/util/errorStyle.xhtml">
-                                                <ui:define name="label">#{messages['userdetails.shirtsize']}</ui:define>
-                                                <h:inputText
-                                                        value="#{authenticator.user.shirtsize}"
-                                                        required="true">
+
+                                            <s:decorate id="personelUnionDecoration"
+                                                        template="/general/util/validationStyleAtLabel.xhtml">
+                                                <ui:define
+                                                        name="label">#{messages['userdetails.personelunion']}</ui:define>
+                                                <h:selectOneRadio id="radioList"
+                                                                  layout="pageDirection"
+                                                                  value="#{authenticator.user.peronFor}"
+                                                                  required="true">
+                                                    <s:convertEnum/>
+                                                    <s:enumItem enumValue="MEMBER" label="Medlem"/>
+                                                    <s:enumItem enumValue="NONMEMBER" label="Ikke medled"/>
                                                     <a4j:support event="onblur"
-                                                                 reRender="shirtsizeDecoration"
+                                                                 reRender="personelUnionDecoration"
                                                                  bypassUpdates="true"/>
-                                                </h:inputText>
+                                                    <a4j:support event="onclick"
+                                                                 reRender="personelUnionDecoration"
+                                                                 bypassUpdates="true"/>
+
+                                                </h:selectOneRadio>
                                             </s:decorate>
                                             <h:panelGrid columns="2">
-                                                <h:outputLabel value="#{messages['userdetails.personelunion']}"/>
-                                                <h:selectBooleanCheckbox
-                                                        value="#{authenticator.user.personaleForening}"/>
                                                 <h:outputLabel value="#{messages['userdetails.administrator']}"
                                                                rendered="#{s:hasRole('admin')}"/>
                                                 <h:selectBooleanCheckbox value="#{userController.user.admin}"
                                                                          rendered="#{s:hasRole('admin')}"/>
                                             </h:panelGrid>
                                         </h:panelGrid>
-                                    </rich:panel>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" align="right">
-                                    <h:commandButton value="#{messages['userdetails.update']}"
-                                                     action="#{userController.updateUser}"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </h:form>
+                                    </h:panelGrid>
+                                </rich:panel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right">
+                                <h:commandButton value="#{messages['userdetails.update']}"
+                                                 action="#{userController.updateUser}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </rich:panel>
+</h:form>
+<script type="text/javascript">
+    window.onload = setFormValidState();
+</script>
 
-    </ui:define>
+</ui:define>
 </ui:composition>
