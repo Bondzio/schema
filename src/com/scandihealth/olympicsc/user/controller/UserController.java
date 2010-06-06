@@ -166,4 +166,18 @@ public class UserController {
         dataManager.saveUser(user);
         return "";
     }
+
+    public String unionCheck() {
+        findUsers();
+        DataManager dataManager = new DataManager();
+        if (userList != null) {
+            for (User user1 : userList) {
+                if (!user1.isPersonaleForening() || user1.getEmployeeId() == null || "".equals(user1.getEmployeeId())) {
+                    user1.setFirstlogin(true);
+                }
+                dataManager.saveUser(user1);
+            }
+        }
+        return "";
+    }
 }

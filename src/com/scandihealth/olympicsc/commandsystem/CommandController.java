@@ -3,13 +3,14 @@ package com.scandihealth.olympicsc.commandsystem;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Name("commandController")
 @Scope(org.jboss.seam.ScopeType.SESSION)
-public class CommandController {
+public class CommandController implements Serializable {
 
     List<Command> commands;
     List<Command> redoList;
