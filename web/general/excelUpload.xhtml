@@ -5,16 +5,16 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
                 template="/pagelayout.xhtml">
     <ui:define name="content">
-        <h:messages globalOnly="true" styleClass="message"/>
+
 
         <rich:simpleTogglePanel switchType="client"
-                                label="Upload">
+                                label="Upload teams til #{massDataUploadService.selectedEvent.name}">
             <h:panelGrid width="75%">
                 <h:panelGroup id="Upload">
-                    <h:form enctype="multipart/form-data">
+                    <a4j:form ajaxSubmit="true" enctype="multipart/form-data" reRender="messageOutput">
                         <table border="0">
                             <tbody>
                             <tr>
@@ -34,16 +34,19 @@
                                 <td>
                                 </td>
                                 <td>
-                                    <a4j:commandButton value="Upload" action="#{massDataUploadService.upload}"/>
+                                    <h:commandButton value="Upload" action="#{massDataUploadService.upload}"/>
                                     <rich:spacer width="10"/>
                                     <a4j:commandButton value="Cancel" type="reset"/>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    </h:form>
+                    </a4j:form>
                 </h:panelGroup>
             </h:panelGrid>
         </rich:simpleTogglePanel>
+    </ui:define>
+    <ui:define name="footer">
+        <ui:include src="/general/footer.xhtml"/>
     </ui:define>
 </ui:composition>

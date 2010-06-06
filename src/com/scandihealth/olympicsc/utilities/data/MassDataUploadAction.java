@@ -1,20 +1,23 @@
 package com.scandihealth.olympicsc.utilities.data;
 
 import com.scandihealth.olympicsc.data.DataManager;
+import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.teams.model.Team;
 import com.scandihealth.olympicsc.teams.model.TeamUserSelection;
 import com.scandihealth.olympicsc.user.model.User;
+import com.scandihealth.olympicsc.utilities.MessageUtils;
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-@Scope(ScopeType.SESSION)
+@Scope(ScopeType.EVENT)
 @Name("massDataUploadService")
 public class MassDataUploadAction implements Serializable {
     private static final String accept = "text/plain,text/xml,application/xml,application/vnd.ms-excel";
@@ -24,7 +27,11 @@ public class MassDataUploadAction implements Serializable {
     private String title;
     private int size;
 
-    Map<Team, User> teamMap = new HashMap<Team, User>();
+    List<String> errorMessages = new ArrayList<String>();
+
+    @In(value = "selectedEvent")
+    @Out
+    Event selectedEvent;
 
     public byte[] getData() {
         return data;
@@ -66,44 +73,52 @@ public class MassDataUploadAction implements Serializable {
         this.size = size;
     }
 
-    public void upload() {
-        System.out.println("in upload---name----> " + name);
-        System.out.println("in upload---contentType----> " + contentType);
-        System.out.println("in upload---size----> " + size);
-        System.out.println("in upload---title----> " + title);
-
-
+    public String upload() {
         // Process uploaded csv file.
 
         if (data != null) {
-            DataManager dataManager = new DataManager();
-            ByteArrayInputStream csvInput = new ByteArrayInputStream(data);
-            List<List<String>> csvList = CsvUtil.parseCsv(csvInput, ';');
-            for (List<String> strings : csvList) {
-                int counter = 0;
-                User user = null;
-                for (String string : strings) {
-                    if (counter++ % 2 == 0) {
-                        user = dataManager.getUser(string);
-                        System.out.println("username = " + string);
-                    } else {
-                        TeamUserSelection teamUserSelection = new TeamUserSelection();
-                        Team team = dataManager.getTeam(string);
-                        if (team == null) {
-                            team = createTeam(string, dataManager);
-                        }
+            if (selectedEvent != null) {
+                DataManager dataManager = new DataManager();
+                ByteArrayInputStream csvInput = new ByteArrayInputStream(data);
+                List<List<String>> csvList = CsvUtil.parseCsv(csvInput, ';');
+                for (List<String> strings : csvList) {
+                    int counter = 0;
+                    User user = null;
+                    for (String string : strings) {
+                        if (counter++ % 2 == 0) {
+                            user = dataManager.getUser(string);
+                        } else {
+                            if (user != null) {
+                                TeamUserSelection teamUserSelection = new TeamUserSelection();
+                                Team team = dataManager.getTeam(string);
+                                if (team == null) {
+                                    team = createTeam(string, dataManager);
+                                }
 
-                        teamUserSelection.setIdteam(team.getId());
-                        teamUserSelection.setIduser(user.getIduser());
-                        dataManager.saveObject(teamUserSelection);
-                        System.out.println("team = " + string);
+                                teamUserSelection.setIdteam(team.getId());
+                                teamUserSelection.setIduser(user.getIduser());
+                                teamUserSelection.setIdevent(selectedEvent.getIdevent());
+                                dataManager.saveObject(teamUserSelection);
+                            } else {
+                                errorMessages.add("Had no user to add to team");
+                            }
+                        }
                     }
                 }
             }
-            // Now you can do your thing with the CSV List.
         } else {
-            // Empty file error, do your thing.
+            errorMessages.add("event was null");
         }
+
+        if (errorMessages.size() > 0) {
+            for (String errorMessage : errorMessages) {
+                MessageUtils.createMessage(errorMessage);
+            }
+        } else {
+            MessageUtils.createMessage("Teams opdateret.");
+        }
+
+        return "";
     }
 
     private Team createTeam(String name, DataManager dataManager) {
@@ -116,5 +131,13 @@ public class MassDataUploadAction implements Serializable {
 
     public String getAccept() {
         return accept;
+    }
+
+    public void setSelectedEvent(Event selectedEvent) {
+        this.selectedEvent = selectedEvent;
+    }
+
+    public Event getSelectedEvent() {
+        return selectedEvent;
     }
 }

@@ -11,6 +11,9 @@ import java.io.Serializable;
 @Entity
 public class TeamUserSelection implements Serializable {
     private int id;
+    private int iduser;
+    private int idteam;
+    private int idevent;
 
     @javax.persistence.Column(name = "ID")
     @Id
@@ -22,8 +25,6 @@ public class TeamUserSelection implements Serializable {
         this.id = id;
     }
 
-    private int iduser;
-
     @javax.persistence.Column(name = "iduser")
     @Basic
     public int getIduser() {
@@ -33,8 +34,6 @@ public class TeamUserSelection implements Serializable {
     public void setIduser(int iduser) {
         this.iduser = iduser;
     }
-
-    private int idteam;
 
     @javax.persistence.Column(name = "idteam")
     @Basic
@@ -46,6 +45,16 @@ public class TeamUserSelection implements Serializable {
         this.idteam = idteam;
     }
 
+    @javax.persistence.Column(name = "idevent")
+    @Basic
+    public int getIdevent() {
+        return idevent;
+    }
+
+    public void setIdevent(int idevent) {
+        this.idevent = idevent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,6 +63,7 @@ public class TeamUserSelection implements Serializable {
         TeamUserSelection that = (TeamUserSelection) o;
 
         if (id != that.id) return false;
+        if (idevent != that.idevent) return false;
         if (idteam != that.idteam) return false;
         if (iduser != that.iduser) return false;
 
@@ -65,6 +75,7 @@ public class TeamUserSelection implements Serializable {
         int result = id;
         result = 31 * result + iduser;
         result = 31 * result + idteam;
+        result = 31 * result + idevent;
         return result;
     }
 }

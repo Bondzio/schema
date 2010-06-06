@@ -7,14 +7,13 @@ import com.scandihealth.olympicsc.commandsystem.user.DeleteUserCommand;
 import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.security.Authenticator;
 import com.scandihealth.olympicsc.user.model.User;
+import com.scandihealth.olympicsc.utilities.MessageUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.*;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,7 +136,7 @@ public class UserController {
         for (User user1 : userList) {
             dataManager.saveUser(user1);
         }
-        FacesContext.getCurrentInstance().addMessage("userList", new FacesMessage("Brugerne er blever opdateret."));
+        MessageUtils.createMessage("Brugerne er blever opdateret.", "userList");
         return "";
     }
 

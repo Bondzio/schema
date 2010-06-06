@@ -9,6 +9,7 @@ import com.scandihealth.olympicsc.data.DataManager;
 import com.scandihealth.olympicsc.event.model.*;
 import com.scandihealth.olympicsc.security.Authenticator;
 import com.scandihealth.olympicsc.user.model.User;
+import com.scandihealth.olympicsc.utilities.MessageUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.*;
 import org.jboss.seam.annotations.datamodel.DataModel;
@@ -16,8 +17,6 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.Renderer;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.*;
 
@@ -171,7 +170,7 @@ public class EventController implements Serializable {
         }
         UpdateEventCommand updateEventCommand = new UpdateEventCommand(eventRepository, selectedEvent);
         commandController.executeCommand(updateEventCommand);
-        FacesContext.getCurrentInstance().addMessage("eventList", new FacesMessage("Informationen er gemt."));
+        MessageUtils.createMessage("Informationen er gemt.", "eventList");
         return "";
     }
 
@@ -415,10 +414,7 @@ public class EventController implements Serializable {
     public Boolean hasUserPartnerRequest(User user) {
         DataManager dataManager = new DataManager();
         EventPartnerRequest eventPartnerRequest = dataManager.getEventPartnerRequest(user, selectedEvent);
-        if (eventPartnerRequest != null) {
-            return eventPartnerRequest.isPartnerRequest();
-        }
-        return false;
+        return eventPartnerRequest != null && eventPartnerRequest.isPartnerRequest();
     }
 
     public Integer hasUserVegetarianRequest(User user) {
@@ -428,5 +424,9 @@ public class EventController implements Serializable {
             return vegetarianRequest.getVegetarian();
         }
         return 0;
+    }
+
+    public String createTeam() {
+        return "uploadExcel";
     }
 }
