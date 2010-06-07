@@ -13,7 +13,6 @@ import org.jboss.seam.annotations.*;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 
-import javax.faces.component.UIInput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,6 @@ public class UserController {
     @In(value = "user", required = true)
     @Out(value = "user")
     private User user;
-    private UIInput shirtSizeControl;
 
     @In(create = true)
     private CommandController commandController;
@@ -59,29 +57,6 @@ public class UserController {
         userList = dataManager.getUsers();
     }
 
-
-    private void validateShirtSizeControl() {
-        if (shirtSizeControl != null) {
-            Object value = shirtSizeControl.getValue();
-            if (value == null) {
-                if (user != null) {
-                    if (!user.getShirtsize().equals("")) {
-                        shirtSizeControl.setValid(true);
-                    } else {
-                        shirtSizeControl.setValid(false);
-                    }
-                } else {
-                    shirtSizeControl.setValid(false);
-                }
-            } else if (value instanceof String) {
-                String value1 = (String) value;
-                if (value1.equals("")) {
-                    shirtSizeControl.setValid(false);
-                }
-            }
-        }
-    }
-
     public User getUser() {
         return user;
     }
@@ -112,15 +87,6 @@ public class UserController {
 
         dataManager.saveUser(user1);
         return "startpage";
-    }
-
-    public void setShirtSizeControl(UIInput shirtSizeControl) {
-        this.shirtSizeControl = shirtSizeControl;
-        validateShirtSizeControl();
-    }
-
-    public UIInput getShirtSizeControl() {
-        return shirtSizeControl;
     }
 
     public void selectAllPersonel() {

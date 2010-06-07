@@ -162,8 +162,16 @@
                                 <rich:panel>
                                     <h:panelGrid columns="1">
                                         <!--<rich:comboBox selectFirstOnUpdate="true"-->
-                                        <!--value="#{authenticator.user.shirtSizes}"-->
+                                        <!--value="#{authenticator.user.shirtsize}"-->
                                         <!--defaultLabel="Select some value" width="200">-->
+                                            <!--<f:selectItem value="14" itemLabel="14"/>-->
+                                            <!--<f:selectItem value="S" itemLabel="S"/>-->
+                                            <!--<f:selectItem value="M" itemLabel="M"/>-->
+                                            <!--<f:selectItem value="L" itemLabel="L"/>-->
+                                            <!--<f:selectItem value="XL" itemLabel="XL"/>-->
+                                            <!--<f:selectItem value="XXL" itemLabel="XXL"/>-->
+                                            <!--<f:selectItem value="XXXL" itemLabel="XXXL"/>-->
+                                            <!--<f:selectItem value="XXXXL" itemLabel="XXXXL"/>-->
                                         <!--<s:convertEnum/>-->
                                         <!--<s:enumItem enumValue="FOURTEEN" label="14"/>-->
                                         <!--<s:enumItem enumValue="S" label="S"/>-->
@@ -174,17 +182,17 @@
                                         <!--<s:enumItem enumValue="XXXL" label="XXXL"/>-->
                                         <!--<s:enumItem enumValue="XXXXL" label="XXXXL"/>-->
                                         <!--</rich:comboBox>-->
-                                        <s:decorate id="shirtsizeDecoration"
-                                                    template="/general/util/errorStyle.xhtml">
-                                            <ui:define name="label">#{messages['userdetails.shirtsize']}</ui:define>
-                                            <h:inputText
-                                                    value="#{authenticator.user.shirtsize}"
-                                                    required="true">
-                                                <a4j:support event="onblur"
-                                                             reRender="shirtsizeDecoration"
-                                                             bypassUpdates="true"/>
-                                            </h:inputText>
-                                        </s:decorate>
+                                        <!--<s:decorate id="shirtsizeDecoration"-->
+                                                    <!--template="/general/util/errorStyle.xhtml">-->
+                                            <!--<ui:define name="label">#{messages['userdetails.shirtsize']}</ui:define>-->
+                                            <!--<h:inputText-->
+                                                    <!--value="#{authenticator.user.shirtsize}"-->
+                                                    <!--required="true">-->
+                                                <!--<a4j:support event="onblur"-->
+                                                             <!--reRender="shirtsizeDecoration"-->
+                                                             <!--bypassUpdates="true"/>-->
+                                            <!--</h:inputText>-->
+                                        <!--</s:decorate>-->
                                         <h:panelGrid columns="1">
 
                                             <s:decorate id="personelUnionDecoration"
