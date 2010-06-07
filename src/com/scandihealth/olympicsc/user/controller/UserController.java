@@ -181,12 +181,16 @@ public class UserController {
     }
 
     public String convertShirtSizes() {
+        findUsers();
+        DataManager dataManager = new DataManager();
         for (User user1 : userList) {
             String shirtSize = user1.getShirtsize();
-            String convertedSize = convertShirtSizes(shirtSize);
+            String convertedSize = convertShirtSizes(shirtSize.toUpperCase().trim());
             user1.setShirtsize(convertedSize);
+            dataManager.saveUser(user1);
+
         }
-        MessageUtils.createMessage("Shirtsizes convertet");
+        MessageUtils.createMessage("Shirtsizes converted");
         return "";
     }
 
