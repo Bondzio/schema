@@ -63,6 +63,7 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.osc</url-pattern>
+        <url-pattern>*.tmp</url-pattern>
     </servlet-mapping>
 
     <servlet>

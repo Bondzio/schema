@@ -22,6 +22,7 @@ import java.util.*;
 
 @Name("activitiesController")
 @Scope(ScopeType.CONVERSATION)
+@Restrict("#{identity.loggedIn}")
 public class ActivitiesController implements Serializable {
 
     private AdminActivitiesController adminActivitiesController;

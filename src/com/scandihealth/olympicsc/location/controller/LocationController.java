@@ -10,11 +10,13 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.*;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.annotations.security.Restrict;
 
 import java.util.List;
 
 @Name("locationController")
 @Scope(ScopeType.SESSION)
+@Restrict("#{identity.loggedIn}")
 public class LocationController {
     private LocationRepository locationRepository;
 

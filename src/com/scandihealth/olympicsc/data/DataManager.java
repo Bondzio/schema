@@ -913,4 +913,17 @@ public class DataManager implements Serializable {
         return teamUserSelection;
 
     }
+
+    public User getUserByEmail(String email) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List list = session.createQuery("from User as user where user.mail = '" + email + "'").list();
+
+        transaction.commit();
+        if (list != null && list.size() == 1) {
+            return (User) list.get(0);
+        }
+
+        return null;
+    }
 }

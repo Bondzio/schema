@@ -54,14 +54,15 @@
 
     <i18n:time-zone-selector cookie-enabled="true" time-zone-id="Europe/Copenhagen"/>
 
-    <mail:mailSession host="gwhmail.csc.dk" debug="true">
+    <!--<mail:mailSession host="smtp.gmail.com" port="587" username="mhylle@gmail.com" password="" debug="true">-->
+        <mail:mailSession host="gwhmail.csc.dk" debug="true">
     </mail:mailSession>
 
     <document:document-store use-extensions="true"/>
     <!--<excel:excelFactory>-->
-        <!--<property name="implementations">-->
-            <!--<key>myExcelExporter</key>-->
-            <!--<value>my.excel.exporter.ExcelExport</value>-->
-        <!--</property>-->
+    <!--<property name="implementations">-->
+    <!--<key>myExcelExporter</key>-->
+    <!--<value>my.excel.exporter.ExcelExport</value>-->
+    <!--</property>-->
     <!--</excel:excelFactory>-->
 </components>

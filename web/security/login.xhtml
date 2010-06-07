@@ -7,6 +7,14 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 template="/pagelayout.xhtml">
     <ui:define name="content">
+        <style type="text/css">
+            .nobackground {
+                background: white;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+        </style>
         <h:form id="loginform">
             <table align="center">
                 <tr>
@@ -24,9 +32,24 @@
                         <h:commandButton value="Login" action="#{authenticator.login}"/>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                </tr>
             </table>
         </h:form>
-        <h:messages showSummary="true"/>
+        <h:form>
+            <table align="center">
+                <tr>
+                    <td>
+                        <rich:panel styleClass="nobackground">
+                            <h:commandLink value="Glemt password/brugernavn?" action="mailUserDetails"/>
+                        </rich:panel>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
     </ui:define>
     <ui:define name="footer">
         <ui:include src="/general/footer.xhtml"/>

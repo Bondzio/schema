@@ -4,7 +4,21 @@
        xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.0.xsd"
        login-view-id="/security/login.xhtml">
 
-    <page view-id="*" login-required="true">
+    <page view-id="/security/*" login-required="false">
+        <navigation>
+            <rule if-outcome="mailUserDetails">
+                <redirect view-id="/security/mailDetails.tmp"/>
+            </rule>
+        </navigation>
+    </page>
+    <page view-id="/security/mailDetails.xhtml">
+        <navigation>
+            <rule if-outcome="mailSent">
+                <redirect view-id="/security/login.xhtml"/>
+            </rule>
+        </navigation>
+    </page>
+    <page view-id="*" login-required="false">
         <navigation>
             <rule if-outcome="loggedIn">
                 <end-conversation/>

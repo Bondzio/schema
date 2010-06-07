@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="/pagelayout.xhtml">
+    <ui:define name="content">
+        <style type="text/css">
+            .nobackground {
+                background: white;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+        <h:form>
+            <rich:panel styleClass="nobackground">
+                <table align="center">
+                    <tr>
+                        <td>
+                            <h:panelGrid columns="1">
+                           <h:outputLabel value="Indtast mail adresse eller brugernavn for"/>
+                           <h:outputLabel value="at faa sendt en mail med dine login detaljer."/>
+                            </h:panelGrid>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Email"/>
+                                <h:inputText value="#{userDetails.email}"/>
+                                <h:outputLabel value="Brugernavm"/>
+                                <h:inputText value="#{userDetails.userName}"/>
+                            </h:panelGrid>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <h:commandButton value="Send" action="#{sendUserDetailsController.sendMail}"/>
+                        </td>
+                    </tr>
+                </table>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+    <ui:define name="footer">
+        <ui:include src="/general/footer.xhtml"/>
+    </ui:define>
+</ui:composition>

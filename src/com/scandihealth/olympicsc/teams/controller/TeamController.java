@@ -11,6 +11,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.annotations.security.Restrict;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 @Name("teamController")
 @Scope(ScopeType.SESSION)
+@Restrict("#{identity.loggedIn}")
 public class TeamController implements Serializable {
 
     @In(create = true)

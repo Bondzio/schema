@@ -1,0 +1,23 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml"
+           xmlns:m="http://jboss.com/products/seam/mail"
+           xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://richfaces.org/a4j">
+
+    <m:from name="Personaleforeningen" address="SCA-SC_PFbestyrelse@csc.com"/>
+
+    <m:to name="#{sendUserDetailsController.recipient.name}" address="#{sendUserDetailsController.recipient.mail}"/>
+
+    <m:subject>Login detaljer til Schema</m:subject>
+
+    <m:body>
+        <p>Hej #{sendUserDetailsController.recipient.name}</p>
+
+        <p>Her er dine login detaljer til <a href="http://schema:8080/schema">http://schema:8080/schema</a></p>
+
+        <p>Brugernavn: #{sendUserDetailsController.recipient.username}</p>
+        <p>Password: #{sendUserDetailsController.recipient.password}</p>
+
+        <p>Venlig hilsen</p>
+        <p>Personaleforeningen</p>
+    </m:body>
+
+</m:message>
