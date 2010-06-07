@@ -81,7 +81,7 @@
                                     <h:outputLabel value="#{event.location}" converter="locationConverter"/>
                                 </h:panelGrid>
                                 <h:outputLabel value="Sidste tilmelding om #{event.timeToLastSign} dage"
-                                               rendered="#{event.timeToLastSign gt 3}"/>
+                                               rendered="#{event.timeToLastSign >= 3}"/>
                                 <h:outputLabel value="Sidste tilmelding om #{event.timeToLastSign} dage"
                                                style="color:red;"
                                                rendered="#{event.timeToLastSign lt 3 and event.timeToLastSign gt 1}"/>

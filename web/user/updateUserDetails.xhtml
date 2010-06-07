@@ -43,7 +43,7 @@
 
     <a4j:jsFunction reRender="mainPanel" name="setFormValidState"/>
     <rich:panel id="mainPanel" styleClass="nobackground">
-        <table width="600" align="center">
+        <table width="800" align="center">
             <tr>
                 <td>
                     <h:outputText value="#{messages['userdetails.welcomemessage']}"
@@ -54,7 +54,7 @@
                 <td><rich:spacer height="20"/></td>
             </tr>
             <tr>
-                <td align="center">
+                <td align="center" width="100%">
                     <table>
                         <tr>
                             <td colspan="2" align="center" valign="top">
@@ -68,8 +68,7 @@
                                                 <table>
                                                     <tr style="height:24px;">
                                                         <td valign="center">
-                                                            <h:outputLabel
-                                                                    value="#{messages['userdetails.username']}"/>
+                                                            <h:outputLabel value="#{messages['userdetails.username']}"/>
                                                         </td>
                                                         <td valign="center">
                                                             <h:outputLabel value="#{authenticator.user.userName}"/>
@@ -161,67 +160,41 @@
                             <td valign="top">
                                 <rich:panel>
                                     <h:panelGrid columns="1">
-                                        <!--<rich:comboBox selectFirstOnUpdate="true"-->
-                                        <!--value="#{authenticator.user.shirtsize}"-->
-                                        <!--defaultLabel="Select some value" width="200">-->
-                                            <!--<f:selectItem value="14" itemLabel="14"/>-->
-                                            <!--<f:selectItem value="S" itemLabel="S"/>-->
-                                            <!--<f:selectItem value="M" itemLabel="M"/>-->
-                                            <!--<f:selectItem value="L" itemLabel="L"/>-->
-                                            <!--<f:selectItem value="XL" itemLabel="XL"/>-->
-                                            <!--<f:selectItem value="XXL" itemLabel="XXL"/>-->
-                                            <!--<f:selectItem value="XXXL" itemLabel="XXXL"/>-->
-                                            <!--<f:selectItem value="XXXXL" itemLabel="XXXXL"/>-->
-                                        <!--<s:convertEnum/>-->
-                                        <!--<s:enumItem enumValue="FOURTEEN" label="14"/>-->
-                                        <!--<s:enumItem enumValue="S" label="S"/>-->
-                                        <!--<s:enumItem enumValue="M" label="M"/>-->
-                                        <!--<s:enumItem enumValue="L" label="L"/>-->
-                                        <!--<s:enumItem enumValue="XL" label="XL"/>-->
-                                        <!--<s:enumItem enumValue="XXL" label="XXL"/>-->
-                                        <!--<s:enumItem enumValue="XXXL" label="XXXL"/>-->
-                                        <!--<s:enumItem enumValue="XXXXL" label="XXXXL"/>-->
-                                        <!--</rich:comboBox>-->
-                                        <!--<s:decorate id="shirtsizeDecoration"-->
-                                                    <!--template="/general/util/errorStyle.xhtml">-->
-                                            <!--<ui:define name="label">#{messages['userdetails.shirtsize']}</ui:define>-->
-                                            <!--<h:inputText-->
-                                                    <!--value="#{authenticator.user.shirtsize}"-->
-                                                    <!--required="true">-->
-                                                <!--<a4j:support event="onblur"-->
-                                                             <!--reRender="shirtsizeDecoration"-->
-                                                             <!--bypassUpdates="true"/>-->
-                                            <!--</h:inputText>-->
-                                        <!--</s:decorate>-->
-                                        <h:panelGrid columns="1">
+                                        <s:decorate id="personelUnionDecoration"
+                                                    template="/general/util/validationStyleAtLabel.xhtml">
+                                            <ui:define
+                                                    name="label">#{messages['userdetails.personelunion']}</ui:define>
+                                            <h:selectOneRadio id="radioList"
+                                                              layout="pageDirection"
+                                                              value="#{authenticator.user.peronFor}"
+                                                              required="true">
+                                                <s:convertEnum/>
+                                                <s:enumItem enumValue="MEMBER" label="Medlem"/>
+                                                <s:enumItem enumValue="NONMEMBER" label="Ikke medled"/>
+                                                <a4j:support event="onblur"
+                                                             reRender="personelUnionDecoration"
+                                                             bypassUpdates="true"/>
+                                                <a4j:support event="onclick"
+                                                             reRender="personelUnionDecoration"
+                                                             bypassUpdates="true"/>
 
-                                            <s:decorate id="personelUnionDecoration"
-                                                        template="/general/util/validationStyleAtLabel.xhtml">
-                                                <ui:define
-                                                        name="label">#{messages['userdetails.personelunion']}</ui:define>
-                                                <h:selectOneRadio id="radioList"
-                                                                  layout="pageDirection"
-                                                                  value="#{authenticator.user.peronFor}"
-                                                                  required="true">
-                                                    <s:convertEnum/>
-                                                    <s:enumItem enumValue="MEMBER" label="Medlem"/>
-                                                    <s:enumItem enumValue="NONMEMBER" label="Ikke medled"/>
-                                                    <a4j:support event="onblur"
-                                                                 reRender="personelUnionDecoration"
-                                                                 bypassUpdates="true"/>
-                                                    <a4j:support event="onclick"
-                                                                 reRender="personelUnionDecoration"
-                                                                 bypassUpdates="true"/>
+                                            </h:selectOneRadio>
+                                        </s:decorate>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel value="#{messages['userdetails.shirtsize']}"/>
+                                        <rich:comboBox selectFirstOnUpdate="true" directInputSuggestions="true"
+                                                       value="#{authenticator.user.shirtsize}"
+                                                       width="85" required="true">
+                                            <f:selectItems value="#{authenticator.user.shirtSizes}"/>
+                                        </rich:comboBox>
+                                    </h:panelGrid>
 
-                                                </h:selectOneRadio>
-                                            </s:decorate>
-                                            <h:panelGrid columns="2">
-                                                <h:outputLabel value="#{messages['userdetails.administrator']}"
-                                                               rendered="#{s:hasRole('admin')}"/>
-                                                <h:selectBooleanCheckbox value="#{userController.user.admin}"
-                                                                         rendered="#{s:hasRole('admin')}"/>
-                                            </h:panelGrid>
-                                        </h:panelGrid>
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel value="#{messages['userdetails.administrator']}"
+                                                       rendered="#{s:hasRole('admin')}"/>
+                                        <h:selectBooleanCheckbox value="#{userController.user.admin}"
+                                                                 rendered="#{s:hasRole('admin')}"/>
                                     </h:panelGrid>
                                 </rich:panel>
                             </td>

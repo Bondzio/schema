@@ -13,6 +13,7 @@ import org.jboss.seam.annotations.security.management.UserLastName;
 import org.jboss.seam.annotations.security.management.UserPassword;
 import org.jboss.seam.annotations.security.management.UserPrincipal;
 
+import javax.faces.model.SelectItem;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import java.util.Set;
 public class User implements Serializable {
     private PERSONFOR blof;
 
-    private SHIRTSIZES shirtSizes;
+    private List<SelectItem> shirtSizes = new ArrayList<SelectItem>();
 
     public enum SHIRTSIZES {
         FOURTEEN, S, M, L, XL, XXL, XXXL, XXXXL
@@ -196,13 +197,17 @@ public class User implements Serializable {
     }
 
     @Transient
-    public SHIRTSIZES getShirtSizes() {
+    public List<SelectItem> getShirtSizes() {
+        if (shirtSizes.size() == 0) {
+            shirtSizes.add(new SelectItem("14", SHIRTSIZES.FOURTEEN.name()));
+            shirtSizes.add(new SelectItem("S", SHIRTSIZES.S.name()));
+            shirtSizes.add(new SelectItem("M", SHIRTSIZES.M.name()));
+            shirtSizes.add(new SelectItem("L", SHIRTSIZES.L.name()));
+            shirtSizes.add(new SelectItem("XL", SHIRTSIZES.XL.name()));
+            shirtSizes.add(new SelectItem("XXL", SHIRTSIZES.XXL.name()));
+            shirtSizes.add(new SelectItem("XXXL", SHIRTSIZES.XXXL.name()));
+        }
         return shirtSizes;
-    }
-
-    public void setShirtSizes(SHIRTSIZES shirtSizes) {
-        setShirtsize(shirtSizes.name());
-        this.shirtSizes = shirtSizes;
     }
 
     @javax.persistence.Column(name = "shirtsize")

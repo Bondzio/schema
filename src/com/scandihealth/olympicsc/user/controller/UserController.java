@@ -143,6 +143,7 @@ public class UserController {
                 dataManager.saveUser(user1);
             }
         }
+        MessageUtils.createMessage("Brugere uden tshirt eller personalenummer nulstillet.");
         return "";
     }
 
