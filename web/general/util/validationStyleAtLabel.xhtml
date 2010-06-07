@@ -12,6 +12,7 @@
         <s:label styleClass="#{invalid?'error':''}">
             <ui:insert name="label"/>
             <s:span styleClass="required" rendered="#{required}">*</s:span>
+            <rich:spacer width="10"/>
             <h:graphicImage value="/resources/redx.png" rendered="#{invalid}"
                             height="16"
                             width="16"
