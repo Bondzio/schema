@@ -129,9 +129,6 @@
                                action="#{teamController.deleteTeamComposition}"/>
 
                 <rich:menuItem submitMode="ajax" value="Vis Teams" action="showTeams"/>
-                <!--<rich:menuItem submitMode="ajax" value="Tilfoej spillere til team" action="b"/>-->
-                <!--<rich:menuItem submitMode="ajax" value="Opret Teams" action="olympicscCreateTeams"/>-->
-                <!--<rich:menuItem submitMode="ajax" value="Tilfoej til teams" action="addPLayersToTeams"/>-->
             </rich:dropDownMenu>
             <rich:dropDownMenu rendered="#{s:hasRole('admin')}">
                 <f:facet name="label">
@@ -148,6 +145,7 @@
                 <rich:menuItem submitMode="ajax" value="Personaleforenings check"
                                action="#{userController.unionCheck}"/>
                 <rich:menuItem submitMode="ajax" value="Mail" action="createMail"/>
+                <rich:menuItem submitMode="ajax" value="converter t-shirt info" action="#{userController.convertShirtSizes}"/>
 
             </rich:dropDownMenu>
             <!--<rich:dropDownMenu>-->
