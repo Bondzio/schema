@@ -7,7 +7,6 @@
         <view-handler>
             com.sun.facelets.FaceletViewHandler
         </view-handler>
-
     </application>
     <converter>
         <converter-id>locationConverter</converter-id>
