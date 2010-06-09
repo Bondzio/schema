@@ -14,9 +14,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Name("teamController")
 @Scope(ScopeType.SESSION)
@@ -33,6 +31,7 @@ public class TeamController implements Serializable {
     private Team selectedTeam;
 
     private List<User> usersForTeam;
+    private Map<String, Map<String, Integer>> shirtMap;
 
     public String createTeam() {
         if (team != null && team.getName() != null && !"".equals(team.getName())) {
@@ -101,7 +100,7 @@ public class TeamController implements Serializable {
     public void calculateTShirts() {
         findTeams();
         DataManager dataManager = new DataManager();
-        Map<String, Map<String, Integer>> shirtMap = new HashMap<String, Map<String, Integer>>();
+        shirtMap = new HashMap<String, Map<String, Integer>>();
         for (Team team1 : teamList) {
             List<User> usersForTeam = dataManager.getUsersForTeam(team1);
 
@@ -131,6 +130,20 @@ public class TeamController implements Serializable {
                 System.out.println("Number of " + sizes + ": " + sizeCountMap.get(sizes));
             }
         }
+    }
+
+    public List<String> sizesForTeam(String team) {
+        calculateTShirts();
+        Map<String, Integer> map = shirtMap.get(team);
+        ArrayList<String> strings = new ArrayList<String>(map.keySet());
+        Collections.sort(strings,new SizeComparator());
+        
+        return strings;
+    }
+
+    public Integer numberOfShirtForSizeAndTeam(String team, String size) {
+        Map<String, Integer> stringIntegerMap = shirtMap.get(team);
+        return stringIntegerMap.get(size);
     }
 
     private String convertShirtSizes(String shirtSize) {
@@ -171,5 +184,29 @@ public class TeamController implements Serializable {
             shirtSize = "XL";
         }
         return shirtSize;
+    }
+
+    private class SizeComparator implements Comparator<String> {
+        public int compare(String o1, String o2) {
+            if (o1.equals("14")) {
+                return -1;
+            }
+
+            if (o1.equalsIgnoreCase("S") && !o2.equals("14")) {
+                return -1;
+            }
+
+            if (o1.equalsIgnoreCase("M") && !o2.equals("14") && !o2.equals("S")) {
+                return -1;
+            }
+
+            if ((o1.equals("14") || o1.equals("S") || o1.equals("M")) && o2.equals("L") ) {
+                return -1;
+            }
+
+
+            return o1.compareTo(o2);
+
+        }
     }
 }

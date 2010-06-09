@@ -8,17 +8,64 @@
                 xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
                 template="/pagelayout.xhtml">
     <ui:define name="content">
-        <rich:dataTable id="teamList" value="#{teamList}" var="team"
-                        cellpadding="0" cellspacing="0" border="0"
-                        width="100%">
-            <rich:column>
+        <style type="text/css">
+            .row183 {
+                vertical-align: top;
+                margin: 0;
+                padding: 0;
+                border: 0;
+            }
+
+            .nobackgroundpadding {
+                background: white;
+                border: none;
+                padding: 1;
+                margin: 0;
+            }
+
+            .nobackground {
+                background: white;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+        <rich:dataGrid value="#{teamList}" var="team" columns="3" border="0" id="shirtList" align="center"
+                       cellpadding="0" cellspacing="0" rowClasses="row183" columnClasses="nobackgroundpadding"
+                       onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                       onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+            <rich:column styleClass="nobackground">
+                Team: <h:outputLabel value="#{team.name}"/>
+                <rich:dataTable id="sizeList" value="#{teamController.sizesForTeam(team.name)}" var="sizes"
+                                onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" border="0">
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Storrelse"/>
+                        </f:facet>
+                        <h:outputLabel value="#{sizes}"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Antal"/>
+                        </f:facet>
+                        <h:outputLabel value="#{teamController.numberOfShirtForSizeAndTeam(team.name, sizes)}"/>
+                    </rich:column>
+                </rich:dataTable>
+            </rich:column>
+        </rich:dataGrid>
+        <rich:dataGrid value="#{teamList}" var="team" columns="3" width="100%" border="0" id="teamList" align="center"
+                       cellpadding="0" cellspacing="0" rowClasses="row183" columnClasses="nobackgroundpadding">
+            <rich:column styleClass="nobackground">
                 <f:facet name="header">
                     <h:outputLabel value="Team"/>
                 </f:facet>
                 <h:outputLabel value="#{team.name}"/>
                 <rich:dataTable id="teamList" value="#{teamController.usersForTeam(team)}" var="teamUser"
                                 cellpadding="0" cellspacing="0" border="0"
-                                width="100%">
+                                width="100%"
+                        onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
                     <rich:column>
                         <f:facet name="header">
                             <h:outputLabel value="User"/>
@@ -28,7 +75,7 @@
                 </rich:dataTable>
             </rich:column>
 
-        </rich:dataTable>
+        </rich:dataGrid>
 
     </ui:define>
     <ui:define name="footer">
