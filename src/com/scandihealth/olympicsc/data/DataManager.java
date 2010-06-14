@@ -2,7 +2,6 @@ package com.scandihealth.olympicsc.data;
 
 import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
-import com.scandihealth.olympicsc.customvalues.model.ValueTypes;
 import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.event.model.EventPartnerRequest;
 import com.scandihealth.olympicsc.event.model.EventVegetarianRequest;
@@ -45,22 +44,6 @@ public class DataManager implements Serializable {
         catch (HibernateException e) {
             transaction.rollback();
             e.printStackTrace();
-        }
-        finally {
-            if (session.isOpen()) {
-                session.disconnect();
-                session.close();
-            }
-        }
-    }
-
-    public void mergeObject(Object entity) {
-        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-        try {
-            Transaction transaction = session.beginTransaction();
-            session.merge(entity);
-            session.flush();
-            transaction.commit();
         }
         finally {
             if (session.isOpen()) {
@@ -827,20 +810,6 @@ public class DataManager implements Serializable {
             }
         }
         return null;
-    }
-
-    public List<ValueTypes> getValueTypes() {
-        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        transaction.begin();
-        List valueTypes = session.createQuery("from ValueTypes").list();
-        transaction.commit();
-        List<ValueTypes> result = new ArrayList<ValueTypes>();
-        for (Object valueType : valueTypes) {
-            result.add((ValueTypes) valueType);
-        }
-        return result;
-
     }
 
     public List<Team> getTeams() {

@@ -1,16 +1,13 @@
 package com.scandihealth.olympicsc.customvalues.model;
 
-import org.jboss.seam.annotations.Name;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Name("stringtype")
-@Table(name = "stringtype", catalog = "customvalues")
+@Table(name = "customvaluetype", catalog = "olympicsc")
 @Entity
-public class Stringtype {
+public class CustomValueType {
     private int id;
 
     @javax.persistence.Column(name = "ID")
@@ -35,16 +32,16 @@ public class Stringtype {
         this.name = name;
     }
 
-    private String value;
+    private String type;
 
-    @javax.persistence.Column(name = "VALUE")
+    @javax.persistence.Column(name = "TYPE")
     @Basic
-    public String getValue() {
-        return value;
+    public String getType() {
+        return type;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
@@ -52,11 +49,11 @@ public class Stringtype {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Stringtype that = (Stringtype) o;
+        CustomValueType that = (CustomValueType) o;
 
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
 
         return true;
     }
@@ -65,7 +62,7 @@ public class Stringtype {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
 }

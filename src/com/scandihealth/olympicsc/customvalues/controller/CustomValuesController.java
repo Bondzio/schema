@@ -1,6 +1,5 @@
 package com.scandihealth.olympicsc.customvalues.controller;
 
-import com.scandihealth.olympicsc.customvalues.model.ValueTypes;
 import com.scandihealth.olympicsc.data.DataManager;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.Name;

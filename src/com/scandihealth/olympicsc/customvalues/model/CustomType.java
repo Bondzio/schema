@@ -1,16 +1,13 @@
 package com.scandihealth.olympicsc.customvalues.model;
 
-import org.jboss.seam.annotations.Name;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Name("enumtype")
-@Table(name = "enumtype", catalog = "customvalues")
+@Table(name = "customtype", catalog = "olympicsc")
 @Entity
-public class Enumtype {
+public class CustomType {
     private int id;
 
     @javax.persistence.Column(name = "ID")
@@ -35,16 +32,16 @@ public class Enumtype {
         this.name = name;
     }
 
-    private String value;
+    private int type;
 
-    @javax.persistence.Column(name = "VALUE")
+    @javax.persistence.Column(name = "TYPE")
     @Basic
-    public String getValue() {
-        return value;
+    public int getType() {
+        return type;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setType(int type) {
+        this.type = type;
     }
 
     @Override
@@ -52,11 +49,11 @@ public class Enumtype {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Enumtype enumtype = (Enumtype) o;
+        CustomType that = (CustomType) o;
 
-        if (id != enumtype.id) return false;
-        if (name != null ? !name.equals(enumtype.name) : enumtype.name != null) return false;
-        if (value != null ? !value.equals(enumtype.value) : enumtype.value != null) return false;
+        if (id != that.id) return false;
+        if (type != that.type) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }
@@ -65,7 +62,7 @@ public class Enumtype {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + type;
         return result;
     }
 }
