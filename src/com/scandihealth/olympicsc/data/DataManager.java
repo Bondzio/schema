@@ -814,7 +814,7 @@ public class DataManager implements Serializable {
 
     public List<Team> getTeams() {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-        List<Team> result = null;
+        List result = null;
         try {
             Transaction transaction = session.beginTransaction();
             result = session.createQuery("from Team").list();
@@ -826,11 +826,16 @@ public class DataManager implements Serializable {
             if (session.isOpen()) {
                 session.close();
             }
-
         }
 
+        List<Team> teams = new ArrayList<Team>();
+        for (Object o : result) {
+            if (o instanceof Team) {
+                teams.add((Team) o);
+            }
+        }
 
-        return result;
+        return teams;
     }
 
     public Team getTeam(Team teamSelection) {
