@@ -2,6 +2,7 @@ package com.scandihealth.olympicsc.data;
 
 import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
+import com.scandihealth.olympicsc.customvalues.model.CustomValueType;
 import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.event.model.EventPartnerRequest;
 import com.scandihealth.olympicsc.event.model.EventVegetarianRequest;
@@ -899,5 +900,19 @@ public class DataManager implements Serializable {
         }
 
         return null;
+    }
+
+    public List<CustomValueType> getCustomValueTypes() {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List list = session.createQuery("from CustomValueType").list();
+        transaction.commit();
+        List<CustomValueType> result = new ArrayList<CustomValueType>();
+        for (Object o : list) {
+            if (o instanceof CustomValueType) {
+                result.add((CustomValueType) o);
+            }
+        }
+        return result;
     }
 }

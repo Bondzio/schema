@@ -1,0 +1,35 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+                template="/pagelayout.xhtml">
+    <ui:define name="content">
+        <a4j:form ajaxSubmit="true">
+            <table>
+                <tr>
+                    <td>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Name"/>
+                            <h:inputText/>
+                            <h:outputLabel value="Type"/>
+                             <rich:comboBox selectFirstOnUpdate="false" value="#{event.location}"
+                                               defaultLabel="Select some value">
+                                    <s:selectItems value="#{locationList}" var="h" label="#{h.name}"/>
+                                    <f:converter converterId="locationConverter"/>
+                                </rich:comboBox>
+                        </h:panelGrid>
+                    </td>
+                </tr>
+            </table>
+
+        </a4j:form>
+
+    </ui:define>
+    <ui:define name="footer">
+        <ui:include src="/general/footer.xhtml"/>
+    </ui:define>
+</ui:composition>
