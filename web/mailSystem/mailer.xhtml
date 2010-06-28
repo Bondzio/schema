@@ -5,12 +5,27 @@
                 xmlns:s="http://jboss.com/products/seam/taglib"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
-    <style type="text/css">
-        .headerstyle {
-            background-color: #a52a2a;
-        }
-    </style>
+
     <ui:define name="content">
+        <style type="text/css">
+            .headerstyle {
+                background-color: #a52a2a;
+            }
+
+            .imageStyle {
+                vertical-align: middle;
+                text-align: center;
+                border: 1px;
+            }
+
+            .namePanel {
+                background: white;
+                border: 1px;
+                padding: 0;
+                margin: 20;
+
+            }
+        </style>
         <h:form>
             <table width="80%" align="center">
                 <tr>
@@ -19,11 +34,32 @@
                             <h:outputLabel value="Afsender: Personaleforeningen (mail)"/>
                             <h:panelGrid columns="2">
                                 <h:outputLabel value="Til"/>
-                                <h:inputText value="#{mail.to}" id="mailto" disabled="#{mailController.tooAll}"/>
-                                <h:outputLabel value="#{mailController.selectedUsers}"/>
+                                <h:inputText value="#{mail.to}" id="mailto" disabled="#{mailController.tooAll}"
+                                             rendered="#{empty mailController.selectedUsers}"/>
+                                <rich:dataGrid value="#{mailController.selectedUsers}" var="users" columns="10"
+                                               width="100%"
+                                               border="0" id="tester" align="center">
+                                    <rich:panel styleClass="namePanel" bodyClass="namePanel">
+                                        <table cellpadding="1" cellspacing="0" border="0">
+                                            <tr valign="middle">
+                                                <td>
+                                                    <h:outputLabel value="#{users.userName}"/>
+                                                </td>
+                                                <td valign="middle">
+                                                    <h:commandLink styleClass="imageStyle">
+                                                        <h:graphicImage url="/resources/redx.png"
+                                                                        width="12" height="12" styleClass="imageStyle"/>
+                                                    </h:commandLink>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </rich:panel>
+                                </rich:dataGrid>
+
                             </h:panelGrid>
-                            <h:outputLabel value="Til alle medlemmer"/>
-                            <h:selectBooleanCheckbox value="#{mailController.tooAll}">
+                            <h:outputLabel value="Til alle medlemmer" rendered="#{empty mailController.selectedUsers}"/>
+                            <h:selectBooleanCheckbox value="#{mailController.tooAll}"
+                                                     rendered="#{empty mailController.selectedUsers}">
                                 <a4j:support event="onchange" reRender="mailto"/>
                             </h:selectBooleanCheckbox>
 
@@ -87,5 +123,5 @@
     </ui:define>
     <ui:define name="footer">
         <ui:include src="/general/footer.xhtml"/>
-    </ui:define>    
+    </ui:define>
 </ui:composition>

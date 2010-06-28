@@ -1,6 +1,7 @@
 package com.scandihealth.olympicsc.event.controller;
 
 import com.scandihealth.olympicsc.activities.model.Activity;
+import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
 import com.scandihealth.olympicsc.activities.model.UserForActivityPaintBean;
 import com.scandihealth.olympicsc.commandsystem.CommandController;
 import com.scandihealth.olympicsc.commandsystem.event.*;
@@ -52,6 +53,7 @@ public class EventController implements Serializable {
 
     UserForActivityPaintBean userForActivityPaintBean;
     private List<User> userForActivity;
+    private List<String> notFound = new ArrayList<String>();
 
     @Create
     public void init() {
@@ -318,6 +320,8 @@ public class EventController implements Serializable {
     public List<String> getExcelColumnHeadersForOlympicsc() {
         List<String> result = new ArrayList<String>();
         result.add("Navn");
+        result.add("Afdeling");
+        result.add("Team");
         List<Activity> activities = selectedEvent.getActivityList();
         Collections.sort(activities, new Comparator<Activity>() {
             public int compare(Activity o1, Activity o2) {
@@ -345,9 +349,14 @@ public class EventController implements Serializable {
                 return o1.getName().compareTo(o2.getName());
             }
         });
+
+
+        Map<User, String> teams = calculateTeams(userList);
         for (User user : userList) {
             List<String> column = new ArrayList<String>();
             column.add(user.getFirstname() + " " + user.getLastname());
+            column.add(user.getDepartment());
+            column.add(teams.get(user));
             for (Activity activity : activities) {
                 if (user.getActivities().contains(activity)) {
                     column.add("1");
@@ -361,6 +370,196 @@ public class EventController implements Serializable {
 
         return result;
     }
+
+    public List<String> getNotFound() {
+        return notFound;
+    }
+
+    public void setNotFound(List<String> notFound) {
+        this.notFound = notFound;
+    }
+
+    private Map<User, String> calculateTeams(List<User> userList) {
+        Map<User, String> result = new HashMap<User, String>();
+        DataManager dataManager = new DataManager();
+        int teamnumber = 1;
+        for (User user : userList) {
+            List<ActivityPartnerRequest> activityPartnerRequests = dataManager.getAllActivityPartnerRequestForUser(user);
+            if (activityPartnerRequests.size() > 0) {
+                List<User> tmpUsersInTeam = new ArrayList<User>();
+                List<User> usersInTeam = calcUsersTeams(user, dataManager, tmpUsersInTeam);
+
+
+                String teamToUse = "";
+                for (User user1 : usersInTeam) {
+                    if (result.containsKey(user1)) {
+                        teamToUse = result.get(user1);
+                    }
+                }
+
+                if ("".equals(teamToUse)) {
+                    teamToUse = result.get(user);
+                }
+                if (teamToUse == null) {
+                    teamToUse = "";
+                }
+
+                if (!"".equals(teamToUse)) {
+                    result.put(user, "" + teamToUse);
+                    for (User user1 : usersInTeam) {
+                        if (!result.containsKey(user1)) {
+                            result.put(user1, "" + teamToUse);
+                        }
+                    }
+                } else {
+                    result.put(user, "" + teamnumber);
+                    for (User user1 : usersInTeam) {
+                        if (!result.containsKey(user1)) {
+                            result.put(user1, "" + teamnumber);
+                        }
+                    }
+
+                }
+            } else {
+                // distribute non partner request users
+            }
+            teamnumber++;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        EventController eventController = new EventController();
+        DataManager dataManager = new DataManager();
+        List<Event> list = dataManager.getEvent("Olympicsc");
+        Event olympicsc = list.get(0);
+        List<User> userList = dataManager.getUserForEvent(olympicsc);
+        Collections.sort(userList, new Comparator<User>() {
+            public int compare(User o1, User o2) {
+                return o1.getFirstname().compareTo(o2.getFirstname());
+            }
+        });
+        List<Activity> activities = olympicsc.getActivityList();
+        Collections.sort(activities, new Comparator<Activity>() {
+            public int compare(Activity o1, Activity o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+
+//        removeNonPartnerRequests(userList, dataManager, olympicsc);
+
+        List<String> teamStrings = new ArrayList<String>();
+        Map<User, String> teams = eventController.calculateTeams(userList);
+        for (User user : teams.keySet()) {
+            String s = teams.get(user);
+            if (!teamStrings.contains(s)) {
+                teamStrings.add(s);
+            }
+//            System.out.println(user.getUserName() + " team: " + s);
+        }
+
+        Map<String, List<User>> teamUsers = new HashMap<String, List<User>>();
+        for (User user : teams.keySet()) {
+            String s = teams.get(user);
+            List<User> userList1;
+            if (teamUsers.get(s) == null) {
+                userList1 = new ArrayList<User>();
+            } else {
+                userList1 = teamUsers.get(s);
+            }
+            userList1.add(user);
+            teamUsers.put(s, userList1);
+        }
+
+        for (String s : teamUsers.keySet()) {
+            System.out.println("Team " + s + ":");
+            List<User> userList1 = teamUsers.get(s);
+            for (User user : userList1) {
+                System.out.println("user.getUserName() = " + user.getUserName());
+            }
+        }
+
+        Collections.sort(teamStrings, new Comparator<Object>() {
+            public int compare(Object o1, Object o2) {
+                return ((String) o1).compareTo((String) o2);
+
+            }
+        });
+    }
+
+    private static void removeNonPartnerRequests(List<User> userList, DataManager dataManager, Event olympicsc) {
+        for (User user : userList) {
+            List<ActivityPartnerRequest> activityPartnerRequestForUser = dataManager.getAllActivityPartnerRequestForUser(user);
+            if (activityPartnerRequestForUser.size() == 0) {
+                user.removeEvent(olympicsc);
+                dataManager.saveUser(user);
+            }
+        }
+    }
+
+    private List<User> calcUsersTeams(User user, DataManager dataManager, List<User> result) {
+        List<ActivityPartnerRequest> activityPartnerRequestForUser = dataManager.getAllActivityPartnerRequestForUser(user);
+        List<User> tmpResult = new ArrayList<User>();
+
+        for (ActivityPartnerRequest activityPartnerRequest : activityPartnerRequestForUser) {
+            String s = activityPartnerRequest.getPartnernames();
+            User partnerRequest = null;
+            partnerRequest = finderPartnerRequest(dataManager, s, partnerRequest);
+            if (partnerRequest != null && !tmpResult.contains(partnerRequest)) {
+                tmpResult.add(partnerRequest);
+            }
+        }
+
+
+        for (User user1 : tmpResult) {
+            if (!result.contains(user1)) {
+                result.add(user1);
+                List<User> list = calcUsersTeams(user1, dataManager, result);
+                for (User user2 : list) {
+                    if (!result.contains(user2)) {
+                        result.add(user2);
+                    }
+                }
+            }
+
+        }
+        if (!result.contains(user)) {
+            result.add(user);
+        }
+        return result;
+    }
+
+    private User finderPartnerRequest(DataManager dataManager, String s, User partnerRequest) {
+        String[] partners = s.split(",");
+        for (String partner : partners) {
+            String s1 = partner.trim();
+            String[] strings = s1.split(" ");
+            if (strings.length > 1) {
+                String firstName = strings[0].trim();
+                strings[0] = "";
+                String lastName = "";
+                for (String string : strings) {
+                    lastName += string.trim() + " ";
+                }
+                String s2 = lastName.trim();
+                partnerRequest = dataManager.getUserByName(firstName, s2);
+
+                if (partnerRequest != null) {
+//                    System.out.println("found a partner for named user: " + partnerRequest.getUserName());
+                } else {
+
+                    String s3 = "Firstname: " + firstName + " Lastname: " + s2;
+                    if (!notFound.contains(s3)) {
+                        notFound.add(s3);
+                    }
+                }
+            } else {
+                partnerRequest = dataManager.getUser(partner);
+            }
+        }
+        return partnerRequest;
+    }
+
 
     public void updateExtraInformation() {
         User user = authenticator.getUser();

@@ -863,7 +863,7 @@ public class DataManager implements Serializable {
         return null;
     }
 
-    private User getUser(int iduser) {
+    public User getUser(int iduser) {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         Transaction transaction = session.beginTransaction();
         User user = (User) session.createQuery("from User as user where user.iduser = " + iduser).uniqueResult();
@@ -914,5 +914,32 @@ public class DataManager implements Serializable {
             }
         }
         return result;
+    }
+
+    public List<ActivityPartnerRequest> getAllActivityPartnerRequestForUser(User user) {
+        List<ActivityPartnerRequest> result = new ArrayList<ActivityPartnerRequest>();
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List list = session.createQuery("from ActivityPartnerRequest apr where apr.iduser=" + user.getIduser()).list();
+        transaction.commit();
+        if (list != null && list.size() > 0) {
+            for (Object o : list) {
+                result.add((ActivityPartnerRequest) o);
+            }
+        }
+        return result;
+    }
+
+    public User getUserByName(String firstName, String lastName) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        String queryString = "from User user where user.firstname ='" + firstName + "' and user.lastname ='" + lastName + "'";
+        System.out.println("queryString = " + queryString);
+        List list = session.createQuery(queryString).list();
+        transaction.commit();
+        if (list != null && list.size() == 1) {
+            return (User) list.get(0);
+        }
+        return null;
     }
 }

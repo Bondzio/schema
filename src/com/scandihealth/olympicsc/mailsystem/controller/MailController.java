@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Name("mailController")
-@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.SESSION)
 public class MailController {
 
     @In(create = true)
@@ -25,13 +25,14 @@ public class MailController {
     @In
     Event selectedEvent;
 
-    private Boolean tooAll;
-    private Boolean useGreeting;
-    private Boolean sendUserDetails;
+    private boolean tooAll;
+    private boolean useGreeting;
+    private boolean sendUserDetails;
 
     private List<User> recipients;
 
     private List<MailContent> mailContent;
+
 
     public String send() {
         mailContent = new ArrayList<MailContent>();
@@ -39,10 +40,14 @@ public class MailController {
             DataManager dataManager = new DataManager();
             recipients = dataManager.getUsers();
         } else {
-            recipients = new ArrayList<User>();
-            User user = new User();
-            user.setMail(mail.getTo());
-            recipients.add(user);
+            if (selectedEvent != null) {
+                recipients = new ArrayList<User>(getSelectedUsers());
+            } else {
+                recipients = new ArrayList<User>();
+                User user = new User();
+                user.setMail(mail.getTo());
+                recipients.add(user);
+            }
         }
         for (User recipient : recipients) {
             MailContent mailContent = new MailContent();
@@ -80,27 +85,27 @@ public class MailController {
         this.mail = mail;
     }
 
-    public void setTooAll(Boolean tooAll) {
+    public void setTooAll(boolean tooAll) {
         this.tooAll = tooAll;
     }
 
-    public Boolean getTooAll() {
+    public boolean getTooAll() {
         return tooAll;
     }
 
-    public void setUseGreeting(Boolean useGreeting) {
+    public void setUseGreeting(boolean useGreeting) {
         this.useGreeting = useGreeting;
     }
 
-    public Boolean getUseGreeting() {
+    public boolean getUseGreeting() {
         return useGreeting;
     }
 
-    public void setSendUserDetails(Boolean sendUserDetails) {
+    public void setSendUserDetails(boolean sendUserDetails) {
         this.sendUserDetails = sendUserDetails;
     }
 
-    public Boolean getSendUserDetails() {
+    public boolean getSendUserDetails() {
         return sendUserDetails;
     }
 
@@ -112,16 +117,19 @@ public class MailController {
         return mailContent;
     }
 
-    public String getSelectedUsers() {
-        String result = "";
+    public List<User> getSelectedUsers() {
+        List<User> result = new ArrayList<User>();
+
         if (selectedEvent != null) {
             DataManager dataManager = new DataManager();
             List<User> list = dataManager.getUserForEvent(selectedEvent);
             for (User user : list) {
-                result += user.getUserName();
+                result.add(user);
             }
-            return result;
         }
-        return "";
+        return result;
     }
+
+
+
 }
