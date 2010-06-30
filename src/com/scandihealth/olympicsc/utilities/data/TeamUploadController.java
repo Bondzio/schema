@@ -75,18 +75,25 @@ public class TeamUploadController implements Serializable {
     }
 
     public String upload() {
-
+        errorMessages.clear();
         if (data != null) {
             if (selectedEvent != null) {
                 DataManager dataManager = new DataManager();
                 ByteArrayInputStream csvInput = new ByteArrayInputStream(data);
                 List<List<String>> csvList = CsvUtil.parseCsv(csvInput, ';');
                 for (List<String> strings : csvList) {
+                    String username = "";
                     int counter = 0;
                     User user = null;
                     for (String string : strings) {
                         if (counter++ % 2 == 0) {
-                            user = dataManager.getUser(string);
+                            user = findUserByName(dataManager, string);
+                            username = string;
+                            if (user == null) {
+                                System.out.println("unable to find " + string);
+
+                            }
+//                            user = dataManager.getUser(string);
                         } else {
                             if (user != null) {
                                 TeamUserSelection teamUserSelection = new TeamUserSelection();
@@ -100,7 +107,7 @@ public class TeamUploadController implements Serializable {
                                 teamUserSelection.setIdevent(selectedEvent.getIdevent());
                                 dataManager.saveObject(teamUserSelection);
                             } else {
-                                errorMessages.add("Had no user to add to team");
+                                errorMessages.add("Could not add " + username + " to team (" + string + ")");
                             }
                         }
                     }
@@ -119,6 +126,41 @@ public class TeamUploadController implements Serializable {
         }
 
         return "";
+    }
+
+    private User findUserByName(DataManager dataManager, String s) {
+        String s1 = s.trim();
+        String[] strings = s1.split(" ");
+        if (strings.length > 1) {
+            String firstName = strings[0].trim();
+//            strings[0] = "";
+            String lastName = "";
+            for (int i = 1; i<strings.length; i++) {
+                lastName += strings[i].trim() + " ";
+            }
+            String s2 = lastName.trim();
+            User userByName = dataManager.getUserByName(firstName, s2);
+
+            if (userByName != null) {
+                return userByName;
+            } else {
+                String firstNames  = "";
+                for (int i = 0; i<strings.length-1; i++) {
+                    firstNames += strings[i].trim() + " ";
+                }
+                firstNames = firstNames.trim();
+                String lastNames = strings[strings.length-1].trim();
+                userByName = dataManager.getUserByName(firstNames, lastNames);
+                return userByName;
+            }
+
+
+        } else {
+            if (strings.length == 1) {
+                return dataManager.getUser(strings[0]);
+            }
+        }
+        return null;
     }
 
     private Team createTeam(String name, DataManager dataManager) {

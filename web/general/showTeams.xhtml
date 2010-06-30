@@ -60,7 +60,7 @@
                 <f:facet name="header">
                     <h:outputLabel value="Team"/>
                 </f:facet>
-                <h:outputLabel value="#{team.name}"/>
+                <h:outputLabel value="Team #{team.name}"/>
                 <rich:dataTable id="teamList" value="#{teamController.usersForTeam(team)}" var="teamUser"
                                 cellpadding="0" cellspacing="0" border="0"
                                 width="100%"
@@ -68,9 +68,9 @@
                                 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
                     <rich:column>
                         <f:facet name="header">
-                            <h:outputLabel value="User"/>
+                            <h:outputLabel value="User (#{teamController.usersForTeam(team).size})"/>
                         </f:facet>
-                        <h:outputLabel value="#{teamUser.userName}"/>
+                        <h:outputLabel value="#{teamUser.firstname} #{teamUser.lastname} (#{teamUser.userName})"/>
                     </rich:column>
                 </rich:dataTable>
             </rich:column>

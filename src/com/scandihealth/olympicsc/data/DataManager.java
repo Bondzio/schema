@@ -934,7 +934,7 @@ public class DataManager implements Serializable {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         Transaction transaction = session.beginTransaction();
         String queryString = "from User user where user.firstname ='" + firstName + "' and user.lastname ='" + lastName + "'";
-        System.out.println("queryString = " + queryString);
+//        System.out.println("queryString = " + queryString);
         List list = session.createQuery(queryString).list();
         transaction.commit();
         if (list != null && list.size() == 1) {

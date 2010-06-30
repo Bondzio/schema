@@ -180,13 +180,34 @@ public class UserController {
         if ("STR. 14 ÅR".equals(shirtSize)) {
             shirtSize = "14";
         }
+        if ("38".equals(shirtSize)) {
+            shirtSize = "S";
+        }
+        if ("STR. M/38".equals(shirtSize)) {
+            shirtSize = "M";
+        }
         if ("39".equals(shirtSize)) {
+            shirtSize = "M";
+        }
+        if ("S-M".equals(shirtSize)) {
             shirtSize = "M";
         }
         if ("39 / MEDIUM".equals(shirtSize)) {
             shirtSize = "M";
         }
+        if ("M/40".equals(shirtSize)) {
+            shirtSize = "M";
+        }
+        if ("40".equals(shirtSize)) {
+            shirtSize = "M";
+        }
+        if ("M".equals(shirtSize)) {
+            shirtSize = "M";
+        }
         if ("42 (M/L)".equals(shirtSize)) {
+            shirtSize = "L";
+        }
+        if ("LARGE =)".equals(shirtSize)) {
             shirtSize = "L";
         }
         if ("42".equals(shirtSize)) {
@@ -197,6 +218,9 @@ public class UserController {
         }
         if ("44".equals(shirtSize)) {
             shirtSize = "XL";
+        }
+        if ("5XL".equals(shirtSize)) {
+            shirtSize = "XXXL";
         }
         return shirtSize;
     }
