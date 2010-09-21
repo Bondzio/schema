@@ -162,6 +162,7 @@
             <message>Du skal indtaste al bruger information</message>
         </redirect>
     </exception>
+
     <exception class="org.jboss.seam.security.NotLoggedInException">
         <redirect view-id="/security/login.xhtml">
             <message>Du er ikke logged ind. Log venligst ind.</message>
