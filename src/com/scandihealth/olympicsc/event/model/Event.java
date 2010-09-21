@@ -24,9 +24,9 @@ public class Event implements Serializable {
     private Date signstart;
     private Date signend;
     private Date unsignEnd;
-    private Integer memberPrice;
-    private Integer notMemberPrice;
-    private Integer noShowPrice;
+    private int memberPrice;
+    private int notMemberPrice;
+    private int noShowPrice;
     private Location location;
     private Logo logo;
     private boolean canRequestPartner = false;
@@ -144,21 +144,21 @@ public class Event implements Serializable {
 
     @javax.persistence.Column(name = "memberprice")
     @Basic
-    public Integer getMemberPrice() {
+    public int getMemberPrice() {
         return memberPrice;
     }
 
-    public void setMemberPrice(Integer memberPrice) {
+    public void setMemberPrice(int memberPrice) {
         this.memberPrice = memberPrice;
     }
 
     @javax.persistence.Column(name = "notmemberprice")
     @Basic
-    public Integer getNotMemberPrice() {
+    public int getNotMemberPrice() {
         return notMemberPrice;
     }
 
-    public void setNotMemberPrice(Integer notMemberPrice) {
+    public void setNotMemberPrice(int notMemberPrice) {
         this.notMemberPrice = notMemberPrice;
     }
 

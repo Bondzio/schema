@@ -297,8 +297,8 @@ public class EventController implements Serializable {
             List<String> column = new ArrayList<String>();
             column.add(user.getFirstname() + " " + user.getLastname());
             column.add(user.getEmployeeId());
-            Integer memberPrice = selectedEvent.getMemberPrice();
-            Integer notMemberPrice = selectedEvent.getNotMemberPrice();
+            int memberPrice = selectedEvent.getMemberPrice();
+            int notMemberPrice = selectedEvent.getNotMemberPrice();
             if (partnerRequest != null && partnerRequest.isPartnerRequest()) {
                 memberPrice *= 2;
                 notMemberPrice *= 2;
