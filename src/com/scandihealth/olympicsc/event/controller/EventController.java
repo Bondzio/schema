@@ -278,6 +278,7 @@ public class EventController implements Serializable {
         List<String> result = new ArrayList<String>();
         result.add("Navn");
         result.add("Personalenr");
+        result.add("Ledsager");
         result.add("Pris");
         return result;
     }
@@ -297,6 +298,11 @@ public class EventController implements Serializable {
             List<String> column = new ArrayList<String>();
             column.add(user.getFirstname() + " " + user.getLastname());
             column.add(user.getEmployeeId());
+            if (partnerRequest != null) {
+                column.add(partnerRequest.isPartnerRequest() ? "Ledsager" : "Ingen ledsager");
+            } else {
+                column.add("Ingen ledsager");
+            }
             int memberPrice = selectedEvent.getMemberPrice();
             int notMemberPrice = selectedEvent.getNotMemberPrice();
             if (partnerRequest != null && partnerRequest.isPartnerRequest()) {
