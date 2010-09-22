@@ -299,9 +299,9 @@ public class EventController implements Serializable {
             column.add(user.getFirstname() + " " + user.getLastname());
             column.add(user.getEmployeeId());
             if (partnerRequest != null) {
-                column.add(partnerRequest.isPartnerRequest() ? "Ledsager" : "Ingen ledsager");
+                column.add(partnerRequest.isPartnerRequest() ? "2" : "1");
             } else {
-                column.add("Ingen ledsager");
+                column.add("1");
             }
             int memberPrice = selectedEvent.getMemberPrice();
             int notMemberPrice = selectedEvent.getNotMemberPrice();
