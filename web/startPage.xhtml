@@ -81,16 +81,18 @@
                                     <h:outputLabel value="#{event.location}" converter="locationConverter"/>
                                 </h:panelGrid>
                                 <h:outputLabel value="Sidste tilmelding om #{event.timeToLastSign} dage"
-                                               rendered="#{event.timeToLastSign >= 3}"/>
+                                               rendered="#{event.timeToLastSign ge 3 and eventController.canSign}"/>
                                 <h:outputLabel value="Sidste tilmelding om #{event.timeToLastSign} dage"
                                                style="color:red;"
-                                               rendered="#{event.timeToLastSign lt 3 and event.timeToLastSign gt 1}"/>
+                                               rendered="#{event.timeToLastSign lt 3 and event.timeToLastSign gt 1 and eventController.canSign}"/>
                                 <h:outputLabel value="Sidste tilmelding i morgen!" style="color:red;"
-                                               rendered="#{event.timeToLastSign eq 1}"/>
+                                               rendered="#{event.timeToLastSign eq 1 and eventController.canSign}"/>
                                 <h:outputLabel value="Sidste tilmelding idag" style="color:red;"
                                                rendered="#{event.timeToLastSign eq 0 and eventController.canSign}"/>
-                                <h:outputLabel value="Tilmelding slut"
-                                               rendered="#{event.timeToLastSign lt 0 or !eventController.canSign}"/>
+                                <h:outputLabel value="#{messages['frontpage.ui.registration.notopenyet']}"
+                                               rendered="#{event.timeToLastSign lt 0 and !eventController.canSign}"/>
+                                <h:outputLabel value="#{messages['frontpage.ui.registration.notopenyet']}"
+                                               rendered="#{event.timeToLastSign ge 0 and !eventController.canSign}"/>
                                 <s:formattedText value="#{event.shortDescription}"/>
 
                                 <s:link value="#{messages['frontpage.moreinformation']}"
