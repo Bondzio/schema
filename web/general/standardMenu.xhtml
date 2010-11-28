@@ -79,13 +79,15 @@
             <table width="100%" cellpadding="0" cellspacing="0"
                    style="background-image:url('/schema/resources/logo.png');height:100px">
                 <tr>
-
                     <td align="right">
+                        <h:panelGrid columns="2">
+                        <h:graphicImage url="/resources/images/christmas_bells2.png" rendered="#{dateUtilities.december}" height="90px"/>
                         <h:panelGrid columns="1" class="logolink" rendered="#{identity.loggedIn}">
                             <s:link value="#{messages['menu.frontpage']}" action="startpage" rendered="#{!user.firstlogin}"/>
                             <s:link value="#{messages['menu.showuserdetails']}" view="/user/updateUserDetails.xhtml" rendered="#{!user.firstlogin}"/>
                             <s:link value="#{messages['menu.logout']}" rendered="#{identity.loggedIn}"
                                     action="#{identity.logout}"/>
+                        </h:panelGrid>
                         </h:panelGrid>
                     </td>
                     <td align="right">
