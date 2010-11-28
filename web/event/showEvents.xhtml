@@ -41,31 +41,31 @@
                 <f:facet name="header">
                     <h:outputLabel value="Details"/>
                 </f:facet>
-                <h:commandButton action="#{eventController.showDetails}" value="details"/>
+                <h:commandButton action="#{eventController.showDetails(event)}" value="details"/>
             </rich:column>
             <rich:column>
                 <f:facet name="header">
                     <h:outputLabel value="Update"/>
                 </f:facet>
-                <h:commandButton action="#{eventController.updateEvent}" value="update"/>
+                <h:commandButton action="#{eventController.updateEvent(event)}" value="update"/>
             </rich:column>
             <rich:column>
                 <f:facet name="header">
                     <h:outputLabel value="Delete"/>
                 </f:facet>
-                <h:commandButton action="#{eventController.deleteEvent}" value="delete"/>
+                <h:commandButton action="#{eventController.deleteEvent(event)}" value="delete"/>
             </rich:column>
             <rich:column>
                 <f:facet name="header">
                     <h:outputLabel value="Afregning"/>
                 </f:facet>
-                <h:commandButton action="#{eventController.showExcelForAccounting}" value="Export til excel"/>
+                <h:commandButton action="#{eventController.showExcelForAccounting(event)}" value="Export til excel"/>
             </rich:column>
             <rich:column>
                 <f:facet name="header">
                     <h:outputLabel value="Olympicsc"/>
                 </f:facet>
-                <h:commandButton action="#{eventController.showOlympicscExcel}" value="Export til excel"/>
+                <h:commandButton action="#{eventController.showOlympicscExcel(event)}" value="Export til excel"/>
                 <h:commandButton action="#{eventController.createTeam}" value="Upload Teams"/>
             </rich:column>
         </rich:dataTable>

@@ -66,7 +66,7 @@
     <table width="90%" align="center" border="0">
         <tr valign="top">
             <td width="25%">
-                <h:outputLabel value="#{eventController.selectedEvent.name}"
+                <h:outputLabel value="#{eventController.eventSelection.name}"
                                style="font-weight:bolder;font-size:20px;"/>
                 <h:panelGrid columns="2">
                     <h:column>
@@ -74,7 +74,7 @@
                         <h:outputLabel value="#{messages['event.from']}" style="font-weight:bolder;"/>
                     </h:column>
                     <h:column>
-                        <h:outputLabel value="#{eventController.selectedEvent.start}">
+                        <h:outputLabel value="#{eventController.eventSelection.start}">
                             <f:convertDateTime pattern="d/M/yy HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                         </h:outputLabel>
@@ -84,17 +84,17 @@
                         <h:outputLabel value="#{messages['event.to']}" style="font-weight:bolder;"/>
                     </h:column>
                     <h:column>
-                        <h:outputLabel value="#{eventController.selectedEvent.end}">
+                        <h:outputLabel value="#{eventController.eventSelection.end}">
                             <f:convertDateTime pattern="d/M/yy HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                         </h:outputLabel>
                     </h:column>
-                    <h:column rendered="#{not empty eventController.selectedEvent.location}">
+                    <h:column rendered="#{not empty eventController.eventSelection.location}">
                         <rich:spacer width="20"/>
                         <h:outputLabel value="#{messages['event.location']}" style="font-weight:bolder;"/>
                     </h:column>
                     <h:column>
-                        <h:outputLabel value="#{eventController.selectedEvent.location}"
+                        <h:outputLabel value="#{eventController.eventSelection.location}"
                                        converter="locationConverter"/>
                     </h:column>
                 </h:panelGrid>
@@ -103,12 +103,12 @@
                 <rich:spacer width="20"/>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Sidste tilmelding" style="font-weight:bolder;"/>
-                    <h:outputLabel value="#{eventController.selectedEvent.signend}">
+                    <h:outputLabel value="#{eventController.eventSelection.signend}">
                         <f:convertDateTime pattern="d/M/yy HH:mm"
                                            timeZone="#{org.jboss.seam.international.timeZone}"/>
                     </h:outputLabel>
                     <h:outputLabel value="Sidste afmelding" style="font-weight:bolder;"/>
-                    <h:outputLabel value="#{eventController.selectedEvent.unsignEnd}">
+                    <h:outputLabel value="#{eventController.eventSelection.unsignEnd}">
                         <f:convertDateTime pattern="d/M/yy HH:mm"
                                            timeZone="#{org.jboss.seam.international.timeZone}"/>
                     </h:outputLabel>
@@ -117,19 +117,19 @@
             <td width="25%">
                 <rich:spacer width="20"/>
                 <h:panelGrid columns="2"
-                             rendered="#{eventController.selectedEvent.memberPrice gt 0 or eventController.selectedEvent.notMemberPrice gt 0 or eventController.selectedEvent.noShowPrice gt 0}">
+                             rendered="#{eventController.eventSelection.memberPrice gt 0 or eventController.eventSelection.notMemberPrice gt 0 or eventController.eventSelection.noShowPrice gt 0}">
                     <h:outputLabel value="Medlemspris" style="font-weight:bolder;"
-                                   rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
-                    <h:outputLabel value="#{eventController.selectedEvent.memberPrice}"
-                                   rendered="#{eventController.selectedEvent.memberPrice gt 0}"/>
+                                   rendered="#{eventController.eventSelection.memberPrice gt 0}"/>
+                    <h:outputLabel value="#{eventController.eventSelection.memberPrice}"
+                                   rendered="#{eventController.eventSelection.memberPrice gt 0}"/>
                     <h:outputLabel value="Ikke Medlemspris" style="font-weight:bolder;"
-                                   rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
-                    <h:outputLabel value="#{eventController.selectedEvent.notMemberPrice}"
-                                   rendered="#{eventController.selectedEvent.notMemberPrice gt 0}"/>
+                                   rendered="#{eventController.eventSelection.notMemberPrice gt 0}"/>
+                    <h:outputLabel value="#{eventController.eventSelection.notMemberPrice}"
+                                   rendered="#{eventController.eventSelection.notMemberPrice gt 0}"/>
                     <h:outputLabel value="Udeblivelse" style="font-weight:bolder;"
-                                   rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
-                    <h:outputLabel value="#{eventController.selectedEvent.noShowPrice}"
-                                   rendered="#{eventController.selectedEvent.noShowPrice gt 0}"/>
+                                   rendered="#{eventController.eventSelection.noShowPrice gt 0}"/>
+                    <h:outputLabel value="#{eventController.eventSelection.noShowPrice}"
+                                   rendered="#{eventController.eventSelection.noShowPrice gt 0}"/>
                 </h:panelGrid>
             </td>
             <td width="25%" align="center">
@@ -137,18 +137,18 @@
                     <tr>
                         <td align="center">
                             <h:graphicImage url="/resources/Checkmark.png"
-                                            rendered="#{eventController.joinedEvent}" height="64" width="64"/>
+                                            rendered="#{eventController.joinedEvent(eventController.eventSelection)}" height="64" width="64"/>
                             <h:graphicImage url="/resources/redx.png"
-                                            rendered="#{!eventController.joinedEvent}" height="64" width="64"/><br/>
+                                            rendered="#{!eventController.joinedEvent(eventController.eventSelection)}" height="64" width="64"/><br/>
                             <h:outputLabel value="#{messages['general.attending']}" style="font-weight:bolder;"
-                                           rendered="#{eventController.joinedEvent}"/>
+                                           rendered="#{eventController.joinedEvent(eventController.eventSelection)}"/>
                             <h:outputLabel value="#{messages['general.notattending']}" style="font-weight:bolder;"
-                                           rendered="#{!eventController.joinedEvent}"/>
+                                           rendered="#{!eventController.joinedEvent(eventController.eventSelection)}"/>
                         </td>
                         <td align="center">
-                            <s:graphicImage value="#{eventController.selectedEvent.logoImage}"
-                                            alt="#{eventController.selectedEvent.logo.name}"
-                                            rendered="#{eventController.selectedEvent.logoImage ne null}"
+                            <s:graphicImage value="#{eventController.eventSelection.logoImage}"
+                                            alt="#{eventController.eventSelection.logo.name}"
+                                            rendered="#{eventController.eventSelection.logoImage ne null}"
                                             style="border:none;">
                                 <s:transformImageSize width="64" height="64"/>
                             </s:graphicImage>
@@ -166,7 +166,7 @@
                 <tr>
                     <td>
                         <rich:panel styleClass="nobackground">
-                            <s:formattedText value="#{eventController.selectedEvent.description}"/>
+                            <s:formattedText value="#{eventController.eventSelection.description}"/>
                         </rich:panel>
                     </td>
                 </tr>
@@ -183,7 +183,7 @@
                             <td>
                                 <h:outputLabel
                                         value="Ekstra information"
-                                        rendered="#{eventController.selectedEvent.canRequestPartner or eventController.selectedEvent.canRequestVegetarian}"
+                                        rendered="#{eventController.eventSelection.canRequestPartner or eventController.eventSelection.canRequestVegetarian}"
                                         styleClass="headerstyle"/>
                             </td>
                         </tr>
@@ -202,7 +202,7 @@
                                 <h:commandButton value="Opdater"
                                                  action="#{eventController.updateExtraInformation}"
                                                  disabled="#{!eventController.hasJoined}"
-                                                 rendered="#{eventController.selectedEvent.canRequestPartner or eventController.selectedEvent.canRequestVegetarian}"/>
+                                                 rendered="#{eventController.eventSelection.canRequestPartner or eventController.eventSelection.canRequestVegetarian}"/>
                             </td>
                         </tr>
                     </table>

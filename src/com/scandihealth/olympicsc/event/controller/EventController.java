@@ -45,6 +45,10 @@ public class EventController implements Serializable {
     @Out(required = false)
     private Event selectedEvent;
 
+    @DataModelSelection(value = "closedEventList")
+    @Out(required = false)
+    private Event selectedClosedEvent;
+
     @In
     Authenticator authenticator;
     private Boolean hasActivities;
@@ -56,6 +60,7 @@ public class EventController implements Serializable {
     UserForActivityPaintBean userForActivityPaintBean;
     private List<User> userForActivity;
     private List<String> notFound = new ArrayList<String>();
+    private Event eventSelection;
 
     @Create
     public void init() {
@@ -77,7 +82,7 @@ public class EventController implements Serializable {
         Collections.sort(eventList, new Comparator<Event>() {
             public int compare(Event o1, Event o2) {
                 if (o1.getStart() != null && o2.getStart() != null) {
-                    return o1.getStart().compareTo(o2.getStart());
+                    return o2.getStart().compareTo(o1.getStart());
                 }
 
                 return 0;
@@ -100,6 +105,15 @@ public class EventController implements Serializable {
                 closedEventList.add(event1);
             }
         }
+        Collections.sort(closedEventList, new Comparator<Event>() {
+            public int compare(Event o1, Event o2) {
+                if (o1.getStart() != null && o2.getStart() != null) {
+                    return o2.getStart().compareTo(o1.getStart());
+                }
+
+                return 0;
+            }
+        });
     }
 
     private void addPartnerRequestToEvent(Event event) {
@@ -120,26 +134,25 @@ public class EventController implements Serializable {
         }
     }
 
-    public String join() {
+    public String join(Event event) {
         User user = authenticator.getUser();
-        System.out.println("User: " + user.getUserName() + "(" + user.getIduser() + ") tried joining " + selectedEvent.getName() + "(" + selectedEvent.getIdevent() + ")");
+        System.out.println("User: " + user.getUserName() + "(" + user.getIduser() + ") tried joining " + event.getName() + "(" + event.getIdevent() + ")");
         String result = "";
-        JoinEventCommand joinEventCommand = new JoinEventCommand(user, selectedEvent);
+        JoinEventCommand joinEventCommand = new JoinEventCommand(user, event);
         commandController.executeCommand(joinEventCommand);
-        if (selectedEvent.isCanRequestPartner() || selectedEvent.isCanRequestVegetarian() || selectedEvent.getActivities().size() > 0) {
-            result = "showEventInfo";
-        }
-
         SaveUserCommand saveUserCommand = new SaveUserCommand(user);
         commandController.executeCommand(saveUserCommand);
         System.out.println("join successfull " + result);
+        if (event.isCanRequestPartner() || event.isCanRequestVegetarian() || event.getActivities().size() > 0) {
+            return showEventInfo(event);
+        }
         return result;
     }
 
-    public String cancel() {
+    public String cancel(Event event) {
         User user = authenticator.getUser();
-        System.out.println("User: " + user.getUserName() + "(" + user.getIduser() + ") tried cancelling " + selectedEvent.getName() + "(" + selectedEvent.getIdevent() + ")");
-        UnJoinEventCommand unJoinEventCommand = new UnJoinEventCommand(user, selectedEvent);
+        System.out.println("User: " + user.getUserName() + "(" + user.getIduser() + ") tried cancelling " + event.getName() + "(" + event.getIdevent() + ")");
+        UnJoinEventCommand unJoinEventCommand = new UnJoinEventCommand(user, event);
         commandController.executeCommand(unJoinEventCommand);
         SaveUserCommand saveUserCommand = new SaveUserCommand(user);
         commandController.executeCommand(saveUserCommand);
@@ -149,8 +162,8 @@ public class EventController implements Serializable {
     }
 
 
-    public boolean isJoinedEvent() {
-        return authenticator.getUser().hasJoinedEvent(selectedEvent);
+    public boolean joinedEvent(Event event) {
+        return authenticator.getUser().hasJoinedEvent(event);
     }
 
 
@@ -206,11 +219,15 @@ public class EventController implements Serializable {
 
     public List<User> getUsers() {
         DataManager dataManager = new DataManager();
-        return dataManager.getUserForEvent(selectedEvent);
+        return dataManager.getUserForEvent(eventSelection);
     }
 
     public Event getSelectedEvent() {
         return selectedEvent;
+    }
+
+    public Event getEventSelection() {
+        return eventSelection;
     }
 
     // if the event is currently running or is in the future it is defined to be an active event.
@@ -229,12 +246,12 @@ public class EventController implements Serializable {
      *
      * @return true if the user can sign for the event, false if not.
      */
-    public boolean isCanSign() {
+    public boolean canSign(Event event) {
         boolean result = false;
         Date date = new Date();
-        if (selectedEvent != null) {
-            Date signStart = selectedEvent.getSignstart();
-            Date signEnd = selectedEvent.getSignend();
+        if (event != null) {
+            Date signStart = event.getSignstart();
+            Date signEnd = event.getSignend();
 
             if (signStart != null) {
                 result = date.after(signStart);
@@ -252,8 +269,8 @@ public class EventController implements Serializable {
      *
      * @return true if the user can cancel a signing.
      */
-    public boolean isCanCancel() {
-        Date unsignEnd = selectedEvent.getUnsignEnd();
+    public boolean canCancel(Event event) {
+        Date unsignEnd = event.getUnsignEnd();
         return unsignEnd == null || new Date().before(unsignEnd);
     }
 
@@ -647,7 +664,7 @@ public class EventController implements Serializable {
 
     public Integer hasUserVegetarianRequest(User user) {
         DataManager dataManager = new DataManager();
-        EventVegetarianRequest vegetarianRequest = dataManager.getEventVegetarianRequest(user, selectedEvent);
+        EventVegetarianRequest vegetarianRequest = dataManager.getEventVegetarianRequest(user, eventSelection);
         if (vegetarianRequest != null) {
             return vegetarianRequest.getVegetarian();
         }
@@ -660,23 +677,28 @@ public class EventController implements Serializable {
         return "createActivities";
     }
 
-    public String updateEvent() {
+    public String updateEvent(Event event) {
+        eventSelection = event;
         return "updateEvent";
     }
 
-    public String showOlympicscExcel() {
+    public String showOlympicscExcel(Event event) {
+        eventSelection = event;
         return "olympicscDataToExcell";
     }
 
-    public String showExcelForAccounting() {
+    public String showExcelForAccounting(Event event) {
+        eventSelection = event;
         return "excelForAccounting";
     }
 
-    public String showDetails() {
+    public String showDetails(Event event) {
+        eventSelection = event;
         return "showDetails";
     }
 
-    public Object showEventInfo() {
+    public String showEventInfo(Event event) {
+        eventSelection = event;
         return "showEventInfo";
     }
 

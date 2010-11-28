@@ -47,7 +47,7 @@
             }
 
         </style>
-        <h:outputLabel value="#{eventController.users.size} Users for #{eventController.selectedEvent.name}"/>
+        <h:outputLabel value="#{eventController.users.size} Users for #{eventController.eventSelection.name}"/>
         <h:form>
             <h:commandButton value="Send Mail til tilmeldte" action="createMail" disabled="true"/>
         </h:form>
@@ -63,14 +63,14 @@
                     </f:facet>
                     <h:outputLabel value="#{eventUser.firstname} #{eventUser.lastname}"/>
                 </rich:column>
-                <rich:column rendered="#{eventController.selectedEvent.canRequestPartner}">
+                <rich:column rendered="#{eventController.eventSelection.canRequestPartner}">
                     <f:facet name="header">
                         <h:outputLabel value="Ledsager?"/>
                     </f:facet>
                     <h:selectBooleanCheckbox value="#{eventController.hasUserPartnerRequest(eventUser)}"
                                              readonly="true"/>
                 </rich:column>
-                <rich:column rendered="#{eventController.selectedEvent.canRequestVegetarian}">
+                <rich:column rendered="#{eventController.eventSelection.canRequestVegetarian}">
                     <f:facet name="header">
                         <h:outputLabel value="Antal vegetar"/>
                     </f:facet>
@@ -100,7 +100,7 @@
                 <h:outputLabel value="Manuel tilmelding"/>
                 <!--</f:facet>-->
                 <h:panelGrid columns="2">
-                    <rich:comboBox selectFirstOnUpdate="true" value="#{eventController.selectedEvent.selectedUser}"
+                    <rich:comboBox selectFirstOnUpdate="true" value="#{eventController.eventSelection.selectedUser}"
                                    defaultLabel="Select some value" width="200">
                         <s:selectItems value="#{userList}" var="h" label="#{h.userName}" itemLabel="#{h.userName}"
                                        itemValue="#{h}" noSelectionLabel="Valg noget" hideNoSelectionLabel="false"/>
@@ -111,9 +111,9 @@
             </rich:panel>
         </a4j:form>
 
-        <h:outputLabel value="Aktiviteter" rendered="#{not empty eventController.selectedEvent.activityList}"/>
+        <h:outputLabel value="Aktiviteter" rendered="#{not empty eventController.eventSelection.activityList}"/>
 
-        <rich:dataTable id="activityList" value="#{eventController.selectedEvent.activityList}" var="activity"
+        <rich:dataTable id="activityList" value="#{eventController.eventSelection.activityList}" var="activity"
                         cellpadding="0" cellspacing="0" border="0" width="100%">
             <rich:column sortOrder="#{activity.start}">
                 <rich:simpleTogglePanel switchType="client" opened="false" headerClass="paintedHeader">
@@ -155,7 +155,7 @@
                             <!--</f:facet>-->
                             <h:panelGrid columns="2">
                                 <rich:comboBox selectFirstOnUpdate="true"
-                                               value="#{eventController.selectedEvent.selectedUser}"
+                                               value="#{eventController.eventSelection.selectedUser}"
                                                defaultLabel="Select some value" width="200">
                                     <s:selectItems value="#{userList}" var="h" label="#{h.userName}"
                                                    itemLabel="#{h.userName}" itemValue="#{h}"

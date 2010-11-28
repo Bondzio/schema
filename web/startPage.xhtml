@@ -90,8 +90,7 @@
             <rich:panel id="eventOverview" style="width:400;height:183"
                         onmouseover="this.style.backgroundColor='#FFFFCC'"
                         onmouseout="this.style.backgroundColor='#F1F1F1'"
-                    >
-                <!--rendered="#{event.enabled or s:hasRole('admin')}"-->
+                    >             
                 <f:facet name="header">
                     <h:outputLabel value="#{event.name}"/>
 
@@ -116,43 +115,43 @@
                                 <h:outputLabel value="#{event.location}" converter="locationConverter"/>
                             </h:panelGrid>
                             <h:outputLabel value="Sidste tilmelding om #{event.timeToLastSign} dage"
-                                           rendered="#{event.timeToLastSign ge 3 and eventController.canSign}"/>
+                                           rendered="#{event.timeToLastSign ge 3 and eventController.canSign(event)}"/>
                             <h:outputLabel value="Sidste tilmelding om #{event.timeToLastSign} dage"
                                            style="color:red;"
-                                           rendered="#{event.timeToLastSign lt 3 and event.timeToLastSign gt 1 and eventController.canSign}"/>
+                                           rendered="#{event.timeToLastSign lt 3 and event.timeToLastSign gt 1 and eventController.canSign(event)}"/>
                             <h:outputLabel value="Sidste tilmelding i morgen!" style="color:red;"
-                                           rendered="#{event.timeToLastSign eq 1 and eventController.canSign}"/>
+                                           rendered="#{event.timeToLastSign eq 1 and eventController.canSign(event)}"/>
                             <h:outputLabel value="Sidste tilmelding idag" style="color:red;"
-                                           rendered="#{event.timeToLastSign eq 0 and eventController.canSign}"/>
+                                           rendered="#{event.timeToLastSign eq 0 and eventController.canSign(event)}"/>
                             <h:outputLabel value="#{messages['frontpage.ui.registration.notopenyet']}"
-                                           rendered="#{event.timeToLastSign lt 0 and !eventController.canSign}"/>
+                                           rendered="#{event.timeToLastSign lt 0 and !eventController.canSign(event)}"/>
                             <h:outputLabel value="#{messages['frontpage.ui.registration.notopenyet']}"
-                                           rendered="#{event.timeToLastSign ge 0 and !eventController.canSign}"/>
+                                           rendered="#{event.timeToLastSign ge 0 and !eventController.canSign(event)}"/>
                             <s:formattedText value="#{event.shortDescription}"/>
 
                             <s:link value="#{messages['frontpage.moreinformation']}"
-                                    action="#{eventController.showEventInfo}"/>
+                                    action="#{eventController.showEventInfo(event)}"/>
 
 
                         </h:panelGrid>
                     </h:column>
                     <h:column>
                         <h:panelGrid columns="1">
-                            <h:graphicImage url="resources/Checkmark.png" rendered="#{eventController.joinedEvent}"
+                            <h:graphicImage url="resources/Checkmark.png" rendered="#{eventController.joinedEvent(event)}"
                                             width="48" height="48"/>
                             <h:outputLabel value="#{messages['general.attending']}"
-                                           rendered="#{eventController.joinedEvent}"/>
-                            <h:graphicImage url="resources/redx.png" rendered="#{!eventController.joinedEvent}"
+                                           rendered="#{eventController.joinedEvent(event)}"/>
+                            <h:graphicImage url="resources/redx.png" rendered="#{!eventController.joinedEvent(event)}"
                                             width="48" height="48"/>
                             <h:outputLabel value="#{messages['general.notattending']}"
-                                           rendered="#{!eventController.joinedEvent}"/>
-                            <h:commandButton value="#{messages['general.attend']}" action="#{eventController.join}"
-                                             rendered="#{!eventController.joinedEvent}" style="width:64px;"
-                                             disabled="#{!eventController.canSign}"/>
+                                           rendered="#{!eventController.joinedEvent(event)}"/>
+                            <h:commandButton value="#{messages['general.attend']}" action="#{eventController.join(event)}"
+                                             rendered="#{!eventController.joinedEvent(event)}" style="width:64px;"
+                                             disabled="#{!eventController.canSign(event)}"/>
                             <h:commandButton value="#{messages['general.unjoin']}"
-                                             action="#{eventController.cancel}"
-                                             rendered="#{eventController.joinedEvent}"
-                                             disabled="#{!eventController.canCancel}"/>
+                                             action="#{eventController.cancel(event)}"
+                                             rendered="#{eventController.joinedEvent(event)}"
+                                             disabled="#{!eventController.canCancel(event)}"/>
                         </h:panelGrid>
                     </h:column>
                     <h:column>
@@ -203,42 +202,25 @@
                             <h:outputLabel value="#{messages['event.location']}" style="font-weight:bolder;"/>
                             <h:outputLabel value="#{event.location}" converter="locationConverter"/>
                         </h:panelGrid>
-                        <h:outputLabel value="Sidste tilmelding om #{event.timeToLastSign} dage"
-                                       rendered="#{event.timeToLastSign >= 3}"/>
-                        <h:outputLabel value="Sidste tilmelding om #{event.timeToLastSign} dage"
-                                       style="color:red;"
-                                       rendered="#{event.timeToLastSign lt 3 and event.timeToLastSign gt 1}"/>
-                        <h:outputLabel value="Sidste tilmelding i morgen!" style="color:red;"
-                                       rendered="#{event.timeToLastSign eq 1}"/>
-                        <h:outputLabel value="Sidste tilmelding idag" style="color:red;"
-                                       rendered="#{event.timeToLastSign eq 0 and eventController.canSign}"/>
-                        <h:outputLabel value="Tilmelding slut"
-                                       rendered="#{event.timeToLastSign lt 0 or !eventController.canSign}"/>
+                        <h:outputLabel value="Tilmelding slut"/>
                         <s:formattedText value="#{event.shortDescription}"/>
 
                         <s:link value="#{messages['frontpage.moreinformation']}"
-                                action="#{eventController.showEventInfo}"/>
+                                action="#{eventController.showEventInfo(event)}"/>
 
 
                     </h:panelGrid>
                 </h:column>
                 <h:column>
                     <h:panelGrid columns="1">
-                        <h:graphicImage url="resources/Checkmark.png" rendered="#{eventController.joinedEvent}"
+                        <h:graphicImage url="resources/Checkmark.png" rendered="#{eventController.joinedEvent(event)}"
                                         width="48" height="48"/>
                         <h:outputLabel value="#{messages['general.attending']}"
-                                       rendered="#{eventController.joinedEvent}"/>
-                        <h:graphicImage url="resources/redx.png" rendered="#{!eventController.joinedEvent}"
+                                       rendered="#{eventController.joinedEvent(event)}"/>
+                        <h:graphicImage url="resources/redx.png" rendered="#{!eventController.joinedEvent(event)}"
                                         width="48" height="48"/>
                         <h:outputLabel value="#{messages['general.notattending']}"
-                                       rendered="#{!eventController.joinedEvent}"/>
-                        <!--<h:commandButton value="#{messages['general.attend']}" action="#{eventController.join}"-->
-                        <!--rendered="#{!eventController.joinedEvent}" style="width:64px;"-->
-                        <!--disabled="#{!eventController.canSign}"/>-->
-                        <!--<h:commandButton value="#{messages['general.unjoin']}"-->
-                        <!--action="#{eventController.cancel}"-->
-                        <!--rendered="#{eventController.joinedEvent}"-->
-                        <!--disabled="#{!eventController.canCancel}"/>-->
+                                       rendered="#{!eventController.joinedEvent(event)}"/>
                     </h:panelGrid>
                 </h:column>
                 <h:column>
