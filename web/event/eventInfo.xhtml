@@ -201,7 +201,7 @@
                             <td colspan="2" align="right">
                                 <h:commandButton value="Opdater"
                                                  action="#{eventController.updateExtraInformation}"
-                                                 disabled="#{!eventController.hasJoined}"
+                                                 disabled="#{!eventController.hasJoined(eventController.eventSelection)}"
                                                  rendered="#{eventController.eventSelection.canRequestPartner or eventController.eventSelection.canRequestVegetarian}"/>
                             </td>
                         </tr>

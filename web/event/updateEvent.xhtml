@@ -16,19 +16,19 @@
                             </f:facet>
                             <h:panelGrid columns="2">
                                 <h:outputLabel value="#{messages['event.name']}"/>
-                                <h:inputText value="#{eventController.selectedEvent.name}"/>
+                                <h:inputText value="#{eventController.eventSelection.name}"/>
 
                                 <h:outputLabel value="#{messages['event.hasActivities']}"/>
                                 <h:selectBooleanCheckbox value="#{eventController.hasActivities}"/>
                                 <h:outputLabel value="#{messages['event.location']}"/>
                                 <rich:comboBox selectFirstOnUpdate="false"
-                                               value="#{eventController.selectedEvent.location}"
+                                               value="#{eventController.eventSelection.location}"
                                                defaultLabel="Select some value">
                                     <s:selectItems value="#{locationList}" var="h" label="#{h.name}"/>
                                     <f:converter converterId="locationConverter"/>
                                 </rich:comboBox>
                                 <h:outputLabel value="Logo"/>
-                                <rich:comboBox selectFirstOnUpdate="false" value="#{eventController.selectedEvent.logo}"
+                                <rich:comboBox selectFirstOnUpdate="false" value="#{eventController.eventSelection.logo}"
                                                defaultLabel="Select some value">
                                     <s:selectItems value="#{logoList}" var="logos" label="#{logos.name}"/>
                                     <f:converter converterId="logoConverter"/>
@@ -43,27 +43,27 @@
                             </f:facet>
                             <h:panelGrid columns="4">
                                 <h:outputLabel value="#{messages['event.from']}"/>
-                                <rich:calendar value="#{eventController.selectedEvent.start}"
+                                <rich:calendar value="#{eventController.eventSelection.start}"
                                                cellWidth="24px" cellHeight="22px" style="width:200px"
                                                datePattern="d/M/yy HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                                 <h:outputLabel value="#{messages['event.to']}"/>
-                                <rich:calendar value="#{eventController.selectedEvent.end}"
+                                <rich:calendar value="#{eventController.eventSelection.end}"
                                                cellWidth="24px" cellHeight="22px" style="width:200px"
                                                datePattern="d/M/yy HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                                 <h:outputLabel value="#{messages['event.signstart']}"/>
-                                <rich:calendar value="#{eventController.selectedEvent.signstart}"
+                                <rich:calendar value="#{eventController.eventSelection.signstart}"
                                                cellWidth="24px" cellHeight="22px" style="width:200px"
                                                datePattern="d/M/yy HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                                 <h:outputLabel value="#{messages['event.signend']}"/>
-                                <rich:calendar value="#{eventController.selectedEvent.signend}"
+                                <rich:calendar value="#{eventController.eventSelection.signend}"
                                                cellWidth="24px" cellHeight="22px" style="width:200px"
                                                datePattern="d/M/yy HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
                                 <h:outputLabel value="#{messages['event.unsignend']}"/>
-                                <rich:calendar value="#{eventController.selectedEvent.unsignEnd}"
+                                <rich:calendar value="#{eventController.eventSelection.unsignEnd}"
                                                cellWidth="24px" cellHeight="22px" style="width:200px"
                                                datePattern="d/M/yy HH:mm"
                                                timeZone="#{org.jboss.seam.international.timeZone}"/>
@@ -84,16 +84,16 @@
                                         <h:panelGrid columns="2">
                                             <h:outputLabel value="#{messages['event.canChoosePartner']}"/>
                                             <h:selectBooleanCheckbox
-                                                    value="#{eventController.selectedEvent.canRequestPartner}"/>
+                                                    value="#{eventController.eventSelection.canRequestPartner}"/>
                                             <h:outputLabel value="#{messages['event.canChooseVegetarian']}"/>
                                             <h:selectBooleanCheckbox
-                                                    value="#{eventController.selectedEvent.canRequestVegetarian}"/>
+                                                    value="#{eventController.eventSelection.canRequestVegetarian}"/>
                                         </h:panelGrid>
                                     </td>
                                     <td>
                                         <h:panelGrid columns="2">
                                             <h:outputLabel value="Aktiv"/>
-                                            <h:selectBooleanCheckbox value="#{eventController.selectedEvent.enabled}"/>
+                                            <h:selectBooleanCheckbox value="#{eventController.eventSelection.enabled}"/>
                                         </h:panelGrid>
 
                                     </td>
@@ -110,11 +110,11 @@
                             </f:facet>
                             <h:panelGrid columns="6">
                                 <h:outputLabel value="#{messages['event.memberprice']}"/>
-                                <h:inputText value="#{eventController.selectedEvent.memberPrice}"/>
+                                <h:inputText value="#{eventController.eventSelection.memberPrice}"/>
                                 <h:outputLabel value="#{messages['event.nonmemberprice']}"/>
-                                <h:inputText value="#{eventController.selectedEvent.notMemberPrice}"/>
+                                <h:inputText value="#{eventController.eventSelection.notMemberPrice}"/>
                                 <h:outputLabel value="#{messages['event.noshowprice']}"/>
-                                <h:inputText value="#{eventController.selectedEvent.noShowPrice}"/>
+                                <h:inputText value="#{eventController.eventSelection.noShowPrice}"/>
                             </h:panelGrid>
                         </rich:panel>
                     </td>
@@ -131,7 +131,7 @@
                                         <h:panelGroup layout="block">
                                             <rich:editor
                                                     id="editor" width="700" height="300"
-                                                    value="#{eventController.selectedEvent.description}"
+                                                    value="#{eventController.eventSelection.description}"
                                                     useSeamText="true" theme="advanced" plugins="save,paste">
                                                 <f:param name="theme_advanced_toolbar_location" value="top"/>
                                                 <f:param name="theme_advanced_toolbar_align" value="left"/>

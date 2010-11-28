@@ -31,6 +31,9 @@ public class EventController implements Serializable {
 
     private EventRepository eventRepository;
 
+    @DataModel(value = "currentEventList")
+    private List<Event> currentEventList;
+
     @DataModel(value = "eventList")
     private List<Event> eventList;
 
@@ -38,16 +41,20 @@ public class EventController implements Serializable {
     private List<Event> closedEventList;
 
     @In(value = "event", create = true)
-    @Out(value = "selectedEvent")
+
     private Event event;
 
-    @DataModelSelection(value = "eventList")
-    @Out(required = false)
-    private Event selectedEvent;
+//    @DataModelSelection(value = "currentEventList")
+//    @Out(required = false)
+//    private Event selectedEvent;
 
     @DataModelSelection(value = "closedEventList")
     @Out(required = false)
     private Event selectedClosedEvent;
+
+    @DataModelSelection(value = "eventList")
+    @Out(value = "selectedEvent", required = false)
+    private Event eventSelection;
 
     @In
     Authenticator authenticator;
@@ -60,28 +67,52 @@ public class EventController implements Serializable {
     UserForActivityPaintBean userForActivityPaintBean;
     private List<User> userForActivity;
     private List<String> notFound = new ArrayList<String>();
-    private Event eventSelection;
+
 
     @Create
     public void init() {
         eventRepository = new EventRepository();
     }
 
-    @Factory("eventList")
-    public void findEvents() {
-        eventList = new ArrayList<Event>();
+    @Factory("currentEventList")
+    public void findCurrentEvents() {
+        currentEventList = new ArrayList<Event>();
         if (eventRepository == null) {
             eventRepository = new EventRepository();
         }
         List<Event> allEvents = eventRepository.getEvents();
         for (Event event : allEvents) {
             if (isActive(event)) {
-                eventList.add(event);
+                currentEventList.add(event);
             }
         }
-        Collections.sort(eventList, new Comparator<Event>() {
+        Collections.sort(currentEventList, new Comparator<Event>() {
             public int compare(Event o1, Event o2) {
                 if (o1.getStart() != null && o2.getStart() != null) {
+                    return o1.getStart().compareTo(o2.getStart());
+                }
+
+                return 0;
+            }
+        });
+        if (currentEventList != null) {
+            for (Event event1 : currentEventList) {
+                addPartnerRequestToEvent(event1);
+                addVegetarianRequestToEvent(event1);
+            }
+        }
+    }
+
+    @Factory("eventList")
+    public void findEvents() {
+        if (eventRepository == null) {
+            eventRepository = new EventRepository();
+        }
+        eventList = eventRepository.getEvents();
+
+        Collections.sort(eventList, new Comparator<Event>() {
+            public int compare(Event o1, Event o2) {
+                if (o2.getStart() != null && o2.getStart() != null) {
                     return o2.getStart().compareTo(o1.getStart());
                 }
 
@@ -171,7 +202,7 @@ public class EventController implements Serializable {
         CreateEventCommand createEventCommand = new CreateEventCommand(eventRepository, event);
         commandController.executeCommand(createEventCommand);
         if (hasActivities) {
-            selectedEvent = event;
+            eventSelection = event;
             return "createActivities";
         } else {
             return "eventCreated";
@@ -179,32 +210,32 @@ public class EventController implements Serializable {
     }
 
 
-    public void deleteEvent() {
-        DeleteEventCommand deleteEventCommand = new DeleteEventCommand(eventRepository, selectedEvent);
+    public void deleteEvent(Event event) {
+        DeleteEventCommand deleteEventCommand = new DeleteEventCommand(eventRepository, event);
         commandController.executeCommand(deleteEventCommand);
     }
 
     public String doUpdateEvent() {
-        if (selectedEvent.isCanRequestVegetarian()) {
+        if (eventSelection.isCanRequestVegetarian()) {
             DataManager dataManager = new DataManager();
             EventVegetarianRequest eventVegetarianRequest = new EventVegetarianRequest();
             eventVegetarianRequest.setIduser(authenticator.getUser().getIduser());
-            eventVegetarianRequest.setIdevent(selectedEvent.getIdevent());
-            eventVegetarianRequest.setVegetarian(selectedEvent.getVegetarianRequest());
+            eventVegetarianRequest.setIdevent(eventSelection.getIdevent());
+            eventVegetarianRequest.setVegetarian(eventSelection.getVegetarianRequest());
             dataManager.saveEventVegetarianRequest(eventVegetarianRequest);
         }
 
-        if (selectedEvent.isCanRequestPartner()) {
+        if (eventSelection.isCanRequestPartner()) {
             DataManager dataManager = new DataManager();
             EventPartnerRequest eventPartnerRequest = new EventPartnerRequest();
             eventPartnerRequest.setIduser(authenticator.getUser().getIduser());
-            eventPartnerRequest.setIdevent(selectedEvent.getIdevent());
-            eventPartnerRequest.setPartnerRequest(selectedEvent.isPartnerRequest());
+            eventPartnerRequest.setIdevent(eventSelection.getIdevent());
+            eventPartnerRequest.setPartnerRequest(eventSelection.isPartnerRequest());
             dataManager.saveEventPartnerRequest(eventPartnerRequest);
         }
-        UpdateEventCommand updateEventCommand = new UpdateEventCommand(eventRepository, selectedEvent);
+        UpdateEventCommand updateEventCommand = new UpdateEventCommand(eventRepository, eventSelection);
         commandController.executeCommand(updateEventCommand);
-        MessageUtils.createMessage("Informationen er gemt.", "eventList");
+        MessageUtils.createMessage("Informationen er gemt.", "currentEventList");
         return "";
     }
 
@@ -220,10 +251,6 @@ public class EventController implements Serializable {
     public List<User> getUsers() {
         DataManager dataManager = new DataManager();
         return dataManager.getUserForEvent(eventSelection);
-    }
-
-    public Event getSelectedEvent() {
-        return selectedEvent;
     }
 
     public Event getEventSelection() {
@@ -244,6 +271,7 @@ public class EventController implements Serializable {
     /**
      * Can a user sign for this event. This is determined by the start time and end time of the sign period.
      *
+     * @param event the event to test for.
      * @return true if the user can sign for the event, false if not.
      */
     public boolean canSign(Event event) {
@@ -267,6 +295,7 @@ public class EventController implements Serializable {
     /**
      * The user can cancel a sign to an event if there was not an unsigning date set or if current date is before the unsign date.
      *
+     * @param event the event to test for.
      * @return true if the user can cancel a signing.
      */
     public boolean canCancel(Event event) {
@@ -277,11 +306,12 @@ public class EventController implements Serializable {
     /**
      * Has the current user joined a specific event. The event is determined by the seam datamodel.
      *
-     * @return
+     * @param event the event to test for
+     * @return has the user joined the event
      */
-    public boolean isHasJoined() {
+    public boolean hasJoined(Event event) {
         User user = authenticator.getUser();
-        return user.hasJoinedEvent(selectedEvent);
+        return user.hasJoinedEvent(event);
     }
 
 
@@ -295,7 +325,7 @@ public class EventController implements Serializable {
         userForActivity = dataManager.getUserForActivity(activity);
         List<User> tmpList = new ArrayList<User>();
         for (User user : userForActivity) {
-            if (user.getEvents().contains(selectedEvent)) {
+            if (user.getEvents().contains(eventSelection)) {
                 tmpList.add(user);
             }
         }
@@ -334,7 +364,7 @@ public class EventController implements Serializable {
             }
         });
         for (User user : userList) {
-            EventPartnerRequest partnerRequest = dataManager.getEventPartnerRequest(user, selectedEvent);
+            EventPartnerRequest partnerRequest = dataManager.getEventPartnerRequest(user, eventSelection);
             List<String> column = new ArrayList<String>();
             column.add(user.getFirstname() + " " + user.getLastname());
             column.add(user.getEmployeeId());
@@ -343,8 +373,8 @@ public class EventController implements Serializable {
             } else {
                 column.add("1");
             }
-            int memberPrice = selectedEvent.getMemberPrice();
-            int notMemberPrice = selectedEvent.getNotMemberPrice();
+            int memberPrice = eventSelection.getMemberPrice();
+            int notMemberPrice = eventSelection.getNotMemberPrice();
             if (partnerRequest != null && partnerRequest.isPartnerRequest()) {
                 memberPrice *= 2;
                 notMemberPrice *= 2;
@@ -368,7 +398,7 @@ public class EventController implements Serializable {
         result.add("Navn");
         result.add("Afdeling");
         result.add("Team");
-        List<Activity> activities = selectedEvent.getActivityList();
+        List<Activity> activities = eventSelection.getActivityList();
         Collections.sort(activities, new Comparator<Activity>() {
             public int compare(Activity o1, Activity o2) {
                 return o1.getName().compareTo(o2.getName());
@@ -389,7 +419,7 @@ public class EventController implements Serializable {
                 return o1.getFirstname().compareTo(o2.getFirstname());
             }
         });
-        List<Activity> activities = selectedEvent.getActivityList();
+        List<Activity> activities = eventSelection.getActivityList();
         Collections.sort(activities, new Comparator<Activity>() {
             public int compare(Activity o1, Activity o2) {
                 return o1.getName().compareTo(o2.getName());
@@ -615,18 +645,18 @@ public class EventController implements Serializable {
 
     public String unsign(User user) {
         System.out.println("Admin(" + authenticator.getUser().getUserName() + ") unsign of " + user.getUserName());
-        user.removeEvent(selectedEvent);
+        user.removeEvent(eventSelection);
         DataManager dataManager = new DataManager();
         dataManager.saveUser(user);
         return "";
     }
 
     public String signUser() {
-        if (selectedEvent.getSelectedUser() != null) {
-            System.out.println("Admin(" + authenticator.getUser().getUserName() + ") sign of " + selectedEvent.getSelectedUser().getUserName());
-            selectedEvent.getSelectedUser().addEvent(selectedEvent);
+        if (eventSelection.getSelectedUser() != null) {
+            System.out.println("Admin(" + authenticator.getUser().getUserName() + ") sign of " + eventSelection.getSelectedUser().getUserName());
+            eventSelection.getSelectedUser().addEvent(eventSelection);
             DataManager dataManager = new DataManager();
-            dataManager.saveUser(selectedEvent.getSelectedUser());
+            dataManager.saveUser(eventSelection.getSelectedUser());
         } else {
             System.out.println("Admin(" + authenticator.getUser().getUserName() + ") tried signing a user (failed, no user selected)");
         }
@@ -634,7 +664,7 @@ public class EventController implements Serializable {
     }
 
     public String signUserForActivity(Activity activity) {
-        User selectedUser = selectedEvent.getSelectedUser();
+        User selectedUser = eventSelection.getSelectedUser();
         if (selectedUser != null) {
             System.out.println("Admin(" + authenticator.getUser().getUserName() + ") sign of " + selectedUser.getUserName() + " for " + activity.getName());
             if (selectedUser.getActivities().contains(activity)) {
@@ -658,7 +688,7 @@ public class EventController implements Serializable {
 
     public Boolean hasUserPartnerRequest(User user) {
         DataManager dataManager = new DataManager();
-        EventPartnerRequest eventPartnerRequest = dataManager.getEventPartnerRequest(user, selectedEvent);
+        EventPartnerRequest eventPartnerRequest = dataManager.getEventPartnerRequest(user, eventSelection);
         return eventPartnerRequest != null && eventPartnerRequest.isPartnerRequest();
     }
 

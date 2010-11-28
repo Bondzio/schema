@@ -99,7 +99,7 @@
                 </f:facet>
                 <h:inputText value="#{activity.partnerRequest}" rendered="#{activity.canRequestPartner}"
                              title="#{messages['activity.partnerrequesthelp']}"
-                             disabled="#{!eventController.hasJoined or activitiesController.hasJoined}"/>
+                             disabled="#{!eventController.hasJoined(eventController.eventSelection) or activitiesController.hasJoined}"/>
             </h:column>
             <rich:column rendered="#{s:hasRole('admin')}">
                 <f:facet name="header">
@@ -152,17 +152,17 @@
                     </tr>
                 </table>
             </rich:column>
-            <rich:column rendered="#{eventController.hasJoined}"
+            <rich:column rendered="#{eventController.hasJoined(eventController.eventSelection)}"
                          id="joinColumn">
                 <h:commandButton value="#{messages['general.attend']}"
                                  action="#{activitiesController.joinActivity}"
-                                 rendered="#{!activitiesController.hasJoined}" disabled="#{!eventController.canSign}"/>
+                                 rendered="#{!activitiesController.hasJoined}" disabled="#{!eventController.canSign(eventController.eventSelection)}"/>
                 <h:commandButton value="#{messages['general.unjoin']}"
                                  action="#{activitiesController.removeActivity}"
-                                 rendered="#{activitiesController.hasJoined}" disabled="#{!eventController.canSign}"/>
+                                 rendered="#{activitiesController.hasJoined}" disabled="#{!eventController.canSign(eventController.eventSelection)}"/>
             </rich:column>
             <rich:column id="joinColumn1" sortBy="#{activitiesController.hasJoined}"
-                         rendered="#{eventController.hasJoined}">
+                         rendered="#{eventController.hasJoined(eventController.eventSelection)}">
                 <h:graphicImage url="/resources/redx.png" rendered="#{!activitiesController.hasJoined}"
                                 width="24" height="24" id="notjoinedimage"/>
                 <h:graphicImage url="/resources/Checkmark.png" rendered="#{activitiesController.hasJoined}"

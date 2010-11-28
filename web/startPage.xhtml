@@ -83,9 +83,9 @@
         <f:facet name="header">
             Kommende begivenheder:
         </f:facet>
-        <rich:dataGrid value="#{eventList}" var="event" columns="3" width="100%" columnClasses="column33"
+        <rich:dataGrid value="#{currentEventList}" var="event" columns="3" width="100%" columnClasses="column33"
                        rowClasses="row183"
-                       border="0" id="tester" align="center" rendered="#{not empty eventList}"
+                       border="0" id="tester" align="center" rendered="#{not empty currentEventList}"
                 styleClass="noborder">
             <rich:panel id="eventOverview" style="width:400;height:183"
                         onmouseover="this.style.backgroundColor='#FFFFCC'"
