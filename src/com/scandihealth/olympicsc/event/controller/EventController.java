@@ -31,15 +31,17 @@ public class EventController implements Serializable {
 
     private EventRepository eventRepository;
 
-    @DataModel
+    @DataModel(value = "eventList")
     private List<Event> eventList;
+
+    @DataModel(value = "closedEventList")
+    private List<Event> closedEventList;
 
     @In(value = "event", create = true)
     @Out(value = "selectedEvent")
     private Event event;
 
-    @DataModelSelection
-//    @In(value="selectedEvent", required = false)
+    @DataModelSelection(value = "eventList")
     @Out(required = false)
     private Event selectedEvent;
 
@@ -62,10 +64,16 @@ public class EventController implements Serializable {
 
     @Factory("eventList")
     public void findEvents() {
+        eventList = new ArrayList<Event>();
         if (eventRepository == null) {
             eventRepository = new EventRepository();
         }
-        eventList = eventRepository.getEvents();
+        List<Event> allEvents = eventRepository.getEvents();
+        for (Event event : allEvents) {
+            if (isActive(event)) {
+                eventList.add(event);
+            }
+        }
         Collections.sort(eventList, new Comparator<Event>() {
             public int compare(Event o1, Event o2) {
                 if (o1.getStart() != null && o2.getStart() != null) {
@@ -79,6 +87,17 @@ public class EventController implements Serializable {
             for (Event event1 : eventList) {
                 addPartnerRequestToEvent(event1);
                 addVegetarianRequestToEvent(event1);
+            }
+        }
+    }
+
+    @Factory("closedEventList")
+    public void findClosedEvents() {
+        closedEventList = new ArrayList<Event>();
+        List<Event> eventList = eventRepository.getEvents();
+        for (Event event1 : eventList) {
+            if (!isActive(event1)) {
+                closedEventList.add(event1);
             }
         }
     }
@@ -194,56 +213,60 @@ public class EventController implements Serializable {
         return selectedEvent;
     }
 
-    public String addActivityToEvent() {
-        return "createActivities";
-    }
+    // if the event is currently running or is in the future it is defined to be an active event.
 
-    public String updateEvent() {
-        return "updateEvent";
-    }
-
-    public String showOlympicscExcel() {
-        return "olympicscDataToExcell";
-    }
-
-    public String showExcelForAccounting() {
-        return "excelForAccounting";
-    }
-
-
-    public String showDetails() {
-        return "showDetails";
-    }
-
-    public Object showEventInfo() {
-        return "showEventInfo";
-    }
-
-    public boolean isCanSign() {
-        boolean result = true;
-        Date date = new Date();
-        Date signStart = selectedEvent.getSignstart();
-        Date signEnd = selectedEvent.getSignend();
-
-        if (signStart != null) {
-            result = date.after(signStart);
+    private boolean isActive(Event event) {
+        if (event != null) {
+            Date date = new Date();
+            Date eventStart = event.getEnd();
+            return eventStart.after(date);
         }
-        if (signEnd != null) {
-            result = result && date.before(signEnd);
+        return false;
+    }
+
+    /**
+     * Can a user sign for this event. This is determined by the start time and end time of the sign period.
+     *
+     * @return true if the user can sign for the event, false if not.
+     */
+    public boolean isCanSign() {
+        boolean result = false;
+        Date date = new Date();
+        if (selectedEvent != null) {
+            Date signStart = selectedEvent.getSignstart();
+            Date signEnd = selectedEvent.getSignend();
+
+            if (signStart != null) {
+                result = date.after(signStart);
+            }
+            if (signEnd != null) {
+                result = result && date.before(signEnd);
+            }
         }
 
         return result;
     }
 
+    /**
+     * The user can cancel a sign to an event if there was not an unsigning date set or if current date is before the unsign date.
+     *
+     * @return true if the user can cancel a signing.
+     */
     public boolean isCanCancel() {
         Date unsignEnd = selectedEvent.getUnsignEnd();
         return unsignEnd == null || new Date().before(unsignEnd);
     }
 
+    /**
+     * Has the current user joined a specific event. The event is determined by the seam datamodel.
+     *
+     * @return
+     */
     public boolean isHasJoined() {
         User user = authenticator.getUser();
         return user.hasJoinedEvent(selectedEvent);
     }
+
 
     public List<User> usersForActivity(Activity activity) {
         calculateUsersForActivity(activity);
@@ -629,6 +652,32 @@ public class EventController implements Serializable {
             return vegetarianRequest.getVegetarian();
         }
         return 0;
+    }
+
+    // ------------ Navigation actions ------------ //
+
+    public String addActivityToEvent() {
+        return "createActivities";
+    }
+
+    public String updateEvent() {
+        return "updateEvent";
+    }
+
+    public String showOlympicscExcel() {
+        return "olympicscDataToExcell";
+    }
+
+    public String showExcelForAccounting() {
+        return "excelForAccounting";
+    }
+
+    public String showDetails() {
+        return "showDetails";
+    }
+
+    public Object showEventInfo() {
+        return "showEventInfo";
     }
 
     public String createTeam() {
