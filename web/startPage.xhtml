@@ -45,10 +45,12 @@
         padding: 0;
         border: 0;
     }
-      .rich-table-cell {
-          border:none;
-      }
-     .nobackground {
+
+    .rich-table-cell {
+        border: none;
+    }
+
+    .nobackground {
         background: white;
         border: none;
         padding: 0;
@@ -57,44 +59,43 @@
 
     .nobackgroundsimpleborder {
         background: white;
-        border-color:#d3d3d3;
-        border-width:1px;
+        border-color: #d3d3d3;
+        border-width: 1px;
         padding: 0;
         margin: 0;
 
     }
+
     .rich-table-row {
-        border:none;
+        border: none;
     }
 
     .noborder {
-       border:none;
+        border: none;
     }
 
     .eventTypeHeader {
-        /*height:30px;*/
-        /*vertical-align:middle;*/
+    /*height:30px;*/
+    /*vertical-align:middle;*/
     }
 
 </style>
 
-<a4j:form ajaxSingle="true" ajaxSubmit="true" reRender="eventOverview">                         
+<a4j:form ajaxSingle="true" ajaxSubmit="true" reRender="eventOverview">
     <rich:panel styleClass="nobackgroundsimpleborder" headerClass="eventTypeHeader">
         <f:facet name="header">
             #{messages['general.upcomingevents']}
-
         </f:facet>
         <rich:dataGrid value="#{currentEventList}" var="event" columns="3" width="100%" columnClasses="column33"
                        rowClasses="row183"
                        border="0" id="tester" align="center" rendered="#{not empty currentEventList}"
-                styleClass="noborder">
+                       styleClass="noborder">
             <rich:panel id="eventOverview" style="width:400;height:183"
                         onmouseover="this.style.backgroundColor='#FFFFCC'"
                         onmouseout="this.style.backgroundColor='#F1F1F1'"
-                    >             
+                    >
                 <f:facet name="header">
                     <h:outputLabel value="#{event.name}"/>
-
                 </f:facet>
                 <h:panelGrid columns="3" columnClasses="column240px, column80px, column80px">
                     <h:column>
@@ -132,13 +133,12 @@
 
                             <s:link value="#{messages['frontpage.moreinformation']}"
                                     action="#{eventController.showEventInfo(event)}"/>
-
-
                         </h:panelGrid>
                     </h:column>
                     <h:column>
                         <h:panelGrid columns="1">
-                            <h:graphicImage url="resources/Checkmark.png" rendered="#{eventController.joinedEvent(event)}"
+                            <h:graphicImage url="resources/Checkmark.png"
+                                            rendered="#{eventController.joinedEvent(event)}"
                                             width="48" height="48"/>
                             <h:outputLabel value="#{messages['general.attending']}"
                                            rendered="#{eventController.joinedEvent(event)}"/>
@@ -146,7 +146,8 @@
                                             width="48" height="48"/>
                             <h:outputLabel value="#{messages['general.notattending']}"
                                            rendered="#{!eventController.joinedEvent(event)}"/>
-                            <h:commandButton value="#{messages['general.attend']}" action="#{eventController.join(event)}"
+                            <h:commandButton value="#{messages['general.attend']}"
+                                             action="#{eventController.join(event)}"
                                              rendered="#{!eventController.joinedEvent(event)}" style="width:64px;"
                                              disabled="#{!eventController.canSign(event)}"/>
                             <h:commandButton value="#{messages['general.unjoin']}"
@@ -156,7 +157,7 @@
                         </h:panelGrid>
                     </h:column>
                     <h:column>
-                            <s:graphicImage value="#{event.logoImage}" rendered="#{event.logoImage ne null}">
+                        <s:graphicImage value="#{event.logoImage}" rendered="#{event.logoImage ne null}">
                             <s:transformImageSize width="75" height="75"/>
                         </s:graphicImage>
                     </h:column>
@@ -171,7 +172,6 @@
         #{messages['general.previousevents']}
     </f:facet>
 
-
     <rich:dataGrid value="#{closedEventList}" var="event" columns="3" width="100%" columnClasses="column33"
                    rowClasses="row183"
                    border="0" id="oldEvents" align="center" styleClass="noborder">
@@ -179,10 +179,8 @@
                     onmouseover="this.style.backgroundColor='#FFFFCC'"
                     onmouseout="this.style.backgroundColor='#F1F1F1'"
                 >
-            <!--rendered="#{event.enabled or s:hasRole('admin')}"-->
             <f:facet name="header">
                 <h:outputLabel value="#{event.name}"/>
-
             </f:facet>
             <h:panelGrid columns="3" columnClasses="column240px, column80px, column80px">
                 <h:column>
@@ -208,8 +206,6 @@
 
                         <s:link value="#{messages['frontpage.moreinformation']}"
                                 action="#{eventController.showEventInfo(event)}"/>
-
-
                     </h:panelGrid>
                 </h:column>
                 <h:column>

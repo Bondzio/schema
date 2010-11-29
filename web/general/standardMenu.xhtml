@@ -77,14 +77,14 @@
         <rich:panel bodyClass="body1">
 
             <table width="100%" cellpadding="0" cellspacing="0"
-                   style="background-image:url('/schema/resources/logo.png');height:100px">
+                   style="background-image:url('/schema/resources/logo_winter.png');height:100px">
                 <tr>
                     <td align="right">
                         <h:panelGrid columns="2">
                         <h:graphicImage url="/resources/images/christmas_bells2.png" rendered="#{dateUtilities.december}" height="90px"/>
                         <h:panelGrid columns="1" class="logolink" rendered="#{identity.loggedIn}">
-                            <s:link value="#{messages['menu.frontpage']}" action="startpage" rendered="#{!user.firstlogin}"/>
-                            <s:link value="#{messages['menu.showuserdetails']}" view="/user/updateUserDetails.xhtml" rendered="#{!user.firstlogin}"/>
+                            <s:link value="#{messages['menu.frontpage']}" action="startpage" rendered="#{!authenticator.user.firstlogin}"/>
+                            <s:link value="#{messages['menu.showuserdetails']}" view="/user/updateUserDetails.xhtml" rendered="#{!authenticator.user.firstlogin}"/>
                             <s:link value="#{messages['menu.logout']}" rendered="#{identity.loggedIn}"
                                     action="#{identity.logout}"/>
                         </h:panelGrid>
@@ -95,8 +95,6 @@
                 </tr>
             </table>
         </rich:panel>
-        <!--<h:panelGrid columns="2" width="100%" rendered="#{!s:hasRole('admin')}" columnClasses="leftAligned,rightAligned">-->
-        <!--</h:panelGrid>-->
         <rich:toolBar rendered="#{s:hasRole('admin')}">
             <f:facet name="itemSeparator">
                 <rich:separator width="2" height="14"/>
@@ -150,11 +148,6 @@
                 <rich:menuItem submitMode="ajax" value="converter t-shirt info" action="#{userController.convertShirtSizes}"/>
 
             </rich:dropDownMenu>
-            <!--<rich:dropDownMenu>-->
-            <!--<f:facet name="label">-->
-            <!--<h:outputLabel value="Olympicsc"/>-->
-            <!--</f:facet>-->
-            <!--</rich:dropDownMenu>-->
         </rich:toolBar>
     </a4j:form>
 </ui:composition>

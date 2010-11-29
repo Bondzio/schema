@@ -57,7 +57,7 @@
                             width="100%"
                             onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
                             onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-                <rich:column>
+                <rich:column sortBy="#{eventUser.lastname}">
                     <f:facet name="header">
                         <h:outputLabel value="Name"/>
                     </f:facet>
@@ -76,7 +76,7 @@
                     </f:facet>
                     <h:outputLabel value="#{eventController.hasUserVegetarianRequest(eventUser)}"/>
                 </rich:column>
-                <rich:column>
+                <rich:column sortBy="#{eventUser.employeeId}">
                     <f:facet name="header">
                         <h:outputLabel value="Employeeid"/>
                     </f:facet>

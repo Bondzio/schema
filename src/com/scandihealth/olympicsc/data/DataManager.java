@@ -11,6 +11,7 @@ import com.scandihealth.olympicsc.location.model.Location;
 import com.scandihealth.olympicsc.teams.model.Team;
 import com.scandihealth.olympicsc.teams.model.TeamUserSelection;
 import com.scandihealth.olympicsc.user.model.User;
+import com.scandihealth.olympicsc.utilities.MessageUtils;
 import org.hibernate.*;
 
 import java.io.Serializable;
@@ -435,7 +436,13 @@ public class DataManager implements Serializable {
 
     public boolean saveUser(User user) {
         boolean result = false;
-
+        if (user.getEmployeeId() != null) {
+            User userById = getUserByEmployeeId(user.getEmployeeId());
+            if (userById != null) {
+                MessageUtils.createMessage("Brugeren eksisterer allerede.");
+                return false;
+            }
+        }
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -461,6 +468,20 @@ public class DataManager implements Serializable {
 
 
         return result;
+    }
+
+    private User getUserByEmployeeId(String employeeId) {
+
+            Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+            Transaction transaction = session.beginTransaction();
+            String queryString = "from User user where user.employeeId ='" + employeeId+ "'";
+
+            List list = session.createQuery(queryString).list();
+            transaction.commit();
+            if (list != null && list.size() == 1) {
+                return (User) list.get(0);
+            }
+            return null;
     }
 
     public List<User> getUsers() {
@@ -550,7 +571,7 @@ public class DataManager implements Serializable {
         try {
             Transaction transaction = session.beginTransaction();
 
-            String queryString = "select user from User as user where " + selectedEvent.getIdevent() + " in elements (user.events)";
+            String queryString = "select user from User as user where " + selectedEvent.getIdevent() + " in elements (user.events) order by user.lastname";
             List users = session.createQuery(queryString).list();
             transaction.commit();
 

@@ -85,8 +85,11 @@ public class UserController {
         DataManager dataManager = new DataManager();
         user1.setFirstlogin(false);
 
-        dataManager.saveUser(user1);
-        return "startpage";
+        boolean result = dataManager.saveUser(user1);
+        if (result) {
+            return "startpage";
+        }
+        return "";
     }
 
     public void selectAllPersonel() {
