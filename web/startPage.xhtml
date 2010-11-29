@@ -81,7 +81,7 @@
 <a4j:form ajaxSingle="true" ajaxSubmit="true" reRender="eventOverview">                         
     <rich:panel styleClass="nobackgroundsimpleborder" headerClass="eventTypeHeader">
         <f:facet name="header">
-            Kommende begivenheder:
+            Kommende begivenhederc
         </f:facet>
         <rich:dataGrid value="#{currentEventList}" var="event" columns="3" width="100%" columnClasses="column33"
                        rowClasses="row183"
@@ -155,7 +155,7 @@
                         </h:panelGrid>
                     </h:column>
                     <h:column>
-                        <s:graphicImage value="resources/olympiCSC.png">
+                            <s:graphicImage value="#{event.logoImage}" rendered="#{event.logoImage ne null}">
                             <s:transformImageSize width="75" height="75"/>
                         </s:graphicImage>
                     </h:column>
