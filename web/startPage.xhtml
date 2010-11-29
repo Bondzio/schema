@@ -81,7 +81,8 @@
 <a4j:form ajaxSingle="true" ajaxSubmit="true" reRender="eventOverview">                         
     <rich:panel styleClass="nobackgroundsimpleborder" headerClass="eventTypeHeader">
         <f:facet name="header">
-            Kommende arrangementer
+            #{messages['general.upcomingevents']}
+
         </f:facet>
         <rich:dataGrid value="#{currentEventList}" var="event" columns="3" width="100%" columnClasses="column33"
                        rowClasses="row183"
@@ -167,7 +168,7 @@
 <rich:spacer height="20"/>
 <rich:panel styleClass="nobackgroundsimpleborder" headerClass="eventTypeHeader">
     <f:facet name="header">
-        Tidligere arrangementer
+        #{messages['general.previousevents']}
     </f:facet>
 
 
