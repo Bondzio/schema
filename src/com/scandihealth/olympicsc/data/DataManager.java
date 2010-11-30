@@ -571,7 +571,7 @@ public class DataManager implements Serializable {
         try {
             Transaction transaction = session.beginTransaction();
 
-            String queryString = "select user from User as user where " + selectedEvent.getIdevent() + " in elements (user.events) order by user.lastname";
+            String queryString = "select user from User as user where " + selectedEvent.getIdevent() + " in elements (user.events) order by user.firstname";
             List users = session.createQuery(queryString).list();
             transaction.commit();
 
