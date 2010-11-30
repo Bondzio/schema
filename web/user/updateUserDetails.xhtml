@@ -152,8 +152,17 @@
                                         <h:inputText value="#{authenticator.user.mail}"/>
                                         <h:outputLabel value="#{messages['userdetails.phone']}"/>
                                         <h:inputText value="#{authenticator.user.phone}"/>
-                                        <h:outputLabel value="#{messages['userdetails.department']}"/>
-                                        <h:inputText value="#{authenticator.user.department}"/>
+                                        <s:decorate
+                                            id="departmentDecoration"
+                                            template="/general/util/errorStyle.xhtml">
+                                        <ui:define
+                                                name="label">#{messages['userdetails.department']}"/></ui:define>
+                                        <h:inputText value="#{authenticator.user.department}" required="true">
+                                            <a4j:support event="onblur"
+                                                         reRender="departmentDecoration"
+                                                         bypassUpdates="true"/>
+                                        </h:inputText>
+                                    </s:decorate>
                                     </h:panelGrid>
                                 </rich:panel>
                             </td>
@@ -217,6 +226,6 @@
 
 </ui:define>
 <ui:define name="footer">
-        <ui:include src="/general/footer.xhtml"/>
-    </ui:define>
+    <ui:include src="/general/footer.xhtml"/>
+</ui:define>
 </ui:composition>
