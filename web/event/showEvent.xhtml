@@ -82,6 +82,12 @@
                     </f:facet>
                     <h:outputLabel value="#{eventUser.employeeId}"/>
                 </rich:column>
+                <rich:column sortBy="#{eventUser.department}}">
+                    <f:facet name="header">
+                        <h:outputLabel value="Department"/>
+                    </f:facet>
+                    <h:outputLabel value="#{eventUser.department}"/>
+                </rich:column>
                 <rich:column>
                     <f:facet name="header">
                         <h:outputLabel value="Mail"/>
