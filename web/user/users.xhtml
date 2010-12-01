@@ -90,6 +90,12 @@
                 </rich:column>
                 <rich:column width="20">
                     <f:facet name="header">
+                        <h:outputLabel value="Opdater"/>
+                    </f:facet>
+                    <h:commandButton value="Opdater" action="#{userController.editUser}" disabled="true"/>
+                </rich:column>
+                <rich:column width="20">
+                    <f:facet name="header">
                         <h:outputLabel value="Slet"/>
                     </f:facet>
                     <h:commandButton value="Slet" action="#{userController.deleteUser}"/>

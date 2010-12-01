@@ -14,6 +14,8 @@ import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Name("userController")
@@ -55,6 +57,11 @@ public class UserController {
         userList = new ArrayList<User>();
         DataManager dataManager = new DataManager();
         userList = dataManager.getUsers();
+        Collections.sort(userList, new Comparator<User>() {
+            public int compare(User o1, User o2) {
+                return o1.getFirstname().compareTo(o2.getFirstname());
+            }
+        });
     }
 
     public User getUser() {
@@ -76,7 +83,7 @@ public class UserController {
     public String createUser() {
         newUser.setFirstlogin(true);
         DataManager dataManager = new DataManager();
-        dataManager.saveUser(newUser);
+        dataManager.createUser(newUser);
         return "";
     }
 
@@ -226,5 +233,9 @@ public class UserController {
             shirtSize = "XXXL";
         }
         return shirtSize;
+    }
+
+    public String editUser() {
+        return "editUser";
     }
 }

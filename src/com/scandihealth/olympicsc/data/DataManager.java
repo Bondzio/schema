@@ -436,6 +436,35 @@ public class DataManager implements Serializable {
 
     public boolean saveUser(User user) {
         boolean result = false;
+
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(user);
+            result = true;
+            session.flush();
+            transaction.commit();
+        }
+        catch (StaleObjectStateException sose) {
+            System.out.println("StaleObjectException");
+            transaction.rollback();
+        }
+        catch (HibernateException e) {
+            e.printStackTrace();
+            transaction.rollback();
+            result = false;
+        }
+        finally {
+            if (session.isOpen()) {
+                session.close();
+            }
+        }
+        return result;
+    }
+
+
+    public boolean createUser(User user) {
+        boolean result = false;
         if (user.getEmployeeId() != null) {
             User userById = getUserByEmployeeId(user.getEmployeeId());
             if (userById != null) {
