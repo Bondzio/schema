@@ -82,6 +82,7 @@
                     <td align="right">
                         <h:panelGrid columns="2">
                         <h:graphicImage url="/resources/images/christmas_bells2.png" rendered="#{dateUtilities.december}" height="90px"/>
+                        <h:graphicImage url="/resources/images/easterbunny.png" rendered="#{dateUtilities.easter}" height="90px"/>
                         <h:panelGrid columns="1" class="logolink" rendered="#{identity.loggedIn}">
                             <s:link value="#{messages['menu.frontpage']}" action="startpage" rendered="#{!authenticator.user.firstlogin}"/>
                             <s:link value="#{messages['menu.showuserdetails']}" view="/user/updateUserDetails.xhtml" rendered="#{!authenticator.user.firstlogin}"/>
