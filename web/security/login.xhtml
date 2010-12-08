@@ -4,7 +4,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:s="http://jboss.com/products/seam/taglib"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:test="http://scandihealth.csc.com/complexcomponents"
                 template="/pagelayout.xhtml">
     <ui:define name="content">
         <style type="text/css">
@@ -15,40 +15,50 @@
                 margin: 0;
             }
         </style>
-        <h:form id="loginform">
-            <table align="center">
-                <tr>
-                    <td>
-                        <h:panelGrid columns="2">
-                            <h:outputLabel for="name" value="Brugernavn"/>
-                            <h:inputText id="name" value="#{credentials.username}"/>
-                            <h:outputLabel for="password" value="Password"/>
-                            <h:inputSecret id="password" value="#{credentials.password}" redisplay="true"/>
-                        </h:panelGrid>
-                    </td>
-                </tr>
-                <tr align="right">
-                    <td>
-                        <h:commandButton value="Login" action="#{authenticator.login}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+        <!--<h:form id="loginform">-->
+        <!--<table align="center">-->
+        <!--<tr>-->
+        <!--<td>-->
+        <!--<h:panelGrid columns="2">-->
+        <!--<h:outputLabel for="name" value="Brugernavn"/>-->
+        <!--<h:inputText id="name" value="#{credentials.username}"/>-->
+        <!--<h:outputLabel for="password" value="Password"/>-->
+        <!--<h:inputSecret id="password" value="#{credentials.password}" redisplay="true"/>-->
+        <!--</h:panelGrid>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--<tr align="right">-->
+        <!--<td>-->
+        <!--<h:commandButton value="Login" action="#{authenticator.login}"/>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>-->
 
-                    </td>
-                </tr>
-            </table>
-        </h:form>
+        <!--</td>-->
+        <!--</tr>-->
+        <!--</table>-->
+        <!--</h:form>-->
+        <!--<h:form>-->
+        <!--<table align="center">-->
+        <!--<tr>-->
+        <!--<td>-->
+        <!--<rich:panel styleClass="nobackground">-->
+        <!--<h:commandLink value="Glemt password/brugernavn?" action="mailUserDetails"/>-->
+        <!--</rich:panel>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--</table>-->
+        <!--</h:form>-->
+
         <h:form>
-            <table align="center">
-                <tr>
-                    <td>
-                        <rich:panel styleClass="nobackground">
-                            <h:commandLink value="Glemt password/brugernavn?" action="mailUserDetails"/>
-                        </rich:panel>
-                    </td>
-                </tr>
-            </table>
+            <test:bindingComp id="tmp" value="#{resetBean.abc}" label="tester"/>
+            <h:inputText value="#{resetBean.abc}" binding="#{resetController.uiInput}"
+                         style="#{resetController.errorStyle}" id="testComp"/>
+            <h:outputLabel value="#{resetBean.abc}" binding="#{resetController.myComponent}"
+                           style="#{resetController.errorStyle}" id="testComp1"/>
+            <h:commandButton value="make invalid" action="#{resetController.makeInvalid}"/>
+            <a4j:commandButton value="reset" action="#{resetController.reset}" reRender="testComp1" ajaxSingle="true"/>
         </h:form>
     </ui:define>
     <ui:define name="footer">

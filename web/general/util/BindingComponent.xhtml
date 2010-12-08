@@ -1,0 +1,21 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:c="http://java.sun.com/jstl/core"
+              xmlns:rich="http://richfaces.org/rich"
+              xmlns:a4j="http://richfaces.org/a4j"
+              xmlns:s="http://jboss.com/products/seam/taglib"
+        >
+    #{label}
+    <h:outputLabel value="TESTER!!!"/>
+    <div style="width:25%;float:left;padding-left:2px;#{style};" class="#{styleClass}">
+        <h:inputText id="#{id}"
+                     value="#{value}" required="#{required}" label="#{label}"
+                     immediate="#{immediate == null?'false':immediate}"
+                     rendered="#{rendered == null ?'true': rendered }"
+                     readonly="#{disabled == null ?'false': disabled }">
+            <ui:insert/>
+        </h:inputText>
+    </div>
+</ui:component>
