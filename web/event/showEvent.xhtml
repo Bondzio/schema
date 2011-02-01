@@ -49,7 +49,7 @@
         </style>
         <h:outputLabel value="#{eventController.users.size} Users for #{eventController.eventSelection.name}"/>
         <h:form>
-            <h:commandButton value="Send Mail til tilmeldte" action="createMail" disabled="true"/>
+            <h:commandButton value="Send Mail til tilmeldte" action="createMail" disabled="false"/>
         </h:form>
         <a4j:form ajaxSubmit="true" reRender="eventList">
             <rich:dataTable id="eventList" value="#{eventController.users}" var="eventUser"
