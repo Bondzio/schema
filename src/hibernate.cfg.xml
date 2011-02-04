@@ -30,11 +30,7 @@
         <mapping class="com.scandihealth.olympicsc.event.model.EventVegetarianRequest"/>
         <mapping class="com.scandihealth.olympicsc.teams.model.Team"/>
         <mapping class="com.scandihealth.olympicsc.teams.model.TeamUserSelection"/>
-        <mapping class="com.scandihealth.olympicsc.customvalues.model.CustomValueType"/>
-        <mapping class="com.scandihealth.olympicsc.customvalues.model.CustomType"/>
-        <mapping class="com.scandihealth.olympicsc.customvalues.model.CustomValue"/>
-        <!--<mapping class="com.scandihealth.olympicsc.imageupload.Thumbnail"/>-->
-        <!--<mapping class="com.scandihealth.olympicsc.imageupload.LogoInformation"/>-->
+        <mapping class="com.scandihealth.olympicsc.classification.model.Classificationtype"/>
         <!-- DB schema will be updated if needed -->
     </session-factory>
 </hibernate-configuration>

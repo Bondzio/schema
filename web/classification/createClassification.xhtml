@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
+    <ui:define name="content">
+        <a4j:form ajaxSubmit="true" reRender="classificationList">
+            <h:panelGrid columns="8" cellpadding="0" cellspacing="0" width="100%">
+                <rich:panel>
+                    <f:facet name="header">
+                        <h:outputLabel value="Klassifikation"/>
+                    </f:facet>
+                    <h:outputLabel value="Navn"/>
+                    <h:inputText value="#{classification.name}"/>
+                    <h:outputLabel value="Type"/>
+                    <rich:comboBox selectFirstOnUpdate="false" value="#{classification.type}"
+                                   defaultLabel="Select some value">
+                        <s:selectItems value="#{classificationsTypes}" var="h" label="#{h.name}"/>
+                        <f:converter converterId="locationConverter"/>
+                    </rich:comboBox>
+                    <h:inputText value="#{classification.type}"/>
+                </rich:panel>
+                <rich:panel>
+                    <f:facet name="header">
+                        <h:outputLabel value="Name"/>
+                    </f:facet>
+                    <h:commandButton value="Create" action="#{classificationController.createClassification}"/>
+                </rich:panel>
+            </h:panelGrid>
+        </a4j:form>
+        <!--<ui:include src="showClassificationss.xhtml"/>-->
+    </ui:define>
+    <ui:define name="footer">
+        <ui:include src="/general/footer.xhtml"/>
+    </ui:define>
+</ui:composition>

@@ -27,10 +27,10 @@ public class DateUtilities {
     }
 
     public static void main(String[] args) {
-         isEaster();
+         new DateUtilities().isEaster();
     }
     
-    public static boolean isEaster() {
+    public boolean isEaster() {
         int year = new Date().getYear() + 1900;
         int a = year % 19;
         int b = year / 100;

@@ -59,6 +59,12 @@
             <rule if-outcome="showLocations">
                 <redirect view-id="/location/locations.xhtml"/>
             </rule>
+            <rule if-outcome="createClassification">
+                <redirect view-id="/classification/createClassification.xhtml"/>
+            </rule>
+            <rule if-outcome="showLocations">
+                <redirect view-id="/classification/classifications.xhtml"/>
+            </rule>
             <rule if-outcome="createGroups">
                 <redirect view-id="/group/createGroups.xhtml"/>
             </rule>

@@ -116,6 +116,13 @@
                 <rich:menuItem submitMode="ajax" value="#{messages['menu.createlocation']}" action="createLocations"/>
                 <rich:menuItem submitMode="ajax" value="#{messages['menu.showlocation']}" action="showLocations"/>
             </rich:dropDownMenu>
+            <rich:dropDownMenu rendered="#{s:hasRole('admin')}">
+                <f:facet name="label">
+                    <h:outputText value="#{messages['menu.classification']}"/>
+                </f:facet>
+                <rich:menuItem submitMode="ajax" value="#{messages['menu.createclassification']}" action="createClassification"/>
+                <rich:menuItem submitMode="ajax" value="#{messages['menu.showclassification']}" action="showClassifications"/>
+            </rich:dropDownMenu>
             <!--<rich:dropDownMenu rendered="#{s:hasRole('admin')}">-->
             <!--<f:facet name="label">-->
             <!--<h:outputText value="Configurable Information"/>-->
