@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 @javax.persistence.Table(name = "classificationvalue", catalog = "olympicsc")
-public class Classificationvalue2 {
+public class ClassificationValue {
     private int id;
 
     @javax.persistence.Column(name = "id")
@@ -37,7 +37,7 @@ public class Classificationvalue2 {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Classificationvalue2 that = (Classificationvalue2) o;
+        ClassificationValue that = (ClassificationValue) o;
 
         if (id != that.id) return false;
         if (value != null ? !value.equals(that.value) : that.value != null) return false;
