@@ -5,7 +5,7 @@ import org.jboss.seam.annotations.Name;
 @Name("classification")
 public class Classification {
     private Object name;
-    private Classificationtype type;
+    private ClassificationType type;
 
     public void setName(Object name) {
         this.name = name;
@@ -15,11 +15,11 @@ public class Classification {
         return name;
     }
 
-    public void setType(Classificationtype type) {
+    public void setType(ClassificationType type) {
         this.type = type;
     }
 
-    public Classificationtype getType() {
+    public ClassificationType getType() {
         return type;
     }
 }
