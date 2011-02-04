@@ -2,7 +2,7 @@ package com.scandihealth.olympicsc.data;
 
 import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
-import com.scandihealth.olympicsc.customvalues.model.CustomValueType;
+import com.scandihealth.olympicsc.classification.model.ClassificationType;
 import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.event.model.EventPartnerRequest;
 import com.scandihealth.olympicsc.event.model.EventVegetarianRequest;
@@ -952,19 +952,6 @@ public class DataManager implements Serializable {
         return null;
     }
 
-    public List<CustomValueType> getCustomValueTypes() {
-        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        List list = session.createQuery("from CustomValueType").list();
-        transaction.commit();
-        List<CustomValueType> result = new ArrayList<CustomValueType>();
-        for (Object o : list) {
-            if (o instanceof CustomValueType) {
-                result.add((CustomValueType) o);
-            }
-        }
-        return result;
-    }
 
     public List<ActivityPartnerRequest> getAllActivityPartnerRequestForUser(User user) {
         List<ActivityPartnerRequest> result = new ArrayList<ActivityPartnerRequest>();
@@ -992,4 +979,55 @@ public class DataManager implements Serializable {
         }
         return null;
     }
+
+    public List<ClassificationType> getClassificationTypes() {
+        List<ClassificationType> result = new ArrayList<ClassificationType>();
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List list = session.createQuery("from ClassificationType").list();
+            transaction.commit();
+
+            if (list != null) {
+                for (Object o : list) {
+                    ClassificationType classificationType = (ClassificationType) o;
+                    result.add(classificationType);
+                }
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+        return result;
+    }
+
+    public ClassificationType getClassificationType(String s) {
+        ClassificationType result = null;
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            Object o = session.createQuery("from ClassificationType as classificationType where classificationType.name like '" + s + "'").uniqueResult();
+
+
+            transaction.commit();
+            if (o != null) {
+                if (o instanceof ClassificationType) {
+                    result = (ClassificationType) o;
+                }
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+        return result;
+    }
+
 }

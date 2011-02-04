@@ -13,6 +13,10 @@
         <converter-class>com.scandihealth.olympicsc.location.converter.LocationConverter</converter-class>
     </converter>
     <converter>
+        <converter-id>classificationTypeConverter</converter-id>
+        <converter-class>com.scandihealth.olympicsc.classification.converter.ClassificationTypeConverter</converter-class>
+    </converter>
+    <converter>
         <converter-id>logoConverter</converter-id>
         <converter-class>com.scandihealth.olympicsc.imageupload.converter.LogoConverter</converter-class>
     </converter>

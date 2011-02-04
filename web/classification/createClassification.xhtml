@@ -7,20 +7,27 @@
                 xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
     <ui:define name="content">
         <a4j:form ajaxSubmit="true" reRender="classificationList">
-            <h:panelGrid columns="8" cellpadding="0" cellspacing="0" width="100%">
+            <h:panelGrid columns="2" cellpadding="0" cellspacing="0" width="100%">
                 <rich:panel>
                     <f:facet name="header">
                         <h:outputLabel value="Klassifikation"/>
                     </f:facet>
-                    <h:outputLabel value="Navn"/>
-                    <h:inputText value="#{classification.name}"/>
-                    <h:outputLabel value="Type"/>
-                    <rich:comboBox selectFirstOnUpdate="false" value="#{classification.type}"
-                                   defaultLabel="Select some value">
-                        <s:selectItems value="#{classificationsTypes}" var="h" label="#{h.name}"/>
-                        <f:converter converterId="locationConverter"/>
-                    </rich:comboBox>
-                    <h:inputText value="#{classification.type}"/>
+                    <table>
+                        <tr>
+                            <td><h:outputLabel value="Navn"/></td>
+                            <td><h:inputText value="#{classification.name}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="Type"/></td>
+                            <td>
+                                <rich:comboBox selectFirstOnUpdate="false" value="#{classification.type}"
+                                               defaultLabel="Select some value">
+                                    <s:selectItems value="#{classificationTypes}" var="h" label="#{h.name}"/>
+                                    <f:converter converterId="classificationTypeConverter"/>
+                                </rich:comboBox>
+                            </td>
+                        </tr>
+                    </table>
                 </rich:panel>
                 <rich:panel>
                     <f:facet name="header">
