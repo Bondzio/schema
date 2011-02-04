@@ -4,15 +4,10 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Martin Hylleberg
- * Date: 04-02-2011
- * Time: 19:47:29
- * To change this template use File | Settings | File Templates.
- */
+
 @Entity
-public class Classificationvalue {
+@javax.persistence.Table(name = "classificationvalue", catalog = "olympicsc")
+public class Classificationvalue2 {
     private int id;
 
     @javax.persistence.Column(name = "id")
@@ -42,7 +37,7 @@ public class Classificationvalue {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Classificationvalue that = (Classificationvalue) o;
+        Classificationvalue2 that = (Classificationvalue2) o;
 
         if (id != that.id) return false;
         if (value != null ? !value.equals(that.value) : that.value != null) return false;

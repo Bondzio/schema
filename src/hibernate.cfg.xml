@@ -31,7 +31,7 @@
         <mapping class="com.scandihealth.olympicsc.teams.model.Team"/>
         <mapping class="com.scandihealth.olympicsc.teams.model.TeamUserSelection"/>
         <mapping class="com.scandihealth.olympicsc.classification.model.ClassificationType"/>
-        <mapping class="com.scandihealth.olympicsc.classification.model.Classificationvalue"/>
+        <mapping class="com.scandihealth.olympicsc.classification.model.Classificationvalue2"/>
         <!-- DB schema will be updated if needed -->
     </session-factory>
 </hibernate-configuration>
