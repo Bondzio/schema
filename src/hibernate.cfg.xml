@@ -30,6 +30,7 @@
         <mapping class="com.scandihealth.olympicsc.event.model.EventVegetarianRequest"/>
         <mapping class="com.scandihealth.olympicsc.teams.model.Team"/>
         <mapping class="com.scandihealth.olympicsc.teams.model.TeamUserSelection"/>
+        <mapping class="com.scandihealth.olympicsc.classification.model.Classification"/>
         <mapping class="com.scandihealth.olympicsc.classification.model.ClassificationType"/>
         <mapping class="com.scandihealth.olympicsc.classification.model.ClassificationValue"/>
         <!-- DB schema will be updated if needed -->
