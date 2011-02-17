@@ -17,7 +17,7 @@
                          -->
         <property name="current_session_context_class">thread</property>
         <!-- this will show us all sql statements -->
-        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
         <property name="hibernate.format_sql">true</property>
         <property name="connection.autocommit">false</property>
         <mapping class="com.scandihealth.olympicsc.activities.model.Activity"/>
