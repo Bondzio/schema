@@ -2,8 +2,11 @@ package com.scandihealth.olympicsc.data;
 
 import com.scandihealth.olympicsc.activities.model.Activity;
 import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
+import com.scandihealth.olympicsc.classification.model.Classification;
 import com.scandihealth.olympicsc.classification.model.ClassificationType;
+import com.scandihealth.olympicsc.classification.model.ClassificationValue;
 import com.scandihealth.olympicsc.event.model.Event;
+import com.scandihealth.olympicsc.event.model.EventChildrenAgeRequest;
 import com.scandihealth.olympicsc.event.model.EventPartnerRequest;
 import com.scandihealth.olympicsc.event.model.EventVegetarianRequest;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
@@ -842,6 +845,31 @@ public class DataManager implements Serializable {
         saveObject(eventPartnerRequest);
     }
 
+    public void saveEventChildrenAgeRequest(EventChildrenAgeRequest eventChildrenAgeRequest) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventChildrenAgeRequest as eventChildrenAgeRequest " +
+                    "where eventChildrenAgeRequest.idevent=" + eventChildrenAgeRequest.getIdevent() + " and eventChildrenAgeRequest.iduser=" + eventChildrenAgeRequest.getIduser()).list();
+            transaction.commit();
+            if (result != null && result.size() > 0) {
+                Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
+                Transaction transaction1 = session1.beginTransaction();
+                for (Object o : result) {
+                    session1.delete(o);
+                }
+                transaction1.commit();
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.disconnect();
+                session.close();
+            }
+        }
+        saveObject(eventChildrenAgeRequest);
+    }
+
     public EventVegetarianRequest getEventVegetarianRequest(User user, Event event) {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         try {
@@ -852,6 +880,27 @@ public class DataManager implements Serializable {
 
             if (result != null && result.size() > 0) {
                 return (EventVegetarianRequest) result.get(0);
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.disconnect();
+                session.close();
+            }
+        }
+        return null;
+    }
+
+    public EventChildrenAgeRequest getEventChildrenAgeRequest(User user, Event event) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventChildrenAgeRequest as eventChildrenAgeRequest " +
+                    "where eventChildrenAgeRequest.idevent=" + event.getIdevent() + " and eventChildrenAgeRequest.iduser=" + user.getIduser()).list();
+            transaction.commit();
+
+            if (result != null && result.size() > 0) {
+                return (EventChildrenAgeRequest) result.get(0);
             }
         }
         finally {
@@ -1030,4 +1079,81 @@ public class DataManager implements Serializable {
         return result;
     }
 
+    public ClassificationValue getClassification(ClassificationValue value) {
+        ClassificationValue result = null;
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            System.out.println("value.getId() = " + value.getId());
+            Object o = session.createQuery("from ClassificationValue as classificationValue where classificationValue.value like '" + value.getValue() + "'").uniqueResult();
+
+            transaction.commit();
+            if (o != null) {
+                if (o instanceof ClassificationValue) {
+                    result = (ClassificationValue) o;
+                }
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+        return result;
+    }
+
+    public ClassificationValue getClassification(String value) {
+       ClassificationValue result = null;
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+
+            Object o = session.createQuery("from ClassificationValue as classificationValue where classificationValue.value like '" + value + "'").uniqueResult();
+
+            transaction.commit();
+            if (o != null) {
+                if (o instanceof ClassificationValue) {
+                    result = (ClassificationValue) o;
+                }
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+        return result;
+    }
+
+    public List<Classification> getClassifications() {
+        List<Classification> result = new ArrayList<Classification>();
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List list = session.createQuery("from Classification").list();
+            transaction.commit();
+
+
+            if (list != null) {
+                for (Object o : list) {
+                    Classification classification = (Classification) o;
+                    result.add(classification);
+                }
+            }
+        }
+        finally {
+            if (session.isOpen()) {
+                session.flush();
+                session.disconnect();
+                session.close();
+            }
+        }
+        return result;
+
+
+    }
 }

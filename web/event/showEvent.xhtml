@@ -76,6 +76,12 @@
                     </f:facet>
                     <h:outputLabel value="#{eventController.hasUserVegetarianRequest(eventUser)}"/>
                 </rich:column>
+                <rich:column rendered="#{eventController.eventSelection.canRequestChildrenAge}">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{messages['event.childrenages']}"/>
+                    </f:facet>
+                    <h:outputLabel value="#{eventController.hasUserChildrenAgeRequest(eventUser)}"/>
+                </rich:column>
                 <rich:column sortBy="#{eventUser.employeeId}">
                     <f:facet name="header">
                         <h:outputLabel value="Employeeid"/>

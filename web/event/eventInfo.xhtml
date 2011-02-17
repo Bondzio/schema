@@ -198,11 +198,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>
+                                <ui:include src="/event/selectChildrenAge.xhtml"/>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2" align="right">
                                 <h:commandButton value="Opdater"
                                                  action="#{eventController.updateExtraInformation}"
                                                  disabled="#{!eventController.hasJoined(eventController.eventSelection)}"
-                                                 rendered="#{eventController.eventSelection.canRequestPartner or eventController.eventSelection.canRequestVegetarian}"/>
+                                                 rendered="#{eventController.eventSelection.canRequestPartner or eventController.eventSelection.canRequestVegetarian or eventController.eventSelection.canRequestChildrenAge}"/>
                             </td>
                         </tr>
                     </table>

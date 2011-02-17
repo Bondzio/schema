@@ -31,8 +31,10 @@ public class Event implements Serializable {
     private Logo logo;
     private boolean canRequestPartner = false;
     private boolean canRequestVegetarian = false;
+    private boolean canRequestChildrenAge = false;
     private boolean partnerRequest;
     private int vegetarianRequest = 0;
+    private String childrenAgeRequest = "";
     private boolean showAttendingUsers = false;
     private Set<Activity> activities = new HashSet<Activity>();
     private List<Activity> activityList;
@@ -190,6 +192,15 @@ public class Event implements Serializable {
         this.canRequestVegetarian = canRequestVegetarian;
     }
 
+    @Column(name="canrequestchildrenage")
+    public boolean isCanRequestChildrenAge() {
+        return canRequestChildrenAge;
+    }
+
+    public void setCanRequestChildrenAge(boolean canRequestChildrenAge) {
+        this.canRequestChildrenAge = canRequestChildrenAge;
+    }
+
     @Transient
     public boolean isPartnerRequest() {
         return partnerRequest;
@@ -206,6 +217,15 @@ public class Event implements Serializable {
 
     public void setVegetarianRequest(int vegetarianRequest) {
         this.vegetarianRequest = vegetarianRequest;
+    }
+
+    @Transient
+    public String getChildrenAgeRequest() {
+        return childrenAgeRequest;
+    }
+
+    public void setChildrenAgeRequest(String childrenAgeRequest) {
+        this.childrenAgeRequest = childrenAgeRequest;
     }
 
     @Column(name = "showattending")

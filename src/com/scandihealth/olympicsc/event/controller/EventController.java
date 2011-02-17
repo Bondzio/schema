@@ -99,6 +99,7 @@ public class EventController implements Serializable {
             for (Event event1 : currentEventList) {
                 addPartnerRequestToEvent(event1);
                 addVegetarianRequestToEvent(event1);
+                addChildrenAgeRequestToEvent(event1);
             }
         }
     }
@@ -123,6 +124,7 @@ public class EventController implements Serializable {
             for (Event event1 : eventList) {
                 addPartnerRequestToEvent(event1);
                 addVegetarianRequestToEvent(event1);
+                addChildrenAgeRequestToEvent(event1);
             }
         }
     }
@@ -165,6 +167,15 @@ public class EventController implements Serializable {
         }
     }
 
+    private void addChildrenAgeRequestToEvent(Event event) {
+        User user = authenticator.getUser();
+        DataManager dataManager = new DataManager();
+        EventChildrenAgeRequest childrenAgeRequest= dataManager.getEventChildrenAgeRequest(user, event);
+        if (childrenAgeRequest != null) {
+            event.setChildrenAgeRequest(childrenAgeRequest.getChildrenAge());
+        }
+    }
+
     public String join(Event event) {
         User user = authenticator.getUser();
         System.out.println("User: " + user.getUserName() + "(" + user.getIduser() + ") tried joining " + event.getName() + "(" + event.getIdevent() + ")");
@@ -174,7 +185,7 @@ public class EventController implements Serializable {
         SaveUserCommand saveUserCommand = new SaveUserCommand(user);
         commandController.executeCommand(saveUserCommand);
         System.out.println("join successfull " + result);
-        if (event.isCanRequestPartner() || event.isCanRequestVegetarian() || event.getActivities().size() > 0) {
+        if (event.isCanRequestPartner() || event.isCanRequestVegetarian() || event.isCanRequestChildrenAge()|| event.getActivities().size() > 0) {
             return showEventInfo(event);
         }
         return result;
@@ -232,6 +243,15 @@ public class EventController implements Serializable {
             eventPartnerRequest.setIdevent(eventSelection.getIdevent());
             eventPartnerRequest.setPartnerRequest(eventSelection.isPartnerRequest());
             dataManager.saveEventPartnerRequest(eventPartnerRequest);
+        }
+
+        if (eventSelection.isCanRequestChildrenAge()) {
+            DataManager dataManager = new DataManager();
+            EventChildrenAgeRequest eventChildrenAgeRequest= new EventChildrenAgeRequest();
+            eventChildrenAgeRequest.setIduser(authenticator.getUser().getIduser());
+            eventChildrenAgeRequest.setIdevent(eventSelection.getIdevent());
+            eventChildrenAgeRequest.setChildrenAge(eventSelection.getChildrenAgeRequest());
+            dataManager.saveEventChildrenAgeRequest(eventChildrenAgeRequest);
         }
         UpdateEventCommand updateEventCommand = new UpdateEventCommand(eventRepository, eventSelection);
         commandController.executeCommand(updateEventCommand);
@@ -699,6 +719,15 @@ public class EventController implements Serializable {
             return vegetarianRequest.getVegetarian();
         }
         return 0;
+    }
+
+    public String hasUserChildrenAgeRequest(User user) {
+        DataManager dataManager = new DataManager();
+        EventChildrenAgeRequest eventChildrenAgeRequest = dataManager.getEventChildrenAgeRequest(user, eventSelection);
+        if (eventChildrenAgeRequest != null) {
+            return eventChildrenAgeRequest.getChildrenAge();
+        }
+        return "";
     }
 
     // ------------ Navigation actions ------------ //
