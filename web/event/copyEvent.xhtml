@@ -174,38 +174,103 @@
             <h:outputLabel value="Nyt Arrangement"/>
         </f:facet>
         Navn: <h:inputText value="#{eventCopyData.name}"/>
-        <h:panelGrid columns="4">
-            <h:outputLabel value="#{messages['event.from']}"/>
-            <rich:calendar value="#{eventCopyData.start}"
-                           cellWidth="24px" cellHeight="22px" style="width:200px"
-                           datePattern="d/M/yy HH:mm"
-                           timeZone="#{org.jboss.seam.international.timeZone}"/>
-            <h:outputLabel value="#{messages['event.to']}"/>
-            <rich:calendar value="#{eventCopyData.end}"
-                           cellWidth="24px" cellHeight="22px" style="width:200px"
-                           datePattern="d/M/yy HH:mm"
-                           timeZone="#{org.jboss.seam.international.timeZone}"/>
-            <h:outputLabel value="#{messages['event.signstart']}"/>
-            <rich:calendar value="#{eventCopyData.signStart}"
-                           cellWidth="24px" cellHeight="22px" style="width:200px"
-                           datePattern="d/M/yy HH:mm"
-                           timeZone="#{org.jboss.seam.international.timeZone}"/>
-            <h:outputLabel value="#{messages['event.signend']}"/>
-            <rich:calendar value="#{eventCopyData.signEnd}"
-                           cellWidth="24px" cellHeight="22px" style="width:200px"
-                           datePattern="d/M/yy HH:mm"
-                           timeZone="#{org.jboss.seam.international.timeZone}"/>
-            <h:outputLabel value="#{messages['event.unsignend']}"/>
-            <rich:calendar value="#{eventCopyData.unsignEnd}"
-                           cellWidth="24px" cellHeight="22px" style="width:200px"
-                           datePattern="d/M/yy HH:mm"
-                           timeZone="#{org.jboss.seam.international.timeZone}"/>
-        </h:panelGrid>
 
+        <table>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="#{messages['event.from']}"/>
+                            </td>
+                            <td>
+                                <rich:calendar value="#{eventCopyData.start}"
+                                               cellWidth="24px" cellHeight="22px" style="width:200px"
+                                               datePattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
 
-        Medlems pris<h:inputText value="#{eventCopyData.memberPrice}"/>
-        Ikke medlems pris<h:inputText value="#{eventCopyData.notMemberPrice}"/>
-        udeblivelses pris<h:inputText value="#{eventCopyData.noShowPrice}"/>
+                            </td>
+                            <td>
+                                <h:outputLabel value="#{messages['event.to']}"/>
+                            </td>
+                            <td>
+                                <rich:calendar value="#{eventCopyData.end}"
+                                               cellWidth="24px" cellHeight="22px" style="width:200px"
+                                               datePattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="#{messages['event.signstart']}"/>
+                            </td>
+                            <td>
+                                <rich:calendar value="#{eventCopyData.signStart}"
+                                               cellWidth="24px" cellHeight="22px" style="width:200px"
+                                               datePattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+
+                            </td>
+                            <td>
+                                <h:outputLabel value="#{messages['event.signend']}"/>
+                            </td>
+                            <td>
+                                <rich:calendar value="#{eventCopyData.signEnd}"
+                                               cellWidth="24px" cellHeight="22px" style="width:200px"
+                                               datePattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="#{messages['event.unsignend']}"/>
+                            </td>
+                            <td>
+                                <rich:calendar value="#{eventCopyData.unsignEnd}"
+                                               cellWidth="24px" cellHeight="22px" style="width:200px"
+                                               datePattern="d/M/yy HH:mm"
+                                               timeZone="#{org.jboss.seam.international.timeZone}"/>
+
+                            </td>
+                            <td/>
+                            <td/>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                Medlems pris
+                            </td>
+                            <td>
+                                <h:inputText value="#{eventCopyData.memberPrice}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Ikke medlems pris
+                            </td>
+                            <td>
+                                <h:inputText value="#{eventCopyData.notMemberPrice}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Udeblivelses pris
+                            </td>
+                            <td>
+                                <h:inputText value="#{eventCopyData.noShowPrice}"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+        </table>
+
 
         <h:commandButton value="Kopier" action="#{eventController.doCopyEvent}"/>
     </rich:panel>
