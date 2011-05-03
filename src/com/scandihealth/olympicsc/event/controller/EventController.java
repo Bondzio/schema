@@ -803,18 +803,45 @@ public class EventController implements Serializable {
             newEvent.setMemberPrice(memberPrice);
             newEvent.setNotMemberPrice(notMemberPrice);
             newEvent.setNoShowPrice(noShowPrice);
+            List<Activity> activityList = eventSelection.getActivityList();
+
+            for (Activity activity : activityList) {
+                Activity na = new Activity();
+                na.setCanRequestPartner(activity.isCanRequestPartner());
+                na.setDescription(activity.getDescription());
+                na.setLocation(activity.getLocation());
+                na.setMinimumplayers(activity.getMinimumplayers());
+                na.setMinimumteams(activity.getMinimumteams());
+                na.setName(activity.getName());
+                na.setResponsible(activity.getResponsible());
+
+
+                Date activityStart = activity.getStart();
+                Date activityEnd = activity.getEnd();
+
+                activityStart.setMonth(start.getMonth());
+                activityStart.setDate(start.getDate());
+                activityStart.setYear(start.getYear());
+
+                activityEnd.setMonth(end.getMonth());
+                activityEnd.setDate(end.getDate());
+                activityEnd.setYear(end.getYear());
+
+                na.setStart(activityStart);
+                na.setEnd(activityEnd);
+
+                newEvent.addActivity(na);
+            }
         }
 
 
-        List<Activity> activityList = eventSelection.getActivityList();
-
-        for (Activity activity : activityList) {
-            newEvent.addActivity(activity);
-        }
 
 
         CreateEventCommand createEventCommand = new CreateEventCommand(eventRepository, newEvent);
         commandController.executeCommand(createEventCommand);
+
+        findCurrentEvents();
+        findClosedEvents();
 
         return "eventCreated";
     }

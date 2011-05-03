@@ -153,6 +153,7 @@ public class ActivitiesController implements Serializable {
     @Restrict("#{s:hasRole('admin')}")
     public void createActivity() {
         adminActivitiesController.createActivity(activityRepository, activity, parent);
+        findActivities();
     }
 
     @Restrict("#{s:hasRole('admin')}")
