@@ -29,6 +29,9 @@ public class EventController implements Serializable {
     @In(create = true)
     private CommandController commandController;
 
+    @In(create = true, required = false)
+    EventCopyData eventCopyData;
+
     private EventRepository eventRepository;
 
     @DataModel(value = "currentEventList")
@@ -170,7 +173,7 @@ public class EventController implements Serializable {
     private void addChildrenAgeRequestToEvent(Event event) {
         User user = authenticator.getUser();
         DataManager dataManager = new DataManager();
-        EventChildrenAgeRequest childrenAgeRequest= dataManager.getEventChildrenAgeRequest(user, event);
+        EventChildrenAgeRequest childrenAgeRequest = dataManager.getEventChildrenAgeRequest(user, event);
         if (childrenAgeRequest != null) {
             event.setChildrenAgeRequest(childrenAgeRequest.getChildrenAge());
         }
@@ -185,7 +188,7 @@ public class EventController implements Serializable {
         SaveUserCommand saveUserCommand = new SaveUserCommand(user);
         commandController.executeCommand(saveUserCommand);
         System.out.println("join successfull " + result);
-        if (event.isCanRequestPartner() || event.isCanRequestVegetarian() || event.isCanRequestChildrenAge()|| event.getActivities().size() > 0) {
+        if (event.isCanRequestPartner() || event.isCanRequestVegetarian() || event.isCanRequestChildrenAge() || event.getActivities().size() > 0) {
             return showEventInfo(event);
         }
         return result;
@@ -247,7 +250,7 @@ public class EventController implements Serializable {
 
         if (eventSelection.isCanRequestChildrenAge()) {
             DataManager dataManager = new DataManager();
-            EventChildrenAgeRequest eventChildrenAgeRequest= new EventChildrenAgeRequest();
+            EventChildrenAgeRequest eventChildrenAgeRequest = new EventChildrenAgeRequest();
             eventChildrenAgeRequest.setIduser(authenticator.getUser().getIduser());
             eventChildrenAgeRequest.setIdevent(eventSelection.getIdevent());
             eventChildrenAgeRequest.setChildrenAge(eventSelection.getChildrenAgeRequest());
@@ -765,4 +768,54 @@ public class EventController implements Serializable {
         return "uploadExcel";
     }
 
+
+    public String copyEvent(Event event) {
+        eventSelection = event;
+        return "copyEvent";
+    }
+
+    public String doCopyEvent() {
+        Event newEvent = new Event();
+        newEvent.setCanRequestChildrenAge(eventSelection.isCanRequestChildrenAge());
+        newEvent.setCanRequestPartner(eventSelection.isCanRequestPartner());
+        newEvent.setCanRequestVegetarian(eventSelection.isCanRequestVegetarian());
+        newEvent.setDescription(eventSelection.getDescription());
+        newEvent.setEnabled(eventSelection.isEnabled());
+        newEvent.setLocation(eventSelection.getLocation());
+        newEvent.setLogo(eventSelection.getLogo());
+
+        if (eventCopyData != null) {
+            newEvent.setName(eventCopyData.getName());
+            Date start = eventCopyData.getStart();
+            Date end = eventCopyData.getEnd();
+            Date signStart = eventCopyData.getSignStart();
+            Date signEnd = eventCopyData.getSignEnd();
+            Date unsignEnd = eventCopyData.getUnsignEnd();
+            int memberPrice = eventCopyData.getMemberPrice();
+            int notMemberPrice = eventCopyData.getNotMemberPrice();
+            int noShowPrice = eventCopyData.getNoShowPrice();
+
+            newEvent.setStart(start);
+            newEvent.setEnd(end);
+            newEvent.setSignstart(signStart);
+            newEvent.setSignend(signEnd);
+            newEvent.setUnsignEnd(unsignEnd);
+            newEvent.setMemberPrice(memberPrice);
+            newEvent.setNotMemberPrice(notMemberPrice);
+            newEvent.setNoShowPrice(noShowPrice);
+        }
+
+
+        List<Activity> activityList = eventSelection.getActivityList();
+
+        for (Activity activity : activityList) {
+            newEvent.addActivity(activity);
+        }
+
+
+        CreateEventCommand createEventCommand = new CreateEventCommand(eventRepository, newEvent);
+        commandController.executeCommand(createEventCommand);
+
+        return "eventCreated";
+    }
 }

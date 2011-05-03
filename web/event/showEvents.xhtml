@@ -57,6 +57,12 @@
             </rich:column>
             <rich:column>
                 <f:facet name="header">
+                    <h:outputLabel value="Copy"/>
+                </f:facet>
+                <h:commandButton action="#{eventController.copyEvent(event)}" value="copy"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">
                     <h:outputLabel value="Afregning"/>
                 </f:facet>
                 <h:commandButton action="#{eventController.showExcelForAccounting(event)}" value="Export til excel"/>

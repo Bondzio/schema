@@ -48,6 +48,10 @@
                 <!--<out name="newevent" value="#{eventblof}" scope="CONVERSATION"/>-->
                 <redirect view-id="/event/eventInfo.xhtml"/>
             </rule>
+            <rule if-outcome="copyEvent">
+                <!--<out name="newevent" value="#{eventblof}" scope="CONVERSATION"/>-->
+                <redirect view-id="/event/copyEvent.xhtml"/>
+            </rule>
             <rule if-outcome="showActivities">
                 <!--<out name="newevent" value="#{eventblof}" scope="CONVERSATION"/>-->
                 <redirect view-id="/activities/activities.xhtml"/>

@@ -1,0 +1,217 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" template="/pagelayout.xhtml">
+
+<ui:define name="content">
+<style type="text/css">
+    .headerstyle {
+        color: red;
+        font-weight: bold;
+    }
+
+    .paintedHeader {
+        background-color: aqua;
+        border: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .rich-stglpanel-header {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .rich-stglpanel-body {
+        background: aqua;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .rich-stglpanel {
+        background: #8b0000;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .rich-table-cell {
+    /*border: blue;*/
+        padding: 1px; /*margin: 0;*/
+    }
+
+    .nobackground {
+        background: white;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .gradientBackground {
+        background-image: url('/schema/resources/subheadergradient.png');
+        border: white;
+        padding: 0;
+        margin: 0;
+    }
+
+</style>
+
+<rich:panel>
+    <f:facet name="header">
+        <h:outputLabel value="Tidligere Arrangement"/>
+    </f:facet>
+    <table>
+        <tr valign="top">
+            <td>
+                <table>
+                    <tr>
+                        <td style="font-weight:bolder;">
+                            Navn:
+                        </td>
+                        <td>
+                            <h:outputLabel value="#{eventController.eventSelection.name}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bolder;">
+                            Start:
+                        </td>
+                        <td>
+                            <h:outputLabel value="#{eventController.eventSelection.start}">
+                                <f:convertDateTime pattern="d/M/yy HH:mm"
+                                                   timeZone="#{org.jboss.seam.international.timeZone}"/>
+                            </h:outputLabel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bolder;">
+                            Slut:
+                        </td>
+                        <td>
+                            <h:outputLabel value="#{eventController.eventSelection.end}">
+                                <f:convertDateTime pattern="d/M/yy HH:mm"
+                                                   timeZone="#{org.jboss.seam.international.timeZone}"/>
+                            </h:outputLabel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bolder;">
+                            Tilmeld start:
+                        </td>
+                        <td>
+                            <h:outputLabel value="#{eventController.eventSelection.signstart}">
+                                <f:convertDateTime pattern="d/M/yy HH:mm"
+                                                   timeZone="#{org.jboss.seam.international.timeZone}"/>
+                            </h:outputLabel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bolder;">
+                            Tilmeld Slut:
+                        </td>
+                        <td>
+                            <h:outputLabel value="#{eventController.eventSelection.signend}">
+                                <f:convertDateTime pattern="d/M/yy HH:mm"
+                                                   timeZone="#{org.jboss.seam.international.timeZone}"/>
+                            </h:outputLabel>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="font-weight:bolder;">
+                            Medlemspris
+                        </td>
+                        <td>
+                            <h:outputLabel value="#{eventController.eventSelection.memberPrice}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bolder;">
+                            Ikke Medlemspris
+                        </td>
+                        <td>
+                            <h:outputLabel value="#{eventController.eventSelection.notMemberPrice}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bolder;">
+                            Udeblivelses pris
+                        </td>
+                        <td>
+                            <h:outputLabel value="#{eventController.eventSelection.noShowPrice}"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr valign="top">
+                        <td>
+                            Arrangementet har <h:outputLabel
+                                value="#{eventController.eventSelection.activityList.size}"/> aktiviter.
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+</rich:panel>
+<a4j:form>
+    <rich:panel>
+        <f:facet name="header">
+            <h:outputLabel value="Nyt Arrangement"/>
+        </f:facet>
+        Navn: <h:inputText value="#{eventCopyData.name}"/>
+        <h:panelGrid columns="4">
+            <h:outputLabel value="#{messages['event.from']}"/>
+            <rich:calendar value="#{eventCopyData.start}"
+                           cellWidth="24px" cellHeight="22px" style="width:200px"
+                           datePattern="d/M/yy HH:mm"
+                           timeZone="#{org.jboss.seam.international.timeZone}"/>
+            <h:outputLabel value="#{messages['event.to']}"/>
+            <rich:calendar value="#{eventCopyData.end}"
+                           cellWidth="24px" cellHeight="22px" style="width:200px"
+                           datePattern="d/M/yy HH:mm"
+                           timeZone="#{org.jboss.seam.international.timeZone}"/>
+            <h:outputLabel value="#{messages['event.signstart']}"/>
+            <rich:calendar value="#{eventCopyData.signStart}"
+                           cellWidth="24px" cellHeight="22px" style="width:200px"
+                           datePattern="d/M/yy HH:mm"
+                           timeZone="#{org.jboss.seam.international.timeZone}"/>
+            <h:outputLabel value="#{messages['event.signend']}"/>
+            <rich:calendar value="#{eventCopyData.signEnd}"
+                           cellWidth="24px" cellHeight="22px" style="width:200px"
+                           datePattern="d/M/yy HH:mm"
+                           timeZone="#{org.jboss.seam.international.timeZone}"/>
+            <h:outputLabel value="#{messages['event.unsignend']}"/>
+            <rich:calendar value="#{eventCopyData.unsignEnd}"
+                           cellWidth="24px" cellHeight="22px" style="width:200px"
+                           datePattern="d/M/yy HH:mm"
+                           timeZone="#{org.jboss.seam.international.timeZone}"/>
+        </h:panelGrid>
+
+
+        Medlems pris<h:inputText value="#{eventCopyData.memberPrice}"/>
+        Ikke medlems pris<h:inputText value="#{eventCopyData.notMemberPrice}"/>
+        udeblivelses pris<h:inputText value="#{eventCopyData.noShowPrice}"/>
+
+        <h:commandButton value="Kopier" action="#{eventController.doCopyEvent}"/>
+    </rich:panel>
+</a4j:form>
+</ui:define>
+<ui:define name="footer">
+    <ui:include src="/general/footer.xhtml"/>
+</ui:define>
+</ui:composition>
