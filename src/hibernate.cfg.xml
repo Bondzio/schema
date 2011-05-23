@@ -34,6 +34,9 @@
         <mapping class="com.scandihealth.olympicsc.classification.model.ClassificationType"/>
         <mapping class="com.scandihealth.olympicsc.classification.model.ClassificationValue"/>
         <mapping class="com.scandihealth.olympicsc.classification.model.Classification"/>
+        <mapping class="com.scandihealth.olympicsc.event.model.EventChildrenMenuRequest"/>
+        <mapping class="com.scandihealth.olympicsc.event.model.EventGrownMenuRequest"/>
+        <mapping class="com.scandihealth.olympicsc.event.model.EventNumberOfPassesRequest"/>
         <!-- DB schema will be updated if needed -->
     </session-factory>
 </hibernate-configuration>

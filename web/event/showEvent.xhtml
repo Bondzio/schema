@@ -82,6 +82,24 @@
                     </f:facet>
                     <h:outputLabel value="#{eventController.hasUserChildrenAgeRequest(eventUser)}"/>
                 </rich:column>
+                <rich:column rendered="#{eventController.eventSelection.canRequestPasses}">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{messages['event.canChoosePasses']}"/>
+                    </f:facet>
+                    <h:outputLabel value="#{eventController.hasUserPassesRequest(eventUser)}"/>
+                </rich:column>
+                <rich:column rendered="#{eventController.eventSelection.canRequestGrownMenus}">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{messages['event.canChooseGrownMenus']}"/>
+                    </f:facet>
+                    <h:outputLabel value="#{eventController.hasUserGrownMenusRequest(eventUser)}"/>
+                </rich:column>
+                <rich:column rendered="#{eventController.eventSelection.canRequestChildrenMenus}">
+                    <f:facet name="header">
+                        <h:outputLabel value="#{messages['event.canChooseChildrenMenus']}"/>
+                    </f:facet>
+                    <h:outputLabel value="#{eventController.hasUserChildrenMenusRequest(eventUser)}"/>
+                </rich:column>
                 <rich:column sortBy="#{eventUser.employeeId}">
                     <f:facet name="header">
                         <h:outputLabel value="Employeeid"/>

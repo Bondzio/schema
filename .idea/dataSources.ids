@@ -1,5 +1,5 @@
 <?xml version="1.0"?><component name="dataSourceStorage">
-  <data-source source="LOCAL" name="DataSource" product="MySQL" version="5.1.40-community" uuid="30e59625-1f0a-4d04-ad72-af45e2ceb164">
+  <data-source source="LOCAL" name="DataSource" product="MySQL" version="5.1.40-community" jdbc-version="" driver-version="" uuid="30e59625-1f0a-4d04-ad72-af45e2ceb164">
     <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
     <jdbc-url>jdbc:mysql://localhost:3306/olympicsc</jdbc-url>
     <user-name>root</user-name>

@@ -202,11 +202,26 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>
+                                <ui:include src="/event/selectNumberOfPasses.xhtml"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ui:include src="/event/selectGrownMenus.xhtml"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ui:include src="/event/selectChildrenMenus.xhtml"/>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2" align="right">
                                 <h:commandButton value="Opdater"
                                                  action="#{eventController.updateExtraInformation}"
                                                  disabled="#{!eventController.hasJoined(eventController.eventSelection)}"
-                                                 rendered="#{eventController.eventSelection.canRequestPartner or eventController.eventSelection.canRequestVegetarian or eventController.eventSelection.canRequestChildrenAge}"/>
+                                                 rendered="#{eventController.eventSelection.canRequestPartner or eventController.eventSelection.canRequestVegetarian or eventController.eventSelection.canRequestChildrenAge or eventController.eventSelection.canRequestPasses or eventController.eventSelection.canRequestGrownMenus or eventController.eventSelection.canRequestChildrenMenus}"/>
                             </td>
                         </tr>
                     </table>

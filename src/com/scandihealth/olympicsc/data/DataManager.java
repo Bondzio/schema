@@ -5,10 +5,7 @@ import com.scandihealth.olympicsc.activities.model.ActivityPartnerRequest;
 import com.scandihealth.olympicsc.classification.model.Classification;
 import com.scandihealth.olympicsc.classification.model.ClassificationType;
 import com.scandihealth.olympicsc.classification.model.ClassificationValue;
-import com.scandihealth.olympicsc.event.model.Event;
-import com.scandihealth.olympicsc.event.model.EventChildrenAgeRequest;
-import com.scandihealth.olympicsc.event.model.EventPartnerRequest;
-import com.scandihealth.olympicsc.event.model.EventVegetarianRequest;
+import com.scandihealth.olympicsc.event.model.*;
 import com.scandihealth.olympicsc.imageupload.model.Logo;
 import com.scandihealth.olympicsc.location.model.Location;
 import com.scandihealth.olympicsc.teams.model.Team;
@@ -29,8 +26,7 @@ public class DataManager implements Serializable {
             session.delete(o);
             session.flush();
             transaction.commit();
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.close();
             }
@@ -45,12 +41,10 @@ public class DataManager implements Serializable {
             transaction = session.beginTransaction();
             session.saveOrUpdate(entity);
             transaction.commit();
-        }
-        catch (HibernateException e) {
+        } catch (HibernateException e) {
             transaction.rollback();
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -65,8 +59,7 @@ public class DataManager implements Serializable {
             session.update(entity);
             session.flush();
             transaction.commit();
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -86,8 +79,7 @@ public class DataManager implements Serializable {
             for (Object o : list) {
                 result.add((Event) o);
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -107,8 +99,7 @@ public class DataManager implements Serializable {
                 try {
                     session.save(event);
                     transaction.commit();
-                }
-                catch (HibernateException e) {
+                } catch (HibernateException e) {
                     transaction.rollback();
                     e.printStackTrace();
                 }
@@ -117,14 +108,12 @@ public class DataManager implements Serializable {
                 try {
                     session.update(event);
                     transaction.commit();
-                }
-                catch (HibernateException e) {
+                } catch (HibernateException e) {
                     transaction.rollback();
                     e.printStackTrace();
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -148,8 +137,7 @@ public class DataManager implements Serializable {
                     result = (Location) o;
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -176,8 +164,7 @@ public class DataManager implements Serializable {
                     result.setIdlocation(location.getIdlocation());
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -196,8 +183,7 @@ public class DataManager implements Serializable {
             if (o != null) {
                 return (Location) o;
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -223,8 +209,7 @@ public class DataManager implements Serializable {
                     result.add(location);
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -247,8 +232,7 @@ public class DataManager implements Serializable {
                 Activity activity = (Activity) o;
                 result.add(activity);
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -273,8 +257,7 @@ public class DataManager implements Serializable {
                     result.add(activity);
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -294,8 +277,7 @@ public class DataManager implements Serializable {
             if (o != null) {
                 result = (Activity) o;
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -316,8 +298,7 @@ public class DataManager implements Serializable {
             for (Object o : list) {
                 result.add((Activity) o);
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -337,8 +318,7 @@ public class DataManager implements Serializable {
             if (o != null) {
                 result = (Event) o;
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -357,8 +337,7 @@ public class DataManager implements Serializable {
             for (Object o : list) {
                 result.add((Event) o);
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -381,8 +360,7 @@ public class DataManager implements Serializable {
                 Query query = session.createQuery("from User as user where user.userName='" + username + "'");
                 user = query.uniqueResult();
                 transaction.commit();
-            }
-            catch (HibernateException e) {
+            } catch (HibernateException e) {
                 transaction.rollback();
                 e.printStackTrace();
             }
@@ -390,8 +368,7 @@ public class DataManager implements Serializable {
             if (user != null) {
                 result = (User) user;
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 if (session.isOpen()) {
                     session.disconnect();
@@ -416,8 +393,7 @@ public class DataManager implements Serializable {
                 Query query = session.createQuery("from User as user where user.userName='" + username + "' and user.password='" + password + "'");
                 user = query.uniqueResult();
                 transaction.commit();
-            }
-            catch (HibernateException e) {
+            } catch (HibernateException e) {
                 transaction.rollback();
                 e.printStackTrace();
             }
@@ -425,8 +401,7 @@ public class DataManager implements Serializable {
             if (user != null) {
                 result = (User) user;
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 if (session.isOpen()) {
                     session.disconnect();
@@ -447,17 +422,14 @@ public class DataManager implements Serializable {
             result = true;
             session.flush();
             transaction.commit();
-        }
-        catch (StaleObjectStateException sose) {
+        } catch (StaleObjectStateException sose) {
             System.out.println("StaleObjectException");
             transaction.rollback();
-        }
-        catch (HibernateException e) {
+        } catch (HibernateException e) {
             e.printStackTrace();
             transaction.rollback();
             result = false;
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.close();
             }
@@ -482,17 +454,14 @@ public class DataManager implements Serializable {
             result = true;
             session.flush();
             transaction.commit();
-        }
-        catch (StaleObjectStateException sose) {
+        } catch (StaleObjectStateException sose) {
             System.out.println("StaleObjectException");
             transaction.rollback();
-        }
-        catch (HibernateException e) {
+        } catch (HibernateException e) {
             e.printStackTrace();
             transaction.rollback();
             result = false;
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.close();
             }
@@ -504,16 +473,16 @@ public class DataManager implements Serializable {
 
     private User getUserByEmployeeId(String employeeId) {
 
-            Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-            Transaction transaction = session.beginTransaction();
-            String queryString = "from User user where user.employeeId ='" + employeeId+ "'";
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        String queryString = "from User user where user.employeeId ='" + employeeId + "'";
 
-            List list = session.createQuery(queryString).list();
-            transaction.commit();
-            if (list != null && list.size() == 1) {
-                return (User) list.get(0);
-            }
-            return null;
+        List list = session.createQuery(queryString).list();
+        transaction.commit();
+        if (list != null && list.size() == 1) {
+            return (User) list.get(0);
+        }
+        return null;
     }
 
     public List<User> getUsers() {
@@ -527,8 +496,7 @@ public class DataManager implements Serializable {
                 User user = (User) o;
                 result.add(user);
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -586,8 +554,7 @@ public class DataManager implements Serializable {
             if (o != null) {
                 result = (User) o;
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -610,8 +577,7 @@ public class DataManager implements Serializable {
             for (Object user : users) {
                 result.add((User) user);
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -632,8 +598,7 @@ public class DataManager implements Serializable {
                 Logo logo = (Logo) o;
                 result.add(logo);
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -654,8 +619,7 @@ public class DataManager implements Serializable {
                     result = (Logo) o;
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -675,8 +639,7 @@ public class DataManager implements Serializable {
             if (result != null && result.size() > 0) {
                 return (ActivityPartnerRequest) result.get(0);
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -696,8 +659,7 @@ public class DataManager implements Serializable {
             if (result != null && result.size() > 0) {
                 return (EventPartnerRequest) result.get(0);
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -719,8 +681,7 @@ public class DataManager implements Serializable {
                 transaction1.commit();
 
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -743,8 +704,7 @@ public class DataManager implements Serializable {
                 }
                 transaction1.commit();
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -766,8 +726,7 @@ public class DataManager implements Serializable {
             for (Object user : users) {
                 result.add((User) user);
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -784,8 +743,7 @@ public class DataManager implements Serializable {
             session.flush();
             transaction.commit();
 
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -808,8 +766,7 @@ public class DataManager implements Serializable {
                 }
                 transaction1.commit();
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -835,8 +792,7 @@ public class DataManager implements Serializable {
                 }
                 transaction1.commit();
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -844,6 +800,27 @@ public class DataManager implements Serializable {
         }
         saveObject(eventPartnerRequest);
     }
+
+    public EventVegetarianRequest getEventVegetarianRequest(User user, Event event) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventVegetarianRequest as eventVegetarianRequest " +
+                    "where eventVegetarianRequest.idevent=" + event.getIdevent() + " and eventVegetarianRequest.iduser=" + user.getIduser()).list();
+            transaction.commit();
+
+            if (result != null && result.size() > 0) {
+                return (EventVegetarianRequest) result.get(0);
+            }
+        } finally {
+            if (session.isOpen()) {
+                session.disconnect();
+                session.close();
+            }
+        }
+        return null;
+    }
+
 
     public void saveEventChildrenAgeRequest(EventChildrenAgeRequest eventChildrenAgeRequest) {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
@@ -860,8 +837,7 @@ public class DataManager implements Serializable {
                 }
                 transaction1.commit();
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -870,26 +846,6 @@ public class DataManager implements Serializable {
         saveObject(eventChildrenAgeRequest);
     }
 
-    public EventVegetarianRequest getEventVegetarianRequest(User user, Event event) {
-        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-        try {
-            Transaction transaction = session.beginTransaction();
-            List result = session.createQuery("from EventVegetarianRequest as eventVegetarianRequest " +
-                    "where eventVegetarianRequest.idevent=" + event.getIdevent() + " and eventVegetarianRequest.iduser=" + user.getIduser()).list();
-            transaction.commit();
-
-            if (result != null && result.size() > 0) {
-                return (EventVegetarianRequest) result.get(0);
-            }
-        }
-        finally {
-            if (session.isOpen()) {
-                session.disconnect();
-                session.close();
-            }
-        }
-        return null;
-    }
 
     public EventChildrenAgeRequest getEventChildrenAgeRequest(User user, Event event) {
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
@@ -902,8 +858,139 @@ public class DataManager implements Serializable {
             if (result != null && result.size() > 0) {
                 return (EventChildrenAgeRequest) result.get(0);
             }
+        } finally {
+            if (session.isOpen()) {
+                session.disconnect();
+                session.close();
+            }
         }
-        finally {
+        return null;
+    }
+
+    public void saveEventPassesRequest(EventNumberOfPassesRequest eventNumberOfPassesRequest) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventNumberOfPassesRequest as eventNumberOfPassesRequest " +
+                    "where eventNumberOfPassesRequest.idevent=" + eventNumberOfPassesRequest.getIdevent() + " and eventNumberOfPassesRequest.iduser=" + eventNumberOfPassesRequest.getIduser()).list();
+            transaction.commit();
+            if (result != null && result.size() > 0) {
+                Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
+                Transaction transaction1 = session1.beginTransaction();
+                for (Object o : result) {
+                    session1.delete(o);
+                }
+                transaction1.commit();
+            }
+        } finally {
+            if (session.isOpen()) {
+                session.disconnect();
+                session.close();
+            }
+        }
+        saveObject(eventNumberOfPassesRequest);
+    }
+
+    public EventNumberOfPassesRequest getEventPassesRequest(User user, Event event) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventNumberOfPassesRequest as eventNumberOfPassesRequest " +
+                    "where eventNumberOfPassesRequest.idevent=" + event.getIdevent() + " and eventNumberOfPassesRequest.iduser=" + user.getIduser()).list();
+            transaction.commit();
+
+            if (result != null && result.size() > 0) {
+                return (EventNumberOfPassesRequest) result.get(0);
+            }
+        } finally {
+            if (session.isOpen()) {
+                session.disconnect();
+                session.close();
+            }
+        }
+        return null;
+    }
+
+    public void saveEventGrownMenuRequest(EventGrownMenuRequest eventGrownMenuRequest) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventGrownMenuRequest as eventGrownMenuRequest " +
+                    "where eventGrownMenuRequest.idevent=" + eventGrownMenuRequest.getIdevent() + " and eventGrownMenuRequest.iduser=" + eventGrownMenuRequest.getIduser()).list();
+            transaction.commit();
+            if (result != null && result.size() > 0) {
+                Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
+                Transaction transaction1 = session1.beginTransaction();
+                for (Object o : result) {
+                    session1.delete(o);
+                }
+                transaction1.commit();
+            }
+        } finally {
+            if (session.isOpen()) {
+                session.disconnect();
+                session.close();
+            }
+        }
+        saveObject(eventGrownMenuRequest);
+    }
+
+    public EventGrownMenuRequest getEventGrownMenuRequest(User user, Event event) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventGrownMenuRequest as eventGrownMenuRequest " +
+                    "where eventGrownMenuRequest.idevent=" + event.getIdevent() + " and eventGrownMenuRequest.iduser=" + user.getIduser()).list();
+            transaction.commit();
+
+            if (result != null && result.size() > 0) {
+                return (EventGrownMenuRequest) result.get(0);
+            }
+        } finally {
+            if (session.isOpen()) {
+                session.disconnect();
+                session.close();
+            }
+        }
+        return null;
+    }
+
+    public void saveEventChildrenMenuRequest(EventChildrenMenuRequest eventChildrenMenuRequest) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventChildrenMenuRequest as eventChildrenMenuRequest " +
+                    "where eventChildrenMenuRequest.idevent=" + eventChildrenMenuRequest.getIdevent() + " and eventChildrenMenuRequest.iduser=" + eventChildrenMenuRequest.getIduser()).list();
+            transaction.commit();
+            if (result != null && result.size() > 0) {
+                Session session1 = SessionFactoryUtil.getInstance().getCurrentSession();
+                Transaction transaction1 = session1.beginTransaction();
+                for (Object o : result) {
+                    session1.delete(o);
+                }
+                transaction1.commit();
+            }
+        } finally {
+            if (session.isOpen()) {
+                session.disconnect();
+                session.close();
+            }
+        }
+        saveObject(eventChildrenMenuRequest);
+    }
+
+    public EventChildrenMenuRequest getEventChildrenMenuRequest(User user, Event event) {
+        Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            List result = session.createQuery("from EventChildrenMenuRequest as eventChildrenMenuRequest " +
+                    "where eventChildrenMenuRequest.idevent=" + event.getIdevent() + " and eventChildrenMenuRequest.iduser=" + user.getIduser()).list();
+            transaction.commit();
+
+            if (result != null && result.size() > 0) {
+                return (EventChildrenMenuRequest) result.get(0);
+            }
+        } finally {
             if (session.isOpen()) {
                 session.disconnect();
                 session.close();
@@ -1043,8 +1130,7 @@ public class DataManager implements Serializable {
                     result.add(classificationType);
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -1068,8 +1154,7 @@ public class DataManager implements Serializable {
                     result = (ClassificationType) o;
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -1093,8 +1178,7 @@ public class DataManager implements Serializable {
                     result = (ClassificationValue) o;
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -1105,7 +1189,7 @@ public class DataManager implements Serializable {
     }
 
     public ClassificationValue getClassification(String value) {
-       ClassificationValue result = null;
+        ClassificationValue result = null;
         Session session = SessionFactoryUtil.getInstance().getCurrentSession();
         try {
             Transaction transaction = session.beginTransaction();
@@ -1118,8 +1202,7 @@ public class DataManager implements Serializable {
                     result = (ClassificationValue) o;
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();
@@ -1144,8 +1227,7 @@ public class DataManager implements Serializable {
                     result.add(classification);
                 }
             }
-        }
-        finally {
+        } finally {
             if (session.isOpen()) {
                 session.flush();
                 session.disconnect();

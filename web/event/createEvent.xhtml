@@ -77,16 +77,16 @@
                                 <h:outputLabel value="Extra information"/>
                             </f:facet>
                             <table>
-                                <tr>
-                                    <td>
-                                        <rich:comboBox selectFirstOnUpdate="false" value="#{classification.name}"
-                                                       defaultLabel="Select some value">
-                                            <s:selectItems value="#{classificationList}" var="h" label="#{h.name}"/>
-                                            <f:converter converterId="classificationConverter"/>
-                                        </rich:comboBox>
-                                        <h:commandButton value="Add"/>
-                                    </td>
-                                </tr>
+                                <!--<tr>-->
+                                    <!--<td>-->
+                                        <!--<rich:comboBox selectFirstOnUpdate="false" value="#{classification.name}"-->
+                                                       <!--defaultLabel="Select some value">-->
+                                            <!--<s:selectItems value="#{classificationList}" var="h" label="#{h.name}"/>-->
+                                            <!--<f:converter converterId="classificationConverter"/>-->
+                                        <!--</rich:comboBox>-->
+                                        <!--<h:commandButton value="Add"/>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
                                 <tr valign="top">
                                     <td>
                                         <h:panelGrid columns="2">
@@ -96,6 +96,12 @@
                                             <h:selectBooleanCheckbox value="#{event.canRequestVegetarian}"/>
                                             <h:outputLabel value="#{messages['event.canChooseChildrenAge']}"/>
                                             <h:selectBooleanCheckbox value="#{event.canRequestChildrenAge}"/>
+                                            <h:outputLabel value="#{messages['event.canChoosePasses']}"/>
+                                            <h:selectBooleanCheckbox value="#{event.canRequestPasses}"/>
+                                            <h:outputLabel value="#{messages['event.canChooseGrownMenus']}"/>
+                                            <h:selectBooleanCheckbox value="#{event.canRequestGrownMenus}"/>
+                                            <h:outputLabel value="#{messages['event.canChooseChildrenMenus']}"/>
+                                            <h:selectBooleanCheckbox value="#{event.canRequestChildrenMenus}"/>
                                         </h:panelGrid>
                                     </td>
                                     <!--<td>-->

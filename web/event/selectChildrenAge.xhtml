@@ -18,8 +18,8 @@
 
 
     </style>
-    <h:panelGrid columns="2">
-        <h:outputLabel value="#{messages['event.canRequestChildren']}" rendered="#{eventController.eventSelection.canRequestChildrenAge}"/>
+    <h:panelGrid columns="2"  rendered="#{eventController.eventSelection.canRequestChildrenAge}">
+        <h:outputLabel value="#{messages['event.canRequestChildren']}"/>
         <h:inputText value="#{eventController.eventSelection.childrenAgeRequest}"/>
     </h:panelGrid>
 </ui:composition>

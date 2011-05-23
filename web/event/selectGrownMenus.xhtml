@@ -22,9 +22,9 @@
 
 
     </style>
-    <h:panelGrid columns="2"  rendered="#{eventController.eventSelection.canRequestVegetarian}">
-        <h:outputLabel value="Antal vegetarer"/>
-        <rich:comboBox selectFirstOnUpdate="true" value="#{eventController.eventSelection.vegetarianRequest}"
+    <h:panelGrid columns="2"  rendered="#{eventController.eventSelection.canRequestGrownMenus}">
+        <h:outputLabel value="#{messages['event.selectGrownMenus']}"/>
+        <rich:comboBox selectFirstOnUpdate="true" value="#{eventController.eventSelection.grownMenuRequest}"
                        defaultLabel="0" enableManualInput="false">
             <f:selectItem itemValue="0"/>
             <f:selectItem itemValue="1"/>

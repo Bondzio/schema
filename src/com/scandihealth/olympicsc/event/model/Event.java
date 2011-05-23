@@ -29,16 +29,24 @@ public class Event implements Serializable {
     private int noShowPrice;
     private Location location;
     private Logo logo;
+
     private boolean canRequestPartner = false;
     private boolean canRequestVegetarian = false;
     private boolean canRequestChildrenAge = false;
-    private boolean partnerRequest;
+    private boolean canRequestChildrenMenus = false;
+    private boolean canRequestGrownMenus = false;
+    private boolean canRequestPasses = false;
+
+    private boolean partnerRequest = false;
     private int vegetarianRequest = 0;
+    private int grownMenuRequest = 0;
+    private int childrenMenuRequest = 0;
+    private int passesRequest = 0;
     private String childrenAgeRequest = "";
+
     private boolean showAttendingUsers = false;
     private Set<Activity> activities = new HashSet<Activity>();
     private List<Activity> activityList;
-
     private User selectedUser;
 
     @javax.persistence.Column(name = "idevent")
@@ -201,6 +209,33 @@ public class Event implements Serializable {
         this.canRequestChildrenAge = canRequestChildrenAge;
     }
 
+    @Column(name="canrequestpasses")
+    public boolean isCanRequestPasses() {
+        return canRequestPasses;
+    }
+
+    public void setCanRequestPasses(boolean canRequestPasses) {
+        this.canRequestPasses = canRequestPasses;
+    }
+
+    @Column(name="canrequestchildrenmenus")
+    public boolean isCanRequestChildrenMenus() {
+        return canRequestChildrenMenus;
+    }
+
+    public void setCanRequestChildrenMenus(boolean canRequestChildrenMenus) {
+        this.canRequestChildrenMenus = canRequestChildrenMenus;
+    }
+
+    @Column(name="canrequestgrownmenus")
+    public boolean isCanRequestGrownMenus() {
+        return canRequestGrownMenus;
+    }
+
+    public void setCanRequestGrownMenus(boolean canRequestGrownMenus) {
+        this.canRequestGrownMenus = canRequestGrownMenus;
+    }
+
     @Transient
     public boolean isPartnerRequest() {
         return partnerRequest;
@@ -350,5 +385,33 @@ public class Event implements Serializable {
     public int getTimeToLastSign() {
         Date now = new Date();
         return DateUtilities.dayDifference(now, getSignend());
+    }
+
+
+    public void setGrownMenuRequest(int grownMenuRequest) {
+        this.grownMenuRequest = grownMenuRequest;
+    }
+
+    @Transient
+    public int getGrownMenuRequest() {
+        return grownMenuRequest;
+    }
+
+    public void setChildrenMenuRequest(int childrenMenuRequest) {
+        this.childrenMenuRequest = childrenMenuRequest;
+    }
+
+    @Transient
+    public int getChildrenMenuRequest() {
+        return childrenMenuRequest;
+    }
+
+    public void setPassesRequest(int passesRequest) {
+        this.passesRequest = passesRequest;
+    }
+
+    @Transient
+    public int getPassesRequest() {
+        return passesRequest;
     }
 }
