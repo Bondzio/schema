@@ -27,9 +27,9 @@ public class DateUtilities {
     }
 
     public static void main(String[] args) {
-         new DateUtilities().isEaster();
+        new DateUtilities().isEaster();
     }
-    
+
     public boolean isEaster() {
         int year = new Date().getYear() + 1900;
         int a = year % 19;
@@ -38,7 +38,7 @@ public class DateUtilities {
         int d = b / 4;
         int e = b % 4;
         int f = (b + 8) / 25;
-        int g = (b - f + 1 ) / 3;
+        int g = (b - f + 1) / 3;
         int h = (19 * a + b - d - g + 15) % 30;
         int i = c / 4;
         int k = c % 4;
@@ -46,7 +46,7 @@ public class DateUtilities {
         int m = (a + 11 * h + 22 * l) / 451;
         int easterMonth = (h + l - 7 * m + 114) / 31;
         int easterDay = (h + l - 7 * m + 114) % 31 + 1;
-        System.out.println("easter this year was: " + easterDay + "/" + easterMonth + " " + year);
+//        System.out.println("easter this year was: " + easterDay + "/" + easterMonth + " " + year);
 
         Date now = new Date();
         Date easter = new Date();
