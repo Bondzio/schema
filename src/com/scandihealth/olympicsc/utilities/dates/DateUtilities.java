@@ -53,6 +53,7 @@ public class DateUtilities {
         easter.setMonth(easterMonth);
         easter.setDate(easterDay);
 
-        return now.getMonth() == easter.getMonth() && now.getDate() == easter.getDate();
+        // todo make this last more than 1 day :)
+        return (now.getMonth() + 1) == easter.getMonth() && now.getDate() == easter.getDate();
     }
 }
