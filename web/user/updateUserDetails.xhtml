@@ -155,7 +155,7 @@
                                         <s:decorate
                                             id="departmentDecoration"
                                             template="/general/util/errorStyle.xhtml">
-                                        <ui:define name="label">#{messages['userdetails.department']}"</ui:define>
+                                        <ui:define name="label">#{messages['userdetails.department']}</ui:define>
                                         <h:inputText value="#{authenticator.user.department}" required="true">
                                             <a4j:support event="onblur"
                                                          reRender="departmentDecoration"
@@ -189,15 +189,14 @@
                                             </h:selectOneRadio>
                                         </s:decorate>
                                     </h:panelGrid>
-                                    <!--<h:panelGrid columns="2">-->
-                                        <!--<h:outputLabel value="#{messages['userdetails.shirtsize']}"/>-->
-                                        <!--<rich:comboBox selectFirstOnUpdate="true" directInputSuggestions="true"-->
-                                                       <!--value="#{authenticator.user.shirtsize}"-->
-                                                       <!--width="85" required="true">-->
-                                            <!--<f:selectItems value="#{authenticator.user.shirtSizes}"/>-->
-                                        <!--</rich:comboBox>-->
-                                    <!--</h:panelGrid>-->
-
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel value="#{messages['userdetails.shirtsize']}"/>
+                                        <rich:comboBox selectFirstOnUpdate="true" directInputSuggestions="true"
+                                                       value="#{authenticator.user.shirtsize}"
+                                                       width="85">
+                                            <f:selectItems value="#{authenticator.user.shirtSizes}"/>
+                                        </rich:comboBox>
+                                    </h:panelGrid>
                                     <h:panelGrid columns="2">
                                         <h:outputLabel value="#{messages['userdetails.administrator']}"
                                                        rendered="#{s:hasRole('admin')}"/>
