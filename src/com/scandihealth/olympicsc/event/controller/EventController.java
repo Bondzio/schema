@@ -494,7 +494,8 @@ public class EventController implements Serializable {
         EventController eventController = new EventController();
         DataManager dataManager = new DataManager();
         List<Event> list = dataManager.getEvent("Olympicsc");
-        Event olympicsc = list.get(0);
+        Event olympicsc = list.get(1);
+        System.out.printf("Creating teams for Olympicsc at " + olympicsc.getStart());
         List<User> userList = dataManager.getUserForEvent(olympicsc);
         Collections.sort(userList, new Comparator<User>() {
             public int compare(User o1, User o2) {
@@ -544,9 +545,20 @@ public class EventController implements Serializable {
         Collections.sort(teamStrings, new Comparator<Object>() {
             public int compare(Object o1, Object o2) {
                 return ((String) o1).compareTo((String) o2);
-
             }
         });
+
+        String teamOutput = "";
+        for (String s : teamUsers.keySet()) {
+            List<User> users = teamUsers.get(s);
+            for (User user : users) {
+                teamOutput +=  user.getUserName() + ";" + s + ";";
+            }
+        }
+
+        System.out.println("teamOutput = " + teamOutput);
+
+
     }
 
     private static void removeNonPartnerRequests(List<User> userList, DataManager dataManager, Event olympicsc) {

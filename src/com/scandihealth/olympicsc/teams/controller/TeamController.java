@@ -109,14 +109,18 @@ public class TeamController implements Serializable {
                 teamShirts = new HashMap<String, Integer>();
             }
             for (User user : usersForTeam) {
-                String shirtSize = user.getShirtsize().toUpperCase().trim();
-                shirtSize = convertShirtSizes(shirtSize);
-                Integer shirtCount = 1;
-                if (teamShirts.containsKey(shirtSize)) {
-                    shirtCount = teamShirts.get(shirtSize) + 1;
-                }
+                if (user != null) {
+                    if (user.getShirtsize() != null) {
+                        String shirtSize = user.getShirtsize().toUpperCase().trim();
+                        shirtSize = convertShirtSizes(shirtSize);
+                        Integer shirtCount = 1;
+                        if (teamShirts.containsKey(shirtSize)) {
+                            shirtCount = teamShirts.get(shirtSize) + 1;
+                        }
 
-                teamShirts.put(shirtSize, shirtCount);
+                        teamShirts.put(shirtSize, shirtCount);
+                    }
+                }
 
             }
             shirtMap.put(team1.getName(), teamShirts);
@@ -159,10 +163,10 @@ public class TeamController implements Serializable {
         if ("SMALL".equals(shirtSize)) {
             shirtSize = "S";
         }
-        if ("14 ÅR".equals(shirtSize)) {
+        if ("14 ï¿½R".equals(shirtSize)) {
             shirtSize = "14";
         }
-        if ("STR. 14 ÅR".equals(shirtSize)) {
+        if ("STR. 14 ï¿½R".equals(shirtSize)) {
             shirtSize = "14";
         }
         if ("39".equals(shirtSize)) {
