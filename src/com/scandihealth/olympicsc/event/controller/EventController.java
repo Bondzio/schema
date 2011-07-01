@@ -413,12 +413,17 @@ public class EventController implements Serializable {
         });
 
 
-        Map<User, String> teams = calculateTeams(userList);
+        Map<User, String> teams = calculateTeams(eventSelection);
         for (User user : userList) {
             List<String> column = new ArrayList<String>();
             column.add(user.getFirstname() + " " + user.getLastname());
             column.add(user.getDepartment());
             column.add(teams.get(user));
+            Collections.sort(activities, new Comparator<Activity>() {
+                public int compare(Activity o1, Activity o2) {
+                    return o1.getName().compareTo(o2.getName());
+                }
+            });
             for (Activity activity : activities) {
                 if (user.getActivities().contains(activity)) {
                     column.add("1");
@@ -441,12 +446,69 @@ public class EventController implements Serializable {
         this.notFound = notFound;
     }
 
-    private Map<User, String> calculateTeams(List<User> userList) {
+    //    private Map<User, String> calculateTeams(List<User> userList) {
+//        Map<User, String> result = new HashMap<User, String>();
+//        DataManager dataManager = new DataManager();
+//        int teamnumber = 1;
+//        for (User user : userList) {
+//            List<ActivityPartnerRequest> activityPartnerRequests = dataManager.getAllActivityPartnerRequestForUser(user);
+//            if (activityPartnerRequests.size() > 0) {
+//                List<User> tmpUsersInTeam = new ArrayList<User>();
+//                List<User> usersInTeam = calcUsersTeams(user, dataManager, tmpUsersInTeam);
+//
+//
+//                String teamToUse = "";
+//                for (User user1 : usersInTeam) {
+//                    if (result.containsKey(user1)) {
+//                        teamToUse = result.get(user1);
+//                    }
+//                }
+//
+//                if ("".equals(teamToUse)) {
+//                    teamToUse = result.get(user);
+//                }
+//                if (teamToUse == null) {
+//                    teamToUse = "";
+//                }
+//
+//                if (!"".equals(teamToUse)) {
+//                    result.put(user, "" + teamToUse);
+//                    for (User user1 : usersInTeam) {
+//                        if (!result.containsKey(user1)) {
+//                            result.put(user1, "" + teamToUse);
+//                        }
+//                    }
+//                } else {
+//                    result.put(user, "" + teamnumber);
+//                    for (User user1 : usersInTeam) {
+//                        if (!result.containsKey(user1)) {
+//                            result.put(user1, "" + teamnumber);
+//                        }
+//                    }
+//
+//                }
+//            } else {
+//                // distribute non partner request users
+//            }
+//            teamnumber++;
+//        }
+//        return result;
+//    }
+    private Map<User, String> calculateTeams(Event event) {
         Map<User, String> result = new HashMap<User, String>();
         DataManager dataManager = new DataManager();
+        List<User> userList = dataManager.getUserForEvent(event);
         int teamnumber = 1;
         for (User user : userList) {
-            List<ActivityPartnerRequest> activityPartnerRequests = dataManager.getAllActivityPartnerRequestForUser(user);
+            List<ActivityPartnerRequest> activityPartnerRequests = new ArrayList<ActivityPartnerRequest>();
+            List<Activity> activityList = event.getActivityList();
+            for (Activity activity : activityList) {
+                ActivityPartnerRequest partnerRequest = dataManager.getPartnerRequest(user, activity);
+                if (partnerRequest != null) {
+                    activityPartnerRequests.add(partnerRequest);
+                }
+            }
+//            List<ActivityPartnerRequest> activityPartnerRequests = dataManager.getAllActivityPartnerRequestForUser(user);
             if (activityPartnerRequests.size() > 0) {
                 List<User> tmpUsersInTeam = new ArrayList<User>();
                 List<User> usersInTeam = calcUsersTeams(user, dataManager, tmpUsersInTeam);
@@ -512,7 +574,7 @@ public class EventController implements Serializable {
 //        removeNonPartnerRequests(userList, dataManager, olympicsc);
 
         List<String> teamStrings = new ArrayList<String>();
-        Map<User, String> teams = eventController.calculateTeams(userList);
+        Map<User, String> teams = eventController.calculateTeams(olympicsc);
         for (User user : teams.keySet()) {
             String s = teams.get(user);
             if (!teamStrings.contains(s)) {
@@ -552,7 +614,7 @@ public class EventController implements Serializable {
         for (String s : teamUsers.keySet()) {
             List<User> users = teamUsers.get(s);
             for (User user : users) {
-                teamOutput +=  user.getUserName() + ";" + s + ";";
+                teamOutput += user.getUserName() + ";" + s + ";";
             }
         }
 
