@@ -153,41 +153,44 @@
                                         <h:outputLabel value="#{messages['userdetails.phone']}"/>
                                         <h:inputText value="#{authenticator.user.phone}"/>
                                         <s:decorate
-                                            id="departmentDecoration"
-                                            template="/general/util/errorStyle.xhtml">
-                                        <ui:define name="label">#{messages['userdetails.department']}</ui:define>
-                                        <h:inputText value="#{authenticator.user.department}" required="true">
-                                            <a4j:support event="onblur"
-                                                         reRender="departmentDecoration"
-                                                         bypassUpdates="true"/>
-                                        </h:inputText>
-                                    </s:decorate>
+                                                id="departmentDecoration"
+                                                template="/general/util/errorStyle.xhtml">
+                                            <ui:define name="label">#{messages['userdetails.department']}</ui:define>
+                                            <h:inputText value="#{authenticator.user.department}" required="true">
+                                                <a4j:support event="onblur"
+                                                             reRender="departmentDecoration"
+                                                             bypassUpdates="true"/>
+                                            </h:inputText>
+                                        </s:decorate>
                                     </h:panelGrid>
                                 </rich:panel>
                             </td>
                             <td valign="top">
                                 <rich:panel>
                                     <h:panelGrid columns="1">
-                                        <s:decorate id="personelUnionDecoration"
-                                                    template="/general/util/validationStyleAtLabel.xhtml">
-                                            <ui:define
-                                                    name="label">#{messages['userdetails.personelunion']}</ui:define>
-                                            <h:selectOneRadio id="radioList"
-                                                              layout="pageDirection"
-                                                              value="#{authenticator.user.peronFor}"
-                                                              required="true">
-                                                <s:convertEnum/>
-                                                <s:enumItem enumValue="MEMBER" label="Medlem"/>
-                                                <s:enumItem enumValue="NONMEMBER" label="Ikke medled"/>
-                                                <a4j:support event="onblur"
-                                                             reRender="personelUnionDecoration"
-                                                             bypassUpdates="true"/>
-                                                <a4j:support event="onclick"
-                                                             reRender="personelUnionDecoration"
-                                                             bypassUpdates="true"/>
+                                        <h:outputLabel value="#{messages['userdetails.personelunion']}"/>
+                                        <h:outputLabel
+                                                value="#{authenticator.user.peronFor eq 'MEMBER' ? 'Medlem' : 'Ikke Medlem'}"/>
+                                        <!--<s:decorate id="personelUnionDecoration"-->
+                                        <!--template="/general/util/validationStyleAtLabel.xhtml">-->
+                                        <!--<ui:define-->
+                                        <!--name="label"></ui:define>-->
+                                        <!--<h:selectOneRadio id="radioList"-->
+                                        <!--layout="pageDirection"-->
+                                        <!--value="#{authenticator.user.peronFor}"-->
+                                        <!--required="true">-->
+                                        <!--<s:convertEnum/>-->
+                                        <!--<s:enumItem enumValue="MEMBER" label="Medlem"/>-->
+                                        <!--<s:enumItem enumValue="NONMEMBER" label="Ikke medled"/>-->
+                                        <!--<a4j:support event="onblur"-->
+                                        <!--reRender="personelUnionDecoration"-->
+                                        <!--bypassUpdates="true"/>-->
+                                        <!--<a4j:support event="onclick"-->
+                                        <!--reRender="personelUnionDecoration"-->
+                                        <!--bypassUpdates="true"/>-->
 
-                                            </h:selectOneRadio>
-                                        </s:decorate>
+                                        <!--</h:selectOneRadio>-->
+                                        <!--</s:decorate>-->
                                     </h:panelGrid>
                                     <h:panelGrid columns="2">
                                         <h:outputLabel value="#{messages['userdetails.shirtsize']}"/>

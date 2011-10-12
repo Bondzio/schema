@@ -197,4 +197,10 @@
         </redirect>
     </exception>
 
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/error.xhtml">
+            <message>Your session has timed out, please try again</message>
+        </redirect>
+    </exception>
+
 </pages>

@@ -14,13 +14,13 @@
             vertical-align: top;
         }
 
-        /*p {*/
-        /*margin: 0;*/
-        /*}*/
+            /*p {*/
+            /*margin: 0;*/
+            /*}*/
 
 
     </style>
-    <h:panelGrid columns="2"  rendered="#{eventController.eventSelection.canRequestGrownMenus}">
+    <h:panelGrid columns="2" rendered="#{eventController.eventSelection.canRequestGrownMenus}">
         <h:outputLabel value="#{messages['event.selectGrownMenus']}"/>
         <rich:comboBox selectFirstOnUpdate="true" value="#{eventController.eventSelection.grownMenuRequest}"
                        defaultLabel="0" enableManualInput="false">
@@ -31,6 +31,10 @@
             <f:selectItem itemValue="4"/>
             <f:selectItem itemValue="5"/>
             <f:selectItem itemValue="6"/>
+            <f:selectItem itemValue="7"/>
+            <f:selectItem itemValue="8"/>
+            <f:selectItem itemValue="9"/>
+            <f:selectItem itemValue="10"/>
         </rich:comboBox>
     </h:panelGrid>
 </ui:composition>

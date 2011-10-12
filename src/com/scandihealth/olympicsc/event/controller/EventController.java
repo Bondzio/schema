@@ -144,7 +144,7 @@ public class EventController implements Serializable {
         closedEventList = new ArrayList<Event>();
         List<Event> eventList = eventRepository.getEvents();
         for (Event event1 : eventList) {
-            if (!isActive(event1)) {
+            if (!isActive(event1) && filterDate(event1)) {
                 closedEventList.add(event1);
             }
         }
@@ -157,6 +157,13 @@ public class EventController implements Serializable {
                 return 0;
             }
         });
+    }
+
+    // should the event be filtered out.
+    private boolean filterDate(Event event) {
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.roll(Calendar.YEAR, -1);
+        return event.getStart().before(calendar.getTime());
     }
 
     public Authenticator getAuthenticator() {
@@ -334,6 +341,7 @@ public class EventController implements Serializable {
         List<String> result = new ArrayList<String>();
         result.add("Navn");
         result.add("Personalenr");
+        result.add("Afdeling");
         result.add("Ledsager");
         result.add("Pris");
         return result;
@@ -352,8 +360,9 @@ public class EventController implements Serializable {
         for (User user : userList) {
             EventPartnerRequest partnerRequest = dataManager.getEventPartnerRequest(user, eventSelection);
             List<String> column = new ArrayList<String>();
-            column.add(user.getFirstname() + " " + user.getLastname());
+            column.add(user.getFirstname() + " " + user.getLastname() + "(" + user.getUserName() + ")");
             column.add(user.getEmployeeId());
+            column.add(user.getDepartment());
             if (partnerRequest != null) {
                 column.add(partnerRequest.isPartnerRequest() ? "2" : "1");
             } else {
@@ -416,7 +425,7 @@ public class EventController implements Serializable {
         Map<User, String> teams = calculateTeams(eventSelection);
         for (User user : userList) {
             List<String> column = new ArrayList<String>();
-            column.add(user.getFirstname() + " " + user.getLastname());
+            column.add(user.getFirstname() + " " + user.getLastname() + "(" + user.getUserName() + ")");
             column.add(user.getDepartment());
             column.add(teams.get(user));
             Collections.sort(activities, new Comparator<Activity>() {

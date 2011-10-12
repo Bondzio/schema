@@ -70,6 +70,12 @@
                     </f:facet>
                     <h:outputLabel value="#{user.mail}"/>
                 </rich:column>
+                <rich:column sortBy="#{user.department}" width="75">
+                    <f:facet name="header">
+                        <h:outputLabel value="Affeling"/>
+                    </f:facet>
+                    <h:outputLabel value="#{user.department}"/>
+                </rich:column>
                 <rich:column sortBy="#{user.phone}" width="20">
                     <f:facet name="header">
                         <h:outputLabel value="Phone"/>
@@ -106,5 +112,5 @@
     <ui:define name="footer">
         <ui:include src="/general/footer.xhtml"/>
     </ui:define>
-    
+
 </ui:composition>
