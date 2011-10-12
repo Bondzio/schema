@@ -977,13 +977,18 @@
       <group names="y,height,top,bottom" />
       <exclude classes="Math" />
     </inspection_tool>
-    <inspection_tool class="JSUndeclaredVariable" enabled="false" level="INFO" enabled_by_default="false" />
+    <inspection_tool class="JSUndeclaredVariable" enabled="false" level="INFO" enabled_by_default="false">
+      <option name="myCheckGlobalDefinitions" value="false" />
+    </inspection_tool>
     <inspection_tool class="JSUnnecessarySemicolon" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSUnresolvedFunction" enabled="false" level="INFO" enabled_by_default="false" />
     <inspection_tool class="JSUnresolvedLibraryURL" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="JSUnresolvedVariable" enabled="false" level="INFO" enabled_by_default="false" />
     <inspection_tool class="JSUntypedDeclaration" enabled="false" level="INFO" enabled_by_default="false" />
-    <inspection_tool class="JSUnusedGlobalSymbols" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnusedGlobalSymbols" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="myReportUnusedDefinitions" value="false" />
+      <option name="myReportUnusedProperties" value="true" />
+    </inspection_tool>
     <inspection_tool class="JSUnusedLocalSymbols" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSValidateJSON" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="JSValidateTypes" enabled="false" level="INFO" enabled_by_default="false" />
