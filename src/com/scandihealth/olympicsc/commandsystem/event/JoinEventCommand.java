@@ -4,7 +4,9 @@ import com.scandihealth.olympicsc.commandsystem.Command;
 import com.scandihealth.olympicsc.event.model.Event;
 import com.scandihealth.olympicsc.user.model.User;
 
-public class JoinEventCommand implements Command {
+import java.io.Serializable;
+
+public class JoinEventCommand implements Command, Serializable {
     private User user;
     private Event event;
 

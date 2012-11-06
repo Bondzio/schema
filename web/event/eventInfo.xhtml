@@ -43,7 +43,7 @@
     }
 
     .rich-table-cell {
-    /*border: blue;*/
+        /*border: blue;*/
         padding: 1px; /*margin: 0;*/
     }
 
@@ -55,7 +55,7 @@
     }
 
     .gradientBackground {
-        background-image: url('/schema/resources/subheadergradient.png');
+        background-image: url('/scasport/resources/subheadergradient.png');
         border: white;
         padding: 0;
         margin: 0;
@@ -137,9 +137,11 @@
                     <tr>
                         <td align="center">
                             <h:graphicImage url="/resources/Checkmark.png"
-                                            rendered="#{eventController.joinedEvent(eventController.eventSelection)}" height="64" width="64"/>
+                                            rendered="#{eventController.joinedEvent(eventController.eventSelection)}"
+                                            height="64" width="64"/>
                             <h:graphicImage url="/resources/redx.png"
-                                            rendered="#{!eventController.joinedEvent(eventController.eventSelection)}" height="64" width="64"/><br/>
+                                            rendered="#{!eventController.joinedEvent(eventController.eventSelection)}"
+                                            height="64" width="64"/><br/>
                             <h:outputLabel value="#{messages['general.attending']}" style="font-weight:bolder;"
                                            rendered="#{eventController.joinedEvent(eventController.eventSelection)}"/>
                             <h:outputLabel value="#{messages['general.notattending']}" style="font-weight:bolder;"

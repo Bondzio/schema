@@ -4,10 +4,10 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/olympicsc</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/cscsport</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">mysql01</property>
+        <property name="connection.password">xampp123</property>
         <property name="connection.pool_size">4</property>
         <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -30,7 +30,7 @@
         <mapping class="com.scandihealth.olympicsc.event.model.EventVegetarianRequest"/>
         <mapping class="com.scandihealth.olympicsc.event.model.EventChildrenAgeRequest"/>
         <mapping class="com.scandihealth.olympicsc.teams.model.Team"/>
-        <mapping class="com.scandihealth.olympicsc.teams.model.TeamUserSelection"/>        
+        <mapping class="com.scandihealth.olympicsc.teams.model.TeamUserSelection"/>
         <mapping class="com.scandihealth.olympicsc.classification.model.ClassificationType"/>
         <mapping class="com.scandihealth.olympicsc.classification.model.ClassificationValue"/>
         <mapping class="com.scandihealth.olympicsc.classification.model.Classification"/>

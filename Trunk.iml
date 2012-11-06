@@ -12,7 +12,9 @@
         <webroots>
           <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
-        <context-artifact name="schema:Web exploded" />
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src" />
+        </sourceRoots>
       </configuration>
       <facet type="jsf" name="JSF">
         <configuration />

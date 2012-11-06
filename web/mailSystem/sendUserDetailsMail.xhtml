@@ -6,17 +6,19 @@
 
     <m:to name="#{sendUserDetailsController.recipient.name}" address="#{sendUserDetailsController.recipient.mail}"/>
 
-    <m:subject>Login detaljer til Schema</m:subject>
+    <m:subject>Login detaljer til ScaSport</m:subject>
 
     <m:body>
         <p>Hej #{sendUserDetailsController.recipient.name}</p>
 
-        <p>Her er dine login detaljer til <a href="http://schema:8080/schema">http://schema:8080/schema</a></p>
+        <p>Her er dine login detaljer til <a href="http://schema:8080/scasport">http://schema:8080/scasport</a></p>
 
         <p>Brugernavn: #{sendUserDetailsController.recipient.username}</p>
+
         <p>Password: #{sendUserDetailsController.recipient.password}</p>
 
         <p>Venlig hilsen</p>
+
         <p>Personaleforeningen</p>
     </m:body>
 

@@ -23,7 +23,7 @@
             }
 
             .headerText {
-            /*background-color: white;*/
+                /*background-color: white;*/
                 color: black;
                 text-align: right;
             }
@@ -77,25 +77,30 @@
         <rich:panel bodyClass="body1">
 
             <s:link action="startpage">
-            <table width="100%" cellpadding="0" cellspacing="0"
-                   style="background-image:url('/schema/resources/logo.png');height:100px">
-                <tr>
-                    <td align="right">
-                        <h:panelGrid columns="2">
-                        <h:graphicImage url="/resources/images/christmas_bells2.png" rendered="#{dateUtilities.december}" height="90px"/>
-                        <h:graphicImage url="/resources/images/easterbunny.png" rendered="#{dateUtilities.easter}" height="90px"/>
-                        <h:panelGrid columns="1" class="logolink" rendered="#{identity.loggedIn}">
-                            <s:link value="#{messages['menu.frontpage']}" action="startpage" rendered="#{!authenticator.user.firstlogin}"/>
-                            <s:link value="#{messages['menu.showuserdetails']}" view="/user/updateUserDetails.xhtml" rendered="#{!authenticator.user.firstlogin}"/>
-                            <s:link value="#{messages['menu.logout']}" rendered="#{identity.loggedIn}"
-                                    action="#{identity.logout}"/>
-                        </h:panelGrid>
-                        </h:panelGrid>
-                    </td>
-                    <td align="right">
-                    </td>
-                </tr>
-            </table>
+                <table width="100%" cellpadding="0" cellspacing="0"
+                       style="background-image:url('/scasport/resources/logo.png');height:100px">
+                    <tr>
+                        <td align="right">
+                            <h:panelGrid columns="2">
+                                <h:graphicImage url="/resources/images/christmas_bells2.png"
+                                                rendered="#{dateUtilities.december}" height="90px"/>
+                                <h:graphicImage url="/resources/images/easterbunny.png"
+                                                rendered="#{dateUtilities.easter}" height="90px"/>
+                                <h:panelGrid columns="1" class="logolink" rendered="#{identity.loggedIn}">
+                                    <s:link value="#{messages['menu.frontpage']}" action="startpage"
+                                            rendered="#{!authenticator.user.firstlogin}"/>
+                                    <s:link value="#{messages['menu.showuserdetails']}"
+                                            view="/user/updateUserDetails.xhtml"
+                                            rendered="#{!authenticator.user.firstlogin}"/>
+                                    <s:link value="#{messages['menu.logout']}" rendered="#{identity.loggedIn}"
+                                            action="#{identity.logout}"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </td>
+                        <td align="right">
+                        </td>
+                    </tr>
+                </table>
             </s:link>
         </rich:panel>
         <rich:toolBar rendered="#{s:hasRole('admin')}">
@@ -122,8 +127,10 @@
                 <f:facet name="label">
                     <h:outputText value="#{messages['menu.classification']}"/>
                 </f:facet>
-                <rich:menuItem submitMode="ajax" value="#{messages['menu.createclassification']}" action="createClassification"/>
-                <rich:menuItem submitMode="ajax" value="#{messages['menu.showclassification']}" action="showClassifications"/>
+                <rich:menuItem submitMode="ajax" value="#{messages['menu.createclassification']}"
+                               action="createClassification"/>
+                <rich:menuItem submitMode="ajax" value="#{messages['menu.showclassification']}"
+                               action="showClassifications"/>
             </rich:dropDownMenu>
             <!--<rich:dropDownMenu rendered="#{s:hasRole('admin')}">-->
             <!--<f:facet name="label">-->
@@ -155,7 +162,8 @@
                 <rich:menuItem submitMode="ajax" value="Personaleforenings check"
                                action="#{userController.unionCheck}"/>
                 <rich:menuItem submitMode="ajax" value="Mail" action="createMail"/>
-                <rich:menuItem submitMode="ajax" value="converter t-shirt info" action="#{userController.convertShirtSizes}"/>
+                <rich:menuItem submitMode="ajax" value="converter t-shirt info"
+                               action="#{userController.convertShirtSizes}"/>
 
             </rich:dropDownMenu>
         </rich:toolBar>
