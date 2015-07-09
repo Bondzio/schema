@@ -393,6 +393,7 @@ public class EventController implements Serializable {
         result.add("Navn");
         result.add("Afdeling");
         result.add("Team");
+        result.add("T-Shirt");
         List<Activity> activities = eventSelection.getActivityList();
         Collections.sort(activities, new Comparator<Activity>() {
             public int compare(Activity o1, Activity o2) {
@@ -428,6 +429,7 @@ public class EventController implements Serializable {
             column.add(user.getFirstname() + " " + user.getLastname() + "(" + user.getUserName() + ")");
             column.add(user.getDepartment());
             column.add(teams.get(user));
+            column.add(user.getShirtsize());
             Collections.sort(activities, new Comparator<Activity>() {
                 public int compare(Activity o1, Activity o2) {
                     return o1.getName().compareTo(o2.getName());

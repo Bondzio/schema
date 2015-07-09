@@ -22,7 +22,7 @@ public class UserImporter {
     private static final String oe = "Ã¸";
     private static final String aa = "Ã¥";
     private static final String AE = "Ã†";
-    private static final String OE = "Ã|";
+    private static final String OE = "Ã˜|";
     private static final String AA = "Ã¥";
     private static final String eping = "Ã©";
     private static final String oumlaut = "Ã¶";
@@ -121,53 +121,53 @@ public class UserImporter {
 
 
         if (dataUser.firstname.contains(ae)) {
-            dataUser.firstname = dataUser.firstname.replace(ae, "æ");
+            dataUser.firstname = dataUser.firstname.replace(ae, "ï¿½");
         }
         if (dataUser.firstname.contains(oe)) {
-            dataUser.firstname = dataUser.firstname.replace(oe, "ø");
+            dataUser.firstname = dataUser.firstname.replace(oe, "ï¿½");
         }
         if (dataUser.firstname.contains(aa)) {
-            dataUser.firstname = dataUser.firstname.replace(aa, "å");
+            dataUser.firstname = dataUser.firstname.replace(aa, "ï¿½");
         }
         if (dataUser.firstname.contains(eping)) {
-            dataUser.firstname = dataUser.firstname.replace(eping, "é");
+            dataUser.firstname = dataUser.firstname.replace(eping, "ï¿½");
         }
         if (dataUser.firstname.contains(eping)) {
-            dataUser.firstname = dataUser.firstname.replace(oumlaut, "ö");
+            dataUser.firstname = dataUser.firstname.replace(oumlaut, "ï¿½");
         }
         if (dataUser.firstname.contains(AE)) {
-            dataUser.firstname = dataUser.firstname.replace(AE, "Æ");
+            dataUser.firstname = dataUser.firstname.replace(AE, "ï¿½");
         }
         if (dataUser.firstname.contains(OE)) {
-            dataUser.firstname = dataUser.firstname.replace(OE, "Ø");
+            dataUser.firstname = dataUser.firstname.replace(OE, "ï¿½");
         }
 //        if (dataUser.firstname.contains(OE)) {
-//            dataUser.firstname = dataUser.firstname.replace(AA, "Å");
+//            dataUser.firstname = dataUser.firstname.replace(AA, "ï¿½");
 //        }
 
         if (dataUser.lastname.contains(ae)) {
-            dataUser.lastname = dataUser.lastname.replace(ae, "æ");
+            dataUser.lastname = dataUser.lastname.replace(ae, "ï¿½");
         }
         if (dataUser.lastname.contains(oe)) {
-            dataUser.lastname = dataUser.lastname.replace(oe, "ø");
+            dataUser.lastname = dataUser.lastname.replace(oe, "ï¿½");
         }
         if (dataUser.lastname.contains(aa)) {
-            dataUser.lastname = dataUser.lastname.replace(aa, "å");
+            dataUser.lastname = dataUser.lastname.replace(aa, "ï¿½");
         }
         if (dataUser.lastname.contains(eping)) {
-            dataUser.lastname = dataUser.lastname.replace(eping, "é");
+            dataUser.lastname = dataUser.lastname.replace(eping, "ï¿½");
         }
         if (dataUser.lastname.contains(oumlaut)) {
-            dataUser.lastname = dataUser.lastname.replace(oumlaut, "ö");
+            dataUser.lastname = dataUser.lastname.replace(oumlaut, "ï¿½");
         }
         if (dataUser.lastname.contains(AE)) {
-            dataUser.lastname = dataUser.lastname.replace(AE, "Æ");
+            dataUser.lastname = dataUser.lastname.replace(AE, "ï¿½");
         }
         if (dataUser.lastname.contains(OE)) {
-            dataUser.lastname = dataUser.lastname.replace(oe, "Ø");
+            dataUser.lastname = dataUser.lastname.replace(oe, "ï¿½");
         }
 //        if (dataUser.lastname.contains(OE)) {
-//            dataUser.lastname = dataUser.lastname.replace(aa, "Å");
+//            dataUser.lastname = dataUser.lastname.replace(aa, "ï¿½");
 //        }
         return dataUser;
     }
